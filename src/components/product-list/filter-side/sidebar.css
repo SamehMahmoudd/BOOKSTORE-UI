@@ -1,0 +1,30 @@
+div.small {
+    border-top: 4px solid #900c3f;
+    margin: 1rem;
+    width: 3rem;
+}
+.breadcrumb .breadcrumb-item a{
+    color: #900c3f !important;  
+    text-decoration: none;
+}
+.breadcrumb .active{
+    color: #000 !important;  
+}
+.product , .breadcrumb-nav{
+    margin: 40px;
+}
+
+div .list-group-item{
+    border: none;
+}
+.list-group-item label{
+    color: #900c3f;
+}
+.bi {
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold;
+}
+.bi:hover {
+    transform: scale(1.3);
+}

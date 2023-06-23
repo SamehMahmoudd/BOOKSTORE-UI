@@ -1,0 +1,113 @@
+/* html,body{
+    background-color: lightgray;
+    height: 100%;
+} */
+
+/* *{
+    box-sizing: border-box;
+} */
+:root{
+  --color: #900c3f ;
+  --colorhover: #b94873 ;
+}
+
+.side-cart{
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 1111;
+    width: 35%;
+    height: 100%;
+    background-color: white;
+    transition: right 0.5s ease;
+   
+    
+}
+
+.side-cart.active {
+    right: 0;
+    transition: right 0.5s ease;
+  }
+
+.side-cart header{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 15px;
+background-color: var(--color);
+color: white;
+font-weight: bolder;
+
+}
+
+.side-cart header a{
+     
+    color: white;
+    font-size: 3rem;
+    text-decoration: none;
+    margin-bottom: 4%;
+    
+    cursor: pointer;
+    
+}
+header a:hover {
+    color: hsla(0, 0%, 95%, 0.89);
+  }
+  
+.side-cart-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+}
+
+#continueBtn{
+  color: var(--color);
+  border-color: var(--color);
+  border-radius: 5px;
+}
+
+#continueBtn:hover {
+  color: black;
+  border-color: black;
+}
+
+#orderBtn{
+  background-color: var(--color) ;
+  color: white;
+  border:1px solid var(--color) ;
+}
+#orderBtn:hover{
+  background-color: var(--colorhover) ;
+  color: white ;
+}
+
+/*  */
+.countbtn button{
+  background-color: var(--color) ;
+  color: white;
+  padding: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.countbtn i{
+  font-size: 20px;
+}
+.countbtn input{
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 40px;
+}
+.card-product .card-title{
+  background-color: white !important;
+}
+.card-product .price{
+  color: var(--color);
+}
+  
+  
