@@ -16,6 +16,10 @@ div.small {
 
 div .list-group-item{
     border: none;
+    background-color: #f2f2f2 !important;
+}
+.form-check-input:checked{
+    background-color: #900c3f !important;
 }
 .list-group-item label{
     color: #900c3f;

@@ -7,18 +7,18 @@ import { setCategories } from '../../../store/reducers/categorySlice'
 
 const Category = () => {
   const categories = useSelector((state) => state.categories)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    getCategories()
-      .then((data) => {
-        console.log('getting categories from db', data)
-        dispatch(setCategories(data))
-      })
-      .then((err) => {
-        console.log('err getting categories data', err)
-      })
-  }, [])
+  // useEffect(() => {
+  //   getCategories()
+  //     .then((data) => {
+  //       console.log('getting categories from db', data)
+  //       dispatch(setCategories(data))
+  //     })
+  //     .then((err) => {
+  //       console.log('err getting categories data', err)
+  //     })
+  // }, [])
 
   return (
     <div id="store">
@@ -42,7 +42,7 @@ const Category = () => {
                     alt="..."/>
                   <div className="card-img-overlay text-center">
                     <p className="card-text">{cat.num_books} Products</p>
-                    <Link to={`/store-1`}>
+                    <Link to={`/store`}>
                       <button
                         type="button"
                         className="btn btn-outline-light position-absolute top-50 start-50 translate-middle">

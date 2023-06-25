@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getCategories } from "../../services/categoryService";
+
+const initailCategories = await getCategories()
 
 export const categorySlice = createSlice({
   name: 'categories',
-  initialState: [],
+  // initialState: [],
+  initialState: initailCategories,
   reducers: {
     setCategories: (state, action) => {
       console.log('action', action);

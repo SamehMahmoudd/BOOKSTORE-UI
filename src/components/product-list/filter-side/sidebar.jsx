@@ -59,12 +59,11 @@ const Filter = () => {
             return (
               <li className="list-group-item" key={author.id}>
                 <input
-                  className="form-check-input me-1"
+                  className="form-check-input me-2"
                   type="checkbox"
                   id={author.surname}
                   value={author.id}
-                  onChange={() => {}}
-                />
+                  onChange={filterHandler}/>
                 <label className="form-check-label" htmlFor={author.surname}>
                   {author.surname}
                 </label>

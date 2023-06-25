@@ -1,6 +1,7 @@
 import React from 'react'
 import Filter from '../filter-side/sidebar'
 import Product from '../product/product'
+import { NavLink } from 'react-router-dom'
 
 const Shop = () => {
   return (
@@ -8,10 +9,11 @@ const Shop = () => {
       <nav aria-label="breadcrumb" className="container">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="#">HOME</a>
+            <NavLink to="/home" className="nav-link">HOME</NavLink>
           </li>
           <li className="breadcrumb-item">
             <a href="#">STORE</a>
+            {/* <NavLink to="/category" className="nav-link">STORE</NavLink> */}
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             NOVELS & ADULTS FICTION

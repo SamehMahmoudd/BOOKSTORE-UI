@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import Product from '../product-list/product/product'
+import { NavLink, useParams } from 'react-router-dom'
 import './BookDetails.css'
 import { addToCart } from '../../store/reducers/cartSlice'
 import Related from './related-section'
@@ -28,6 +27,26 @@ export default function BookDetails() {
 
   return (
     <>
+
+      <nav aria-label="breadcrumb" className="container">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <NavLink to="/home" className="nav-link">HOME</NavLink>
+          </li>
+          <li className="breadcrumb-item">
+            <a href="#">STORE</a>
+            {/* <NavLink to="/category" className="nav-link">STORE</NavLink> */}
+          </li>
+          <li className="breadcrumb-item">
+            <a href="#">NOVELS & ADULTS FICTION</a>
+            {/* <NavLink to="/store" className="nav-link">FANTASY</NavLink> */}
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            {book?.title}
+          </li>
+        </ol>
+      </nav>
+      
       <div className="container">
         <section>
           <div className="container pt-5">
@@ -163,7 +182,7 @@ export default function BookDetails() {
             <div className="small"></div>
           </div>
           <div className="container px-4 px-lg-5 mt-5">
-            <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center h-100">
+            <div className="row gx-4 gx-lg-5 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center h-100">
               {/* <Product /> */}
               <Related/>
             </div>

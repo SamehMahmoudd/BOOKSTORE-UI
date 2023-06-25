@@ -1,4 +1,3 @@
-
 import { combineReducers } from 'redux';
 import booksSlice from './reducers/booksSlice'
 import categorySlice from './reducers/categorySlice';
