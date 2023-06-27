@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux'
 
@@ -37,14 +37,16 @@ function Search() {
                 <button onClick={searchQuery} id='searchBtn' className='rounded-end'><i className ="bi bi-search"></i></button>
             </div>
             <div id="item-list" className='row'>
-                <div className='col d-flex  text-white'>
-                    <ul>
-                        {filteredBooks .map((book)=>(
-                            <ol key={book.id}>
-                                <h3>{book.title}</h3>
-                            </ol>
-                        ))}
-                    </ul>
+                <div className='col'>
+                <ul>
+                    {filteredBooks.map((book) => (
+                        <li key={book.id}>
+                        <Link to={`/details/${book.id}`} style={{ textDecoration: 'none' }}>
+                            <h3 className=' text-white'>{book.title}</h3>
+                        </Link>
+                        </li>
+                    ))}
+                </ul>
                 </div>
             </div>
         </div>
