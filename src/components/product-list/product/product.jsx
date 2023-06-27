@@ -1,6 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Rating from '../../rating/rating'
+import StarRate from '../../rating/rating'
 
 const Product = () => {
   const style = { boxShadow: '10px 10px 5px #aaaaaa' }
@@ -19,11 +21,12 @@ const Product = () => {
                   <h5 className="fw-bolder">{book.title}</h5>
                   <p className="card-text">{book.price}.00$</p>
                   <div>
+                    {/* <i className="bi bi-star"></i>
                     <i className="bi bi-star"></i>
                     <i className="bi bi-star"></i>
                     <i className="bi bi-star"></i>
-                    <i className="bi bi-star"></i>
-                    <i className="bi bi-star"></i>
+                    <i className="bi bi-star"></i> */}
+                    <StarRate/>
                   </div>
                 </div>
               </div>
