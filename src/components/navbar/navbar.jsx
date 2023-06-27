@@ -67,7 +67,7 @@ const Navbar = () => {
                       </NavLink>
                     </li>
                     <li onClick={() => {openCart()}} style={{ position: 'relative' }}>
-                        <span class="badge rounded-pill position-absolute top-0 start-60 translate-middle">{counter}</span>
+                        <span className="badge rounded-pill position-absolute top-0 start-60 translate-middle">{counter}</span>
                         <a className="nav-link text-dark h5" href="#">
                           <i className="bi bi-cart-fill"></i>
                         </a>
