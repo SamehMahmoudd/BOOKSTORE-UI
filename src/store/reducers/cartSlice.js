@@ -13,7 +13,12 @@ export const cartSlice = createSlice({
       }
     },
     increaseBookQuantity: (state, action) => {
-      return state = increaseQuantity(state, action)
+      return state = state.map(product => {
+        if (product.book.id === action.payload.book.id) {
+          return { ...product, quantity: product.quantity + 1 };
+        }
+        return product
+      })
     },
     decreaseBookQuantity: (state, action) => {
       return state = state.map(product => {
