@@ -29,9 +29,9 @@ const Shop = () => {
       </div>
 
       <div className="container text-center">
-        <div className="row">
+        <div className="row gx-lg-4">
           <Filter />
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 col-9 ms-2">
+          <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1 col-9 ms-2">
             <Product />
           </div>
         </div>
@@ -40,4 +40,4 @@ const Shop = () => {
   )
 }
 
-export default Shop
+export default Shop ;
