@@ -2,6 +2,7 @@ import React from 'react'
 import Filter from '../filter-side/sidebar'
 import Product from '../product/product'
 import { NavLink } from 'react-router-dom'
+import Sort from '../sort/sort'
 
 const Shop = () => {
   return (
@@ -31,7 +32,11 @@ const Shop = () => {
       <div className="container text-center">
         <div className="row gx-lg-4">
           <Filter />
+          
           <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1 col-9 ms-2">
+            <Sort/>
+           
+            {/* <Sort className='position-absolute top-0 end-0'/> */}
             <Product />
           </div>
         </div>
