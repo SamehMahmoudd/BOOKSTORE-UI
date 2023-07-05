@@ -1,60 +1,74 @@
-import { useContext } from "react"
+import { useContext ,useState} from "react"
 import "./delivery.css"
 import { orderActivePageCntxt } from "../orderRoute"
+import { Formik,ErrorMessage,Form,Field } from  "formik";
+import * as yup from "yup";
 
 
 function DeliveryComponent() {
   const {updatePage}=useContext(orderActivePageCntxt)
 
-    function handleSubmit(evnt){
-      evnt.preventDefault()
+  const [optionSelected,setOptionSelected]=useState(false)
 
-      updatePage('nav-payment')
+    function handleSubmit(evnt){
+      
+
+        console.log(evnt);
+       updatePage('nav-payment')
 
     }
+
+    const validationSchema = yup.object().shape({
+      dOption: yup.string().required('Please select a delivery option !'),
+    });
+
     return <>
     <div className="row flex-column  flex-md-row" id="delivery-page">
         <div className="col-12 col-md-8 ">
-          <form id="delivery-options" onSubmit={(evnt)=>{handleSubmit(evnt)}}>
+
+            <Formik initialValues={{dOption:''}} validationSchema={validationSchema} onSubmit={handleSubmit}>
+          <Form id="delivery-options" >
             <div> <label>
-                <input type="radio" name="d-option" /><span>Shipping Cairo-Giza</span>
+                <Field type="radio" name="dOption" value='cairo'  /><span>Shipping Cairo-Giza</span>
                 &nbsp;
                 <span>(5 working days)</span> </label>
               <span style={{float: 'right'}}>45 EGP</span>
             </div>
             <div>
               <label>
-                <input type="radio" name="d-option" /><span>Shipping Alexandria</span>
+                <Field type="radio" name="dOption" value='alex' /><span>Shipping Alexandria</span>
                 &nbsp;
                 <span>(5 working days)</span> </label>
               <span style={{float: 'right'}}>60 EGP</span>
             </div>
             <div> <label>
-                <input type="radio" name="d-option" /><span>Shipping Canal Cities</span>
+                <Field type="radio" name="dOption" value='canal' /><span>Shipping Canal Cities</span>
                 &nbsp;
                 <span>(5 working days)</span> </label>
               <span style={{float: 'right'}}>65 EGP</span>
             </div>
             <div> <label>
-                <input type="radio" name="d-option" /><span>Shipping Upper Egypt</span>
+                <Field type="radio" name="dOption" value='upper-egypt' /><span>Shipping Upper Egypt</span>
                 &nbsp;
                 <span>(5 working days)</span> </label>
               <span style={{float: 'right'}}>90 EGP</span>
             </div>
             <div> <label>
-                <input type="radio" name="d-option" /><span>Shipping Sinai and Red Sea</span>
+                <Field type="radio" name="dOption"  value='sinai' /><span>Shipping Sinai and Red Sea</span>
                 &nbsp;
                 <span>(5 working days)</span> </label>
               <span style={{float: 'right'}}>10 EGP</span>
             </div>
             <div> <label>
-                <input type="radio" name="d-option" /><span>Shipping Delta Region</span>
+                <Field type="radio" name="dOption" value='delta' /><span>Shipping Delta Region</span>
                 &nbsp;
                 <span>(5 working days)</span> </label>
               <span style={{float: 'right'}}>60 EGP</span>
             </div>
+              <ErrorMessage name="dOption" component={'p'} className="text-danger"/>
             <button className="btn btn-custom btn-lg m-2" type="submit" id="delivery-save">SAVE AND CONTINUE</button>
-          </form>
+          </Form>
+          </Formik>
         </div>
         <div className="col-12 col-md-4">
           <div className="card d-flex flex-row mt-3 order-details">
