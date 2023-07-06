@@ -49,9 +49,9 @@ export default function BookDetails() {
       
       <div className="container">
         <section>
-          <div className="container pt-5">
+          <div className="container pt-2">
             <div className="row text-center">
-              <div className="heading d-flex flex-column align-items-center mb-5">
+              <div className="heading d-flex flex-column align-items-center mb-1">
                 <div>
                   <h1>{book?.title}</h1>
                 </div>

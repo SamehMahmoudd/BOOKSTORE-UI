@@ -1,10 +1,14 @@
 
 import { useContext } from "react";
 import { orderActivePageCntxt } from "../orderRoute";
+import { Formik,ErrorMessage,Form,Field } from  "formik";
+import { orderValidation } from "../../../ValidationSchema/orderValidation";
 import "./info.css";
 
 function InfoComponent(props) {
+
   const {updatePage}=useContext(orderActivePageCntxt)
+
     function handleSubmit(evnt){
       evnt.preventDefault()
 
@@ -19,20 +23,43 @@ function InfoComponent(props) {
       
           
     }
+
+      const initialValues={
+        email:'',
+        fullName:'',
+        country:'',
+        address:'',
+        city:'',
+        phone:undefined,
+        landmark:''
+
+      }
+
+
+
     return <>
     
     <div className="row flex-column  flex-md-row" id="info-page">
         <div className="col-12 col-md-8 ">
-          <form id="info" onSubmit={(evnt)=>{handleSubmit(evnt)}}>
-            <input type="email" name="email"  onChange={(eve)=>{handleFormData(eve)}}value={props.data.email  }  placeholder="Email *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required data-msg-required="This field is required." />
-            <input type="text"  onChange={(eve)=>{handleFormData(eve)}} value={props.data.fullName}  name="fullName" placeholder="Full Name *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required data-msg-required="This field is required." />
-            <input type="text" onChange={(eve)=>{handleFormData(eve)}} value={props.data.country} name="country" placeholder="Country *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required data-msg-required="This field is required." />
-            <input type="text" onChange={(eve)=>{handleFormData(eve)}} value={props.data.address} name="address" placeholder="Adress *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required data-msg-required="This field is required." />
-            <input type="text" onChange={(eve)=>{handleFormData(eve)}} value={props.data.city} name="city" placeholder="City *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required data-msg-required="This field is required." />
-            <input type="tel" onChange={(eve)=>{handleFormData(eve)}} value={props.data.phone} name="phone" placeholder="Phone *" className="form-control w-75 mb-3 p-3 intl-tel-input " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required data-msg-required="This field is required." />
-            <input type="text" onChange={(eve)=>{handleFormData(eve)}} value={props.data.landmark} name="landmark" placeholder="Landmard (optional)" className="form-control w-75 mb-5 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required data-msg-required="This field is required." />
-            <button className="btn btn-custom btn-lg mb-5" type="submit"id="info-save" >SAVE AND CONTINUE</button>
-          </form>
+          <Formik initialValues={initialValues} validationSchema={orderValidation} onSubmit={handleSubmit} >
+          <Form id="info" >
+            <Field type="email" name="email"    placeholder="Email *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <ErrorMessage name='email' component='p' className="text-danger"/>
+            <Field type="text"  name="fullName" placeholder="Full Name *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <ErrorMessage name='fullName' component='p' className="text-danger"/>
+            <Field type="text"  name="country"  placeholder="Country *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <ErrorMessage name='country' component='p' className="text-danger"/>
+            <Field type="text"  name="address"  placeholder="Adress *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <ErrorMessage name='address' component='p' className="text-danger"/>
+            <Field type="text"  name="city"     placeholder="City *" className="form-control w-75 mb-3 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <ErrorMessage name='city' component='p' className="text-danger"/>
+            <Field type="tel"   name="phone"    placeholder="Phone *" className="form-control w-75 mb-3 p-3 intl-tel-input " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <ErrorMessage name='phone' component='p' className="text-danger"/>
+            <Field type="text"  name="landmark" placeholder="Landmard (optional)" className="form-control w-75 p-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <ErrorMessage name='landmark' component='p' className="text-danger"/>
+            <button className="btn btn-custom btn-lg mt-5 mb-4" type="submit"id="info-save" >SAVE AND CONTINUE</button>
+          </Form>
+          </Formik>
         </div>
         <div className="col-12 col-md-4">
           <div className="card d-flex flex-row mt-3 order-details">
