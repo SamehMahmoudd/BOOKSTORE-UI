@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './sideCart.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { decreaseBookQuantity, emptyCart, increaseBookQuantity} from '../../store/reducers/cartSlice'
+import { decreaseBookQuantity, emptyCart, increaseBookQuantity, removeFromCart } from '../../store/reducers/cartSlice'
 import Product from './../product-list/product/product';
 
 function SideCart({ isCartOpen, handleClose }) {
@@ -13,7 +13,7 @@ function SideCart({ isCartOpen, handleClose }) {
 
   return (
     <>
-      <div>
+      <div className='continer'>
         <div className = {`side-cart ${isCartOpen ? 'active' : ''}`} id="mySideCart">
           <header>
             <h3>Your cart</h3>
@@ -30,8 +30,8 @@ function SideCart({ isCartOpen, handleClose }) {
               <div className='card-product'>
               {cart.map((product)=>{
                 return (
-                  <div className="card mb-3" style={{maxWidth: "480px"}}>
-                    <div className="row g-0" key={product.book.id}>
+                  <div className="card mb-3" style={{maxWidth: "480px"}} key={product.book.id}>
+                    <div className="row g-0" >
                       <div className="col-md-4">
                         <img  className="img-fluid rounded-start" src={product.book.cover_image} alt="cover_image"/>
                       </div>
@@ -39,13 +39,14 @@ function SideCart({ isCartOpen, handleClose }) {
                         <div className="card-body">
                           <div className='d-flex justify-content-between'>
                             <h3 className="card-title">{product.book.title}</h3>
-                            <i className="bi bi-trash"></i>
+                            <i className="bi bi-trash" onClick={() => {dispatch(removeFromCart(product))}}></i>
+                            {/* <i className="bi bi-trash" onClick={() => {delete(product.book)}}></i> */}
                           </div>
                           <p className="card-text price">{Number(product.book.price) * product.quantity}.00 EGP</p>
                           <div className='countbtn'>
-                            <button className='rounded-start' onClick={() => {dispatch(decreaseBookQuantity(product))}}><i class="bi bi-dash"></i></button>
+                            <button className='rounded-start' onClick={() => {dispatch(decreaseBookQuantity(product))}}><i className="bi bi-dash"></i></button>
                             <input type="text" readOnly value={product.quantity} className='border'/>
-                            <button className='rounded-end' onClick={() => {dispatch(increaseBookQuantity(product))}}><i class="bi bi-plus"></i></button>
+                            <button className='rounded-end' onClick={() => {dispatch(increaseBookQuantity(product))}}><i className="bi bi-plus"></i></button>
                           </div>
                         </div>
                       </div>

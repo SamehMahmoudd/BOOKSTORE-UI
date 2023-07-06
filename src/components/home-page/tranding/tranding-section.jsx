@@ -19,7 +19,7 @@ const Tranding = () => {
             return (
               <div className="col mb-5" key={book.id}>
                 <div className="card h-100">
-                  <img className="card-img-top" src={book.cover_image} alt="..."/>
+                  <img className="card-img-top" src={book.cover_image} style={{height:'350px'}}/>
                   <div className="card-body p-4">
                     <div className="text-center">
                       <h5 className="fw-bolder">{book.title}</h5>
@@ -28,7 +28,7 @@ const Tranding = () => {
                   </div>
                   <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
-                      <Link to={`details/${book.id}`} className="btn btn-outline-dark mt-auto">View options</Link>
+                      <Link to={`/details/${book.id}`} className="btn btn-outline-dark mt-auto">View options</Link>
                     </div>
                   </div>
                 </div>

@@ -20,6 +20,7 @@ div .list-group-item{
 }
 .form-check-input:checked{
     background-color: #900c3f !important;
+    border-color: #900c3f !important;
 }
 .list-group-item label{
     color: #900c3f;
