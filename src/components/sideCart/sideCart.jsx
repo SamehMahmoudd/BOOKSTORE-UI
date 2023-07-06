@@ -68,10 +68,10 @@ function SideCart({ isCartOpen, handleClose }) {
                 </div>
                 <div>
                   <Link to={`/order`}>
-                    <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn">MAKE AN OREDER</button>
+                    <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" onClick={() => { handleClose()}}>MAKE AN OREDER</button>
                   </Link>
                 </div>
-                <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn"> CONTINUE SHOPPING</button>
+                <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn" onClick={() => { handleClose()}}> CONTINUE SHOPPING</button>
               </div>
             )}
             

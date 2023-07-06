@@ -1,13 +1,20 @@
+import { useSelector } from "react-redux";
 import "./payment.css"
 import { PayPalButtons,PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function PaymentComponent() {
+
+  const cart = useSelector((state) => state.cart);
     return <>
     
     <div className="row " id="payment-page">
         <div className="col-12 col-md-12 d-flex  flex-column align-items-center justify-content-between ">
           <div className="text-center">
-            <h1 style={{color: '#900c3f'}}>200ج.م</h1>
+            <h1 style={{color: '#900c3f'}}> {cart.reduce((total, product) => {
+                      return (
+                        total + Number(product.book.price) * product.quantity
+                      );
+                    }, 0)}.00 EGP</h1>
             <h5>Please choose your payment method</h5>
           </div>
           <div className="small" />
@@ -15,7 +22,7 @@ function PaymentComponent() {
           <div className="payment-method">
             
             <div>
-            <label >  <input type="checkbox" name='cash-delivery' value='cash-on-delivery' /> <span>Cash on Delivery</span> </label>  
+            <label >  <input type="checkbox" name='cash-delivery' value='cash-on-delivery' checked /> <span>Cash on Delivery</span> </label>  
             </div>
           </div>
           <div className='mt-3'>

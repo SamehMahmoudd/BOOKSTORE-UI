@@ -33,7 +33,7 @@ export const cartSlice = createSlice({
   }
 })
 
-export const { addToCart, increaseBookQuantity, decreaseBookQuantity, removeFromCart, emptyCart } = cartSlice.actions;
+
 
 const increaseQuantity = (state, action) => {
   return state.map(product => {
@@ -44,4 +44,5 @@ const increaseQuantity = (state, action) => {
   })
 }
 
+export const { addToCart, increaseBookQuantity, decreaseBookQuantity, removeFromCart, emptyCart } = cartSlice.actions;
 export default cartSlice.reducer;

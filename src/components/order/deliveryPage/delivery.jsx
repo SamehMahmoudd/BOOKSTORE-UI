@@ -3,11 +3,12 @@ import "./delivery.css"
 import { orderActivePageCntxt } from "../orderRoute"
 import { Formik,ErrorMessage,Form,Field } from  "formik";
 import * as yup from "yup";
+import { useSelector } from "react-redux";
 
 
 function DeliveryComponent() {
   const {updatePage}=useContext(orderActivePageCntxt)
-
+  const cart = useSelector((state) => state.cart);
   const [optionSelected,setOptionSelected]=useState(false)
 
     function handleSubmit(evnt){
@@ -70,24 +71,50 @@ function DeliveryComponent() {
           </Form>
           </Formik>
         </div>
-        <div className="col-12 col-md-4">
-          <div className="card d-flex flex-row mt-3 order-details">
-            <img src="/assets/images/book.png" className="card-img-top w-50 h-50" />
-            <div className="card-body">
-              <h5>The power of now-Eckhart Tolle</h5>
-              <span>Quantity:1</span>
-              <h5 style={{color: '#900c3f'}}>200 EGP</h5>
-            </div>
-          </div>
-          <div className="row m-5 " id="total">
-            <div className="col-6">
-              <h5>Total:</h5>
-            </div>
-            <div className="col-6" id="total-price">
-              <h5 style={{color: '#900c3f'}}>200 EGP</h5>
-            </div>
-          </div>
+        <div className="col-12 col-md-4" >
+          <div id="order-container-delivery">
+        {cart.map((product) => {
+          return (
+            
+              <div
+                className="card d-flex flex-row mt-3 order-details h-25"
+                key={product.book.id}
+              >
+                <img
+                  src={product.book.cover_image}
+                  className="card-img-top w-50"
+                  style={{objectFit:"contain" , height:'100%'}}
+                />
+                <div className="card-body">
+                  <h5>{product.book.title}</h5>
+                  <span>Quantity:{product.quantity}</span>
+                  <h5 style={{ color: "#900c3f" }}>
+                    {Number(product.book.price) * product.quantity}.00 EGP
+                  </h5>
+                </div>
+              </div>
+            
+           
+          );
+        })}
         </div>
+        <div className="row m-5 " id="total">
+                <div className="col-4">
+                  <h5>Total:</h5>
+                </div>
+                <div className="col-8" id="total-price">
+                  <h5 style={{ color: "#900c3f" }}>
+                    
+                    {cart.reduce((total, product) => {
+                      return (
+                        total + Number(product.book.price) * product.quantity
+                      );
+                    }, 0)}.00 EGP
+                    
+                  </h5>
+                </div>
+              </div>
+      </div>
       </div>
     </>
 }
