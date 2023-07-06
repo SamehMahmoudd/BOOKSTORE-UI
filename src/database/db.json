@@ -198,5 +198,23 @@
             "name": "History",
             "num_books": 76
         }
+    ],
+    "users":[
+        {
+            "id":1,
+            "username":"adel",
+            "email" : "adelassem99@gmail.com"
+        },
+        {
+            "id":2,
+            "username":"adel",
+            "email" : "adelassem99@gmail.com"
+        },
+        {
+            "id":3,
+            "username":"adel",
+            "email" : "adelassem99@gmail.com"
+        }
     ]
+    
 }

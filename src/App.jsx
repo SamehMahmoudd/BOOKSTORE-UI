@@ -11,10 +11,10 @@ import NotFound from "./components/not-found/not-found";
 import OrderRoute from "./components/order/orderRoute";
 import Shop from "./components/product-list/shop/shop";
 import Tranding from "./components/home-page/tranding/tranding-section";
-import CLientZoneRouter from './components/clientZone/CLientZoneRouter'
-import Search from './components/navbar/icons-comp/search-comp/search';
-import Share from './components/navbar/icons-comp/share-comp/share';
-import Call from './components/navbar/icons-comp/call-comp/call';
+import CLientZoneRouter from "./components/clientZone/CLientZoneRouter";
+import Search from "./components/navbar/icons-comp/search-comp/search";
+import Share from "./components/navbar/icons-comp/share-comp/share";
+import Call from "./components/navbar/icons-comp/call-comp/call";
 import Category from "./components/home-page/category/category-section";
 
 export default function App() {
@@ -37,7 +37,7 @@ export default function App() {
         ///////////////////////////////////////////////////////////
         <Route path="/search" element={<Search />} />
         <Route path="/share" element={<Share />} />
-        <Route path="/call" element={<Call/>} />
+        <Route path="/call" element={<Call />} />
       </Routes>
       <Footer />
     </>
