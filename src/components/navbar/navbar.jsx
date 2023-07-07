@@ -54,7 +54,9 @@ const Navbar = () => {
                 <ul className="navbar-nav d-flex align-content-center flex-wrap">
                   <ul className="navbar-nav">
                     <li>
-                      <a className="nav-link text-dark h5" href="#"><i className="bi bi-arrow-up-right-circle-fill"></i></a>
+                      <NavLink to="/lang" className="nav-link">
+                        <i className="bi bi-translate"></i>
+                      </NavLink>
                     </li>
                     <li>
                       <NavLink to="/share" className="nav-link">

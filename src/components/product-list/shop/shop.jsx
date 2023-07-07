@@ -13,8 +13,7 @@ const Shop = () => {
             <NavLink to="/home" className="nav-link">HOME</NavLink>
           </li>
           <li className="breadcrumb-item">
-            <a href="#">STORE</a>
-            {/* <NavLink to="/category" className="nav-link">STORE</NavLink> */}
+            <NavLink to="/category" className="nav-link">STORE</NavLink>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             NOVELS & ADULTS FICTION
@@ -28,15 +27,12 @@ const Shop = () => {
         </div>
         <div className="small"></div>
       </div>
-
+      
       <div className="container text-center">
         <div className="row gx-lg-4">
           <Filter />
-          
           <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1 col-9 ms-2">
             <Sort/>
-           
-            {/* <Sort className='position-absolute top-0 end-0'/> */}
             <Product />
           </div>
         </div>

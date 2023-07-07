@@ -4,6 +4,8 @@ import { NavLink, useParams } from 'react-router-dom'
 import './BookDetails.css'
 import { addToCart } from '../../store/reducers/cartSlice'
 import Related from './related-section'
+import Review from './review/review'
+
 
 export default function BookDetails() {
   const { id } = useParams()
@@ -34,12 +36,10 @@ export default function BookDetails() {
             <NavLink to="/home" className="nav-link">HOME</NavLink>
           </li>
           <li className="breadcrumb-item">
-            <a href="#">STORE</a>
-            {/* <NavLink to="/category" className="nav-link">STORE</NavLink> */}
+            <NavLink to="/store" className="nav-link">STORE</NavLink>
           </li>
           <li className="breadcrumb-item">
-            <a href="#">NOVELS & ADULTS FICTION</a>
-            {/* <NavLink to="/store" className="nav-link">FANTASY</NavLink> */}
+            <NavLink to="/category" className="nav-link">FANTASY</NavLink>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             {book?.title}
@@ -147,7 +147,7 @@ export default function BookDetails() {
                     onClick={() => { dispatch(addToCart({ book, quantity }))}}>
                     <i className="bi-cart-fill "></i> Add to cart
                   </button>
-                </div>
+                </div><br/>
               </div>
             </div>
           </div>
@@ -188,6 +188,7 @@ export default function BookDetails() {
             </div>
           </div>
         </section>
+        <Review/>
       </div>
     </>
   )
