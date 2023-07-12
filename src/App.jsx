@@ -16,8 +16,9 @@ import Search from './components/navbar/icons-comp/search-comp/search';
 import Share from './components/navbar/icons-comp/share-comp/share';
 import Call from './components/navbar/icons-comp/call-comp/call';
 import Category from "./components/home-page/category/category-section";
-import Lang from "./components/navbar/icons-comp/lang-comp/lang";
-// import Localization from "./components/localization/localization";
+import LangSwitch from "./components/navbar/icons-comp/lang-comp/lang";
+import Test from "./components/i18n/test";
+
 
 export default function App() {
   return (
@@ -35,11 +36,11 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/order" element={<OrderRoute />} />
         <Route path="/clientZone" element={<CLientZoneRouter />} />
+        <Route path="/test" element={<Test />} />
         <Route path="*" element={<NotFound />} />
-        {/* <Route path="/local" element={<Localization/>} /> */}
         ///////////////////////////////////////////////////////////
         <Route path="/search" element={<Search />} />
-        <Route path="/lang" element={<Lang />} />
+        <Route path="/lang" element={<LangSwitch />} />
         <Route path="/share" element={<Share />} />
         <Route path="/call" element={<Call/>} />
       </Routes>

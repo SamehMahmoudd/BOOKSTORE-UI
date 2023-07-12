@@ -1,11 +1,13 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 
 export default function MyStore() {
+    const {t} = useTranslation();
     return (
         <div class="orders box-primary  " >
             <div class="orders-container">
                 <div class="client-zone-orders">
-                    <h3>Orders</h3>
+                    <h3>{t('client-zone.store.title')}</h3>
                     <div class="client-zone-orders-rows">
                         <div class="client-zone-orders-rows">
                         </div>

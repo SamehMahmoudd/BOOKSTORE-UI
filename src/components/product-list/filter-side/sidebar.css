@@ -3,6 +3,10 @@ div.small {
     margin: 1rem;
     width: 3rem;
 }
+body[dir='rtl'] .breadcrumb-item::before{
+    float: right;
+    padding: 0 10px;
+}
 .breadcrumb .breadcrumb-item a{
     color: #900c3f !important;  
     text-decoration: none;

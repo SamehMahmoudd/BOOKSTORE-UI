@@ -1,9 +1,28 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation} from 'react-i18next';
 
-function Lang() {
-     
-    const navigate = useNavigate() 
+
+function LangSwitch() {
+
+    const {i18n} = useTranslation();
+    // document.body.dir = i18n.dir();
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+        document.body.dir = i18n.dir();
+        if (lng === "en") {
+        document.body.classList.add("ltr");
+        document.body.classList.remove("rtl");
+        } else {
+        document.body.classList.add("rtl");
+        document.body.classList.remove("ltr");
+        }
+    };
+    ////////////////////////////////////
+    /// Close tap 
+    const location = useLocation();
+    const navigate = useNavigate(); 
     const handelGoBack = () => {
+        window.location.reload(true);
         navigate(-1);
     };
 
@@ -15,13 +34,13 @@ function Lang() {
                 <i className ="bi bi-x-circle p-3" id ="closeBtn" onClick={handelGoBack}></i>
             </button>
             <div className ='m-5 call text-center'>
-                <div class="d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                     <img src='/assets/img/Flag_of_the_United_States.svg.png' width={'60px'} height={'30px'} className='m-3'/>
-                    <h1 >English</h1>
+                    <h1><a onClick={() => {changeLanguage('en'); handelGoBack();}}>English</a></h1>
                 </div>
-                <div class="d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                     <img src='/assets/img/Flag_of_Egypt.svg.webp' width={'60px'} height={'30px'} className='m-3'/>
-                    <h1>Arabic (العربية) - Egypt</h1>
+                    <h1><a onClick={() => {changeLanguage('ar'); handelGoBack();}}>Arabic (العربية) - Egypt </a></h1>
                 </div>
             </div>
         </div>
@@ -30,4 +49,4 @@ function Lang() {
   );
 }
 
-export default Lang;
+export default LangSwitch;

@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
-import './nav.css'
 import { NavLink } from 'react-router-dom'
 import SideCart from './../sideCart/sideCart'
 import { useSelector } from 'react-redux'
+import { Trans} from 'react-i18next'
+import './nav.css'
+
+
 
 const Navbar = () => {
+
+  ////////////////////////////////////////////////////
   const [isCartOpen, setIsCartOpen] = useState(false)
   const counter = useSelector((state) =>
     state.cart.reduce((total, product) => {
@@ -23,7 +28,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light px-4">
-        <div className="container-fluid">
+        <div className="container-fluid ">
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
             data-bs-target="#navbarNavDropdown" 
             aria-controls="navbarNavDropdown"
@@ -33,26 +38,29 @@ const Navbar = () => {
           <a className="navbar-brand" href="index.html">
             <img src="/assets/img/nav_img.png" alt="..." height="70" />
           </a>
-          <div className="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav ms-auto">
+          <div className="collapse navbar-collapse flex-grow-0 " id="navbarNavDropdown">
+            <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink to="/home" className="nav-link">HOME</NavLink>
+                <NavLink to="/home" className="nav-link"><Trans i18nKey="navbar.home">HOME</Trans></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/store" className="nav-link">STORE</NavLink>
+                <NavLink to="/store" className="nav-link"><Trans i18nKey="navbar.store">STORE</Trans></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/tranding" className="nav-link">TRENDING NOW</NavLink>
+                <NavLink to="/tranding" className="nav-link"><Trans i18nKey="navbar.tranding">TRENDING NOW</Trans></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/about" className="nav-link">ABOUT</NavLink>
+                <NavLink to="/about" className="nav-link"><Trans i18nKey="navbar.about">ABOUT</Trans></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/contact" className="nav-link">CONTACT</NavLink>
+                <NavLink to="/contact" className="nav-link"><Trans i18nKey="navbar.contact">CONTACT</Trans></NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/test" className="nav-link"><Trans i18nKey="navbar.trans">TRANS</Trans></NavLink>
               </li>
               <div id="navy">
-                <ul className="navbar-nav d-flex align-content-center flex-wrap">
-                  <ul className="navbar-nav">
+                <ul className="navbar-nav d-flex align-content-center flex-wrap nav">
+                  <ul className="navbar-nav nav">
                     <li>
                       <NavLink to="/lang" className="nav-link">
                         <i className="bi bi-translate"></i>

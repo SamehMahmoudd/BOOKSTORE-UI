@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./sidebar.css";
+import { useTranslation } from 'react-i18next';
 
 const Filter = () => {
+
+  const { t } = useTranslation();
+
   const authors = useSelector((state) => state.authors);
 
   // useEffect(() => {
@@ -38,14 +42,14 @@ const Filter = () => {
 
   return (
     <>
-      <ul className="list-group col-3 text-start">
-        <h3>Filter By</h3>
+      <ul className="list-group col-3 ">
+        <h3>{t('product-list.filter.title')}</h3>
         <hr />
         <br />
         {/* filter by Price */}
         <div>
           <div className="d-flex justify-content-between">
-            <h5>Price</h5>
+            <h5>{t('product-list.filter.t-price')}</h5>
             <i
               className={isClick ? "bi bi-plus" : "bi bi-dash"}
               onClick={handleclick}
@@ -58,38 +62,38 @@ const Filter = () => {
           <hr />
           <div className="collapse multi-collapse" id="multiCollapseExample1">
             <li className="list-group-item">
-              <input className="form-check-input me-2"
+              <input className="form-check-input mx-2"
                 type="checkbox" id='' value='' onChange={filterHandler}/>
               <label className="form-check-label" htmlFor=''>
-                Under 50 EGP
+                {t('product-list.filter.p1')}
               </label>
             </li>
             <li className="list-group-item">
-              <input className="form-check-input me-2"
+              <input className="form-check-input mx-2"
                 type="checkbox" id='' value='' onChange={filterHandler}/>
               <label className="form-check-label" htmlFor=''>
-                50 EGP - 100 EGP
+                {t('product-list.filter.p2')}
               </label>
             </li>
             <li className="list-group-item">
-              <input className="form-check-input me-2"
+              <input className="form-check-input mx-2"
                 type="checkbox" id='' value='' onChange={filterHandler}/>
               <label className="form-check-label" htmlFor=''>
-                100 EGP - 200 EGP
+                {t('product-list.filter.p3')}
               </label>
             </li>
             <li className="list-group-item">
-              <input className="form-check-input me-2"
+              <input className="form-check-input mx-2"
                 type="checkbox" id='' value='' onChange={filterHandler}/>
               <label className="form-check-label" htmlFor=''>
-                200 EGP - 300 EGP
+                {t('product-list.filter.p4')}
               </label>
             </li>
             <li className="list-group-item">
-              <input className="form-check-input me-2"
+              <input className="form-check-input mx-2"
                 type="checkbox" id='' value='' onChange={filterHandler}/>
               <label className="form-check-label" htmlFor=''>
-                Above 300 EGP
+                {t('product-list.filter.p5')}
               </label>
             </li>
           </div>
@@ -97,7 +101,7 @@ const Filter = () => {
          {/* filter by author */}
         <div>
           <div className="d-flex justify-content-between">
-            <h5>Author</h5>
+            <h5>{t('product-list.filter.t-author')}</h5>
             <i
               className={isClick ? "bi bi-plus" : "bi bi-dash"}
               onClick={handleclick}
@@ -113,7 +117,7 @@ const Filter = () => {
               return (
                 <li className="list-group-item" key={author.id}>
                   <input
-                    className="form-check-input me-2"
+                    className="form-check-input mx-2"
                     type="checkbox"
                     id={author.surname}
                     value={author.id}
