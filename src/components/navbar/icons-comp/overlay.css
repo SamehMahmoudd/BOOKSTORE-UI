@@ -40,6 +40,24 @@
     outline: none;
     cursor: pointer;
 }
+/* button search -> dir */
+body[dir='rtl'] .search-input{
+    border-top-right-radius:8px !important;
+    border-bottom-right-radius:8px !important;
+}
+body[dir='rtl']  #searchBtn{
+    border-top-left-radius:8px ;
+    border-bottom-left-radius:8px ;
+}
+body[dir='ltr']  .search-input{
+    border-top-left-radius:8px !important;
+    border-bottom-left-radius:8px !important;
+}
+body[dir='ltr']  #searchBtn{
+    border-top-right-radius:8px ;
+    border-bottom-right-radius:8px ;
+}
+/* ** */
 .form-control{
     border-radius:0 !important ;
 }

@@ -3,6 +3,7 @@ import "./delivery.css"
 import { orderActivePageCntxt } from "../orderRoute"
 import { Formik,ErrorMessage,Form,Field } from  "formik";
 import * as yup from "yup";
+
 import { useSelector } from "react-redux";
 
 
@@ -25,53 +26,47 @@ function DeliveryComponent(props) {
     });
 
     return <>
-    <div className="row flex-column  flex-md-row" id="delivery-page">
-        <div className="col-12 col-md-8 ">
+      <div className="row flex-column flex-md-row mx-3" id="delivery-page">
+      <div className="col-12 col-md-8">
 
-            <Formik initialValues={{dOption:''}} validationSchema={validationSchema} onSubmit={handleSubmit}>
-          <Form id="delivery-options" >
-            <div> <label>
-                <Field type="radio" name="dOption" value='cairo'  /><span>Shipping Cairo-Giza</span>
-                &nbsp;
-                <span>(5 working days)</span> </label>
-              <span style={{float: 'right'}}>45 EGP</span>
+        <Formik initialValues={{dOption:''}} validationSchema={validationSchema} onSubmit={handleSubmit}>
+        <Form id="delivery-options" >
+          <div className="d-flex justify-content-between"> <label>
+            <Field type="radio" name="dOption" value='cairo'/><span> {t('order.delivery-sec.cairo')}</span>
+            <span>{t('order.delivery-sec.num-day')}</span> </label>
+            <span>{t('order.delivery-sec.p1')}</span>
             </div>
-            <div>
-              <label>
-                <Field type="radio" name="dOption" value='alex' /><span>Shipping Alexandria</span>
-                &nbsp;
-                <span>(5 working days)</span> </label>
-              <span style={{float: 'right'}}>60 EGP</span>
+            <div className="d-flex justify-content-between"><label>
+              <Field type="radio" name="dOption" value='alex'/><span> {t('order.delivery-sec.alex')}</span>
+              <span>{t('order.delivery-sec.num-day')}</span> </label>
+              <span>{t('order.delivery-sec.p2')}</span>
             </div>
-            <div> <label>
-                <Field type="radio" name="dOption" value='canal' /><span>Shipping Canal Cities</span>
-                &nbsp;
-                <span>(5 working days)</span> </label>
-              <span style={{float: 'right'}}>65 EGP</span>
+            <div className="d-flex justify-content-between"> <label>
+              <Field type="radio" name="dOption" value='canal'/><span> {t('order.delivery-sec.canal')}</span>
+              <span>{t('order.delivery-sec.num-day')}</span> </label>
+              <span >{t('order.delivery-sec.p3')}</span>
             </div>
-            <div> <label>
-                <Field type="radio" name="dOption" value='upper-egypt' /><span>Shipping Upper Egypt</span>
-                &nbsp;
-                <span>(5 working days)</span> </label>
-              <span style={{float: 'right'}}>90 EGP</span>
+            <div className="d-flex justify-content-between"> <label>
+              <Field type="radio" name="dOption" value='upper-egypt'/><span> {t('order.delivery-sec.upper-eg')}</span>
+              <span>{t('order.delivery-sec.num-day')}</span> </label>
+              <span >{t('order.delivery-sec.p4')}</span>
             </div>
-            <div> <label>
-                <Field type="radio" name="dOption"  value='sinai' /><span>Shipping Sinai and Red Sea</span>
-                &nbsp;
-                <span>(5 working days)</span> </label>
-              <span style={{float: 'right'}}>10 EGP</span>
+            <div className="d-flex justify-content-between"> <label>
+              <Field type="radio" name="dOption"  value='sinai'/><span> {t('order.delivery-sec.sina')}</span>
+              <span>{t('order.delivery-sec.num-day')}</span> </label>
+              <span>{t('order.delivery-sec.p5')}</span>
             </div>
-            <div> <label>
-                <Field type="radio" name="dOption" value='delta' /><span>Shipping Delta Region</span>
-                &nbsp;
-                <span>(5 working days)</span> </label>
-              <span style={{float: 'right'}}>60 EGP</span>
+            <div className="d-flex justify-content-between"> <label>
+              <Field type="radio" name="dOption" value='delta' /><span> {t('order.delivery-sec.delta')}</span>
+              <span>{t('order.delivery-sec.num-day')}</span> </label>
+              <span>{t('order.delivery-sec.p6')}</span>
             </div>
-              <ErrorMessage name="dOption" component={'p'} className="text-danger"/>
-            <button className="btn btn-custom btn-lg m-2" type="submit" id="delivery-save">SAVE AND CONTINUE</button>
+            <ErrorMessage name="dOption" component={'p'} className="text-danger"/>
+            <button className="btn btn-custom btn-lg mb-5" type="submit" id="delivery-save">{t('order.delivery-sec.btn')}</button>
           </Form>
           </Formik>
         </div>
+
         <div className="col-12 col-md-4" >
           <div id="order-container-delivery">
         {cart.map((product) => {
@@ -98,6 +93,7 @@ function DeliveryComponent(props) {
            
           );
         })}
+
         </div>
         <div className="row m-5 " id="total">
                 <div className="col-4">

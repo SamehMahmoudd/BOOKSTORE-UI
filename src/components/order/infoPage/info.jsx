@@ -3,19 +3,24 @@ import { orderActivePageCntxt } from "../orderRoute";
 import { Formik, ErrorMessage, Form, Field } from "formik";
 import { orderValidation } from "../../../ValidationSchema/orderValidation";
 import "./info.css";
+
 import { useSelector } from "react-redux";
+
 
 function InfoComponent(props) {
   const cart = useSelector((state) => state.cart);
+
 
   const { updatePage } = useContext(orderActivePageCntxt);
 
   function handleSubmit(evnt) {
     
 
+
     props.updatingOrder({...props.order,  info:evnt })
     updatePage("nav-delivery");
   }
+
 
 
   const initialValues = {
@@ -133,6 +138,7 @@ function InfoComponent(props) {
                 SAVE AND CONTINUE
               </button>
             </Form>
+
           </Formik>
         </div>
 
@@ -186,16 +192,16 @@ function InfoComponent(props) {
             <img src="/assets/images/book.png" className="card-img-top w-50 h-50" />
             <div className="card-body">
               <h5>The power of now-Eckhart Tolle</h5>
-              <span>Quantity:1</span>
-              <h5 style={{color: '#900c3f'}}>200 EGP</h5>
+              <span>{t('order.info-sec.quan')} : 1</span>
+              <h5 style={{color: '#900c3f'}}>200 {t('product-details.p-egp')}</h5>
             </div>
           </div>
           <div className="row m-5 " id="total">
             <div className="col-6">
-              <h5>Total:</h5>
+              <h5>{t('order.info-sec.total')} : </h5>
             </div>
             <div className="col-6" id="total-price">
-              <h5 style={{color: '#900c3f'}}>200 EGP</h5>
+              <h5 style={{color: '#900c3f'}}>200 {t('product-details.p-egp')}</h5>
             </div>
           </div>
         </div> */}

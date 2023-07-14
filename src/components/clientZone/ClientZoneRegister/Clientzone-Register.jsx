@@ -1,15 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function ClientzoneRegister(){
+  const { t } = useTranslation();
     
     return (
       <div className='mb-5'>
-      <div className="container-fluid page-header  noBackground">
+      <div className="container-fluid page-header noBackground">
         <div className="row">
           <div className="container modulesTitleContainer">
             <div className="row modulesTitle text-center pt-4 pb-3">
               <div className="page-header-wrap">
-                <h2 className="mb-3">CLIENT ZONE</h2>
+                <h2 className="mb-3">{t('client-zone.client.title')}</h2>
                 <span className="hr m-auto"></span>
               </div>
             </div>
@@ -19,16 +21,16 @@ export default function ClientzoneRegister(){
         <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
           <div className="row login-forms box box-primary w-100 m-auto mb-lg">
             <form className="bg-body text-center" action="#">
-              <p className="title fw-semibold mb-4">please enter your email:</p>
+              <p className="title fw-semibold mb-4">{t('client-zone.client.reg-email')}</p>
               <div className="form-group email mb-4">
-                <input className="form-control" type="text" name="example" id placeholder="example@example.com" msg-required="Please Enter Your Email" />
+                <input className="form-control" type="text" name="example" placeholder="example@example.com" msg-required="Please Enter Your Email" />
               </div>
               <div className="form-group request m-4 pt-3">
-                <button className="btn btn-primary">Sign in or Create an Account</button>
+                <button className="btn btn-primary">{t('client-zone.client.reg-btn-sign')}</button>
               </div>
               <div className="login-box pt-3">
                 <div className="social">
-                  <span className="mb-15 fw-semibold">Or Continue Using</span>
+                  <span className="mb-15 fw-semibold">{t('client-zone.client.reg-continue-using')}</span>
                 </div>
                 <a className="s123-client-zone-page s-facebook text-decoration-none" href='#'>
                   <div className="social-login-btn d-flex justify-content-center">
@@ -36,7 +38,7 @@ export default function ClientzoneRegister(){
                       <img src="https://static1.s123-cdn-static-a.com/admin/InterfaceStatisFiles/allOther/all/facebook.svg" style={{height: '20px', width: 'auto'}} alt="" />
                     </div>
                     <div className="s-1-btn-text"> 
-                      <span>Continue with Facebook</span>
+                      <span>{t('client-zone.client.reg-con-fb')}</span>
                     </div>
                   </div>
                 </a>
@@ -46,7 +48,7 @@ export default function ClientzoneRegister(){
                       <img src="https://static1.s123-cdn-static-a.com/admin/InterfaceStatisFiles/allOther/all/google.svg" style={{height: '20px', width: 'auto'}} alt="" />
                     </div>
                     <div className="s-1-btn-text"> 
-                      <span>Continue with Google</span>
+                      <span>{t('client-zone.client.reg-con-g')}</span>
                     </div>
                   </div>
                 </a>

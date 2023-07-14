@@ -4,10 +4,13 @@ import { ClientActivePageCntxt } from "../../clientZone/CLientZoneRouter";
 import Profile from "./profile/Profile";
 import MyAddress from "./myAddress/MyAddress";
 import MyStore from "./myStore/MyStore";
+import { useTranslation } from 'react-i18next';
 
 function ClientZone() {
-  // const loader = useSelector((state) => state.loader)
 
+  const {t} = useTranslation();
+  ///////////////////////////////////////////////
+  // const loader = useSelector((state) => state.loader)
   const {clientActivePage,updatePage}=useContext(ClientActivePageCntxt)
 
   function handleActivePage(activePage) {
@@ -19,7 +22,7 @@ function ClientZone() {
         <div className="container modulesTitleContainer">
           <div className="row modulesTitle text-center pt-4 ">
             <div className="page-header-wrap">
-              <h2 className="mb-3">CLIENT ZONE</h2>
+              <h2 className="mb-3">{t('client-zone.client.title')}</h2>
               <span className="hr m-auto mb-5 "></span>
             </div>
           </div>
@@ -53,7 +56,7 @@ function ClientZone() {
               <option value="profile">Profile </option>
               <option value="addresses">My Addresses</option>
             </select>
-            <div id="clientZone-menu-tabs" className="box-primary clientZoneTabs">
+            <div id="clientZone-menu-tabs" className="box-primary clientZoneTabs my-4">
             <div data-tab="profile"  className={clientActivePage === "profile"
               ?"col-xs-12 tab client-zone-box-border active "
               :"col-xs-12 tab client-zone-box-border "}
@@ -61,8 +64,8 @@ function ClientZone() {
                 handleActivePage("profile");
               }}>
                 <div className="icon-container" >
-                <i class="bi-person-fill icons">&nbsp;</i>
-                  <span>Profile</span>
+                <i className="bi-person-fill icons">&nbsp;</i>
+                  <span>{t('client-zone.client.t-profile')}</span>
                 </div>
               </div>
               <div data-tab="address"  className={clientActivePage === "address"
@@ -72,8 +75,8 @@ function ClientZone() {
                 handleActivePage("address");
               }}>
                 <div className="icon-container" >
-                <i class="bi-houses-fill">&nbsp;</i>
-                  <span>My Addresses</span>
+                <i className="bi-houses-fill">&nbsp;</i>
+                  <span>{t('client-zone.client.t-address')}</span>
                 </div>
               </div>
               <div data-tab="Store"  className={clientActivePage === "Store"
@@ -84,7 +87,7 @@ function ClientZone() {
               }}>
                 <div className="icon-container" >
                 <i className="bi-google-play icons">&nbsp;</i>
-                  <span>My Store</span>
+                  <span>{t('client-zone.client.t-store')}</span>
                 </div>
               </div>
             </div>

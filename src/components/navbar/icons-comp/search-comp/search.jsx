@@ -33,8 +33,8 @@ function Search() {
             </button>
 
             <div className ='m-5 d-flex flex-row'>
-                <input onChange={handleInputChange } value={inputValue} className="form-control form-control-lg rounded-start" type="text" placeholder="Search" aria-label=".form-control-lg example"/>
-                <button onClick={searchQuery} id='searchBtn' className='rounded-end'><i className ="bi bi-search"></i></button>
+                <input onChange={handleInputChange } value={inputValue} className="form-control form-control-lg search-input" type="text" placeholder="Search" aria-label=".form-control-lg example"/>
+                <button onClick={searchQuery} id='searchBtn'><i className ="bi bi-search"></i></button>
             </div>
             <div id="item-list" className='row'>
                 <div className='col'>

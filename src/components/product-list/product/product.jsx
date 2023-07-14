@@ -3,10 +3,13 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Rating from '../../rating/rating'
 import StarRate from '../../rating/rating'
+import { useTranslation } from 'react-i18next'
 
 const Product = () => {
-  const style = { boxShadow: '10px 10px 5px #aaaaaa' }
 
+  const { t } = useTranslation();
+  ////////////////////////////////////////////
+  const style = { boxShadow: '10px 10px 5px #aaaaaa' }
   const books = useSelector((state) => state.books)
 
   return (
@@ -21,11 +24,6 @@ const Product = () => {
                   <h5 className="fw-bolder">{book.title}</h5>
                   <p className="card-text">{book.price}.00$</p>
                   <div>
-                    {/* <i className="bi bi-star"></i>
-                    <i className="bi bi-star"></i>
-                    <i className="bi bi-star"></i>
-                    <i className="bi bi-star"></i>
-                    <i className="bi bi-star"></i> */}
                     <StarRate/>
                   </div>
                 </div>
@@ -34,7 +32,7 @@ const Product = () => {
                 <div className="text-center">
                   <Link to={`/details/${book.id}`}>
                     <a className="btn btn-outline-dark mt-auto">
-                      Quick View
+                      {t('product-list.product.btn')}
                     </a>
                   </Link>
                 </div>

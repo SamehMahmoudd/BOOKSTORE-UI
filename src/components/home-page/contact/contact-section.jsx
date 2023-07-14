@@ -1,70 +1,70 @@
 import React from "react";
 import './contact.css'
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
+
+  const { t } = useTranslation();
   return (
     <>
     <div className="content mt-5 mt-4" id="Contact">
         <div className="container">
           <div className="row">
             <div className="heading d-flex flex-column align-items-center mb-5">
-                <div><h1>Contact Us</h1></div><div className="small"></div>
+                <div><h1>{t('home.contact.title')}</h1></div><div className="small"></div>
             </div>
             <div className="d-flex col-md-6 mr-auto justify-content-around">
                 <ul className="list-unstyled pl-md-5 mb-5">
                     <li className="mb-5 text-center">
-                        North Teseen Street, First New Cairo, Cairo Governorate, Egypt<br />
-                        90 Road North - Maxim Mall - First Floor
+                        {t('home.contact.address1')}<br />
+                        {t('home.contact.address2')}
                     </li>
                     <div className="d-flex flex-column align-items-center contact-info">
                         <li className="d-flex text-black mb-2 text-danger">
-                            <div><i className="bi bi-telephone-fill"></i></div>
-                            <a className="contact-info" href="tel:01016338149">01016338149 - Alef Maxim Mall</a>
+                            <div><i className="bi bi-telephone-fill mx-2"></i></div>
+                            <a className="contact-info" href="tel:01016338149">{t('home.contact.calling')}</a>
                         </li>
                         <li className="d-flex text-black mb-2" >
-                            <div><i className="bi bi-envelope"></i></div>
-                            <a className="contact-info" href="mailto:customerservicedeem@gmail.com">customerservicedeem@gmail.com</a>
+                            <div><i className="bi bi-envelope mx-2"></i></div>
+                            <a className="contact-info" href="mailto:customerservicedeem@gmail.com">{t('home.contact.email')}</a>
                         </li>
                         <li className="d-flex text-black mb-2" >
-                            <li><i className="bi bi-clock"></i>10AM - 10PM</li>
+                            <li><i className="bi bi-clock mx-2"></i>{t('home.contact.time')}</li>
                         </li>
                         <div className="pt-3 pb-2">
-						    <p>how can we help?</p>
+						    <p>{t('home.contact.qhelp')}</p>
 					    </div>
-					    <ul className="list-inline d-inline-flex ">
-						    <li className="m-2">
+					    <ul className="d-inline-flex text-center" style={{listStyleType:"none"}}>
+						    <li className="">
                                 <a className="mainCOlor" href=""><i className="bi bi-instagram fa-2x "></i></a>
 						    </li>
-						    <li className="m-2">
+						    <li className="">
                                 <a className="mainCOlor" href=""><i className="bi bi-facebook fa-2x "></i></a>
 						    </li>
 					    </ul>
                     </div>
                 </ul>
             </div>
-            <div className="col-md-6">
-                <form className="mb-5" method="post" id="contactForm" name="contactForm">
+            <div className="col-md-6 ">
+                <form className="mx-5" method="post" id="contactForm" name="contactForm">
                     <div className="row">
                         <div className="col-md-12 form-group mb-3">
-                            {/* <label htmlFor="name" className="col-form-label">Name</label> */}
-                            <input type="text" className="form-control" placeholder="Name" aria-label="default input example" name="name" id="name"/>
+                            <input type="text" className="form-control" placeholder={t('home.contact.l-name')} aria-label="default input example" name="name" id="name"/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 form-group mb-3">
-                            {/* <label htmlFor="email" className="col-form-label">Email</label> */}
-                            <input type="text" className="form-control"placeholder="Email" aria-label="default input example" name="email" id="email"/>
+                            <input type="text" className="form-control"placeholder={t('home.contact.l-email')} aria-label="default input example" name="email" id="email"/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12 form-group mb-4">
-                            {/* <label htmlFor="message" className="col-form-label">Message</label> */}
-                            <textarea className="form-control" placeholder="Message" aria-label="default input example" name="message" id="message" cols="30" rows="3"></textarea>
+                            <textarea className="form-control" placeholder={t('home.contact.l-message')} aria-label="default input example" name="message" id="message" cols="30" rows="3"></textarea>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-12">
-                            <input type="submit" value="Send Message" className="btn btn-primary rounded-1 py-2 px-4"/>
+                        <div className="col-md-12 mb-4">
+                            <input type="submit" value={t('home.contact.btn-submit')} className="btn btn-primary rounded-1 py-2 px-4"/>
                             <span className="submitting"></span>
                         </div>
                     </div>
