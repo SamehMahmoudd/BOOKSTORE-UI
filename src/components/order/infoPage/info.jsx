@@ -11,16 +11,12 @@ function InfoComponent(props) {
   const { updatePage } = useContext(orderActivePageCntxt);
 
   function handleSubmit(evnt) {
-    evnt.preventDefault();
+    
 
+    props.updatingOrder({...props.order,  info:evnt })
     updatePage("nav-delivery");
   }
 
-  function handleFormData(eve) {
-    const { name, value } = eve.target;
-    props.updatingData({ ...props.data, [name]: value });
-    console.log(props.data);
-  }
 
   const initialValues = {
     email: "",

@@ -6,14 +6,15 @@ import * as yup from "yup";
 import { useSelector } from "react-redux";
 
 
-function DeliveryComponent() {
+function DeliveryComponent(props) {
   const {updatePage}=useContext(orderActivePageCntxt)
   const cart = useSelector((state) => state.cart);
   const [optionSelected,setOptionSelected]=useState(false)
 
     function handleSubmit(evnt){
-      
 
+
+      props.updatingOrder({...props.order,  address:evnt.dOption })
         console.log(evnt);
        updatePage('nav-payment')
 

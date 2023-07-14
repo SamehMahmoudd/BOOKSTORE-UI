@@ -2,9 +2,17 @@ import { useSelector } from "react-redux";
 import "./payment.css"
 import { PayPalButtons,PayPalScriptProvider } from "@paypal/react-paypal-js";
 
-function PaymentComponent() {
+function PaymentComponent(props) {
 
   const cart = useSelector((state) => state.cart);
+
+  function handlePayment(evnt){
+
+    evnt.preventDefault()
+    props.payment()
+
+  }
+
     return <>
     
     <div className="row " id="payment-page">
@@ -18,7 +26,7 @@ function PaymentComponent() {
             <h5>Please choose your payment method</h5>
           </div>
           <div className="small" />
-          <form >
+          <form onSubmit={(evnt)=>{handlePayment(evnt)}} >
           <div className="payment-method">
             
             <div>
@@ -57,7 +65,7 @@ function PaymentComponent() {
             </PayPalScriptProvider>
           </div>
           <div>
-            <button className="btn btn-custom btn-lg  m-4" type="submit" id="place-order">PLACE ORDER</button>
+            <button className="btn btn-custom btn-lg  m-4" type="submit" id="place-order"  >PLACE ORDER</button>
           </div>
           </form>
         </div>
