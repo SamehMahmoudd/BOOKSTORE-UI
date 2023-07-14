@@ -1,23 +1,42 @@
+import { useSelector } from "react-redux";
 import "./payment.css"
 import { PayPalButtons,PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useTranslation } from 'react-i18next';
 
-function PaymentComponent() {
-    
-  const { t } = useTranslation();
-  return <>
+
+function PaymentComponent(props) {
+
+  const cart = useSelector((state) => state.cart);
+
+  function handlePayment(evnt){
+
+    evnt.preventDefault()
+    props.payment()
+
+  }
+
+    return <>
+
     
     <div className="row " id="payment-page">
         <div className="col-12 col-md-12 d-flex  flex-column align-items-center justify-content-between ">
           <div className="text-center">
-            <h1 style={{color: '#900c3f'}}>200 {t('product-details.p-egp')}</h1>
-            <h5>{t('order.payment-sec.choose-method')}</h5>
+
+            <h1 style={{color: '#900c3f'}}> {cart.reduce((total, product) => {
+                      return (
+                        total + Number(product.book.price) * product.quantity
+                      );
+                    }, 0)}.00 EGP</h1>
+            <h5>Please choose your payment method</h5>
+
           </div>
           <div className="small" />
-          <form >
+          <form onSubmit={(evnt)=>{handlePayment(evnt)}} >
           <div className="payment-method">
             <div>
-            <label >  <input type="checkbox" name='cash-delivery' value='cash-on-delivery' /> <span>{t('order.payment-sec.cash')}</span> </label>  
+
+            <label >  <input type="checkbox" name='cash-delivery' value='cash-on-delivery' checked /> <span>Cash on Delivery</span> </label>  
+
             </div>
           </div>
           <div className='mt-3'>
@@ -44,8 +63,10 @@ function PaymentComponent() {
             />
             </PayPalScriptProvider>
           </div>
-          <div className="text-center">
-            <button className="btn btn-custom btn-lg  m-4" type="submit" id="place-order">{t('order.payment-sec.btn-order')}</button>
+
+          <div>
+            <button className="btn btn-custom btn-lg  m-4" type="submit" id="place-order"  >PLACE ORDER</button>
+
           </div>
           </form>
         </div>

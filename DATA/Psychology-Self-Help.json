@@ -1,0 +1,109 @@
+[
+{
+  "bookTitle": "THE BODY KEEPS THE SCORE",
+  "bookPages": 560,
+  "price": 490,
+ 
+  "description": "The effects of trauma can be devastating for sufferers, their families and future generations. Here one of the world's experts on traumatic stress offers a bold new paradigm for treatment, moving away from standard talking and drug therapies and towards an alternative approach that heals mind, brain and body.",
+  "stock": 2,
+  "author": "Bessel van der Kolk",
+  "category":"Psychology - Self-Help"
+},
+
+{
+  "bookTitle": "ATTACHED",
+  "bookPages": 304,
+  "price": 390,
+  
+  "description": "In this groundbreaking book, psychiatrist and neuroscientist Amir Levine and psychologist Rachel S. F. Heller reveal how an understanding of attachment theory-the most advanced relationship science in existence today-can help us find and sustain love. Attachment theory forms the basis for many bestselling books on the parent/child relationship, but there has yet to be an accessible guide to what this fascinating science has to tell us about adult romantic relationships-until now.",
+  "stock": 2,
+  "author": "Amir Levine & Rachell Heller",
+  "category":"Psychology - Self-Help"
+},
+{
+  "bookTitle": "RICH DAD POOR DAD",
+  "bookPages":  336,
+  "price": 175,
+  
+  "description": "Rich Dad Poor Dad is Robert's story of growing up with two dads — his real father and the father of his best friend, his rich dad — and the ways in which both men shaped his thoughts about money and investing. The book explodes the myth that you need to earn a high income to be rich and explains the difference between working for money and having your money work for you.",
+  "stock": 2,
+  "author": "Robert T. Kiyosaki",
+  "category":"Psychology - Self-Help"
+},
+{
+  "bookTitle": "WHERE'S MY HAPPY ENDING?",
+  "bookPages":  336,
+  "price": 300,
+  
+  "description": "Maybe you’ve just had a first date with ‘the one’, maybe you’ve been married for ten years. Either way, it’s hard to know if they’re really meant to be by your side until you both wear dentures. In this book Anna Whitehouse and Matt Farquharson, co-founders of the Mother Pukka website and authors of the Sunday Times bestseller Parenting the Sh*t Out of Life, set out to discover what it takes to make it to forever, by asking our greatest questions about love.",
+  "stock": 2,
+  "author": "Anna Whitehouse & Matt Farquharson",
+  "category":"Psychology - Self-Help"
+},
+{
+  "bookTitle": "THE POWER OF YOUR SUBCONSCIOUS MIND",
+  "bookPages":  320,
+  "price": 200,
+  
+  "description": "The Power of Your Subconscious Mind introduces and explains the mind-focusing techniques that remove the subconscious obstacles that prevent us from achieving the success we want - and deserve. This authorised edition of Dr. Murphy’s keystone work is the first premium mass market edition to feature additional commentary drawn from his unpublished writings. As practical as it is inspiring, Dr. Murphy’s work demonstrates with real-life examples the way to unleash extraordinary mental powers to build self-confidence, create harmonious relationships, gain professional success, amass wealth, conquer fears and phobias, banish bad habits, and even to effect physical healing and promote overall wellbeing and happiness.",
+  "stock": 2,
+  "author": "Joseph Murphy",
+  "category":"Psychology - Self-Help"
+}
+,
+{
+  "bookTitle": "THE POWER OF NOW",
+  "bookPages":  192,
+  "price": 425,
+  
+  "description": "To make the journey into The Power of Now we will need to leave our analytical mind and its false created self, the ego, behind. Although the journey is challenging, Eckhart Tolle offers simple language and a question and answer format to show us how to silence our thoughts and create a liberated life.",
+  "stock": 2,
+  "author": "Eckhart Tolle",
+  "category":"Psychology - Self-Help"
+}
+,
+{
+  "bookTitle": "THE POWER OF HABIT",
+  "bookPages":  400,
+  "price": 480,
+  
+  "description": "The Power of Habit makes an exhilarating case: the key to almost any door in life is instilling the right habit. From exercise to weight loss, childrearing to productivity, market disruption to social revolution, and above all success, the right habits can change everything.",
+  "stock": 2,
+  "author": "Charles Duhigg",
+  "category":"Psychology - Self-Help"
+}
+,
+{
+  "bookTitle": "FEEL GOOD CLUB",
+  "bookPages":  240,
+  "price": 300,
+  
+  "description": "Successful entrepreneurs Aimie and Kiera share their trademark of inspiring quotes alongside the wisdom that enabled them to overcome tough moments,Continuing their mission of wanting to make people feel good through positivity, love and normalising the way that we share how we feel. They want o make people feel good in a positive way, and also help us all open up about how we’re truly feeling. They want you to make yourself feel good, as well as help you balance your feelings when you’re not at your best",
+  "stock": 2,
+  "author": "Kiera Lawlor-Skillen",
+  "category":"Psychology - Self-Help"
+}
+,
+{
+  "bookTitle": "THE FIVE LOVE LANGUAGES",
+  "bookPages":  204,
+  "price": 450,
+  
+  "description": "Helps you discover and understand five specific languages of love, and learn how to identify your partner's primary love language. This title reveals the profound satisfaction and joy of being able to express your love in a manner that it is interpreted in the right sense.",
+  "stock": 2,
+  "author": "Gary Chapman",
+  "category":"Psychology - Self-Help"
+}
+,
+{
+  "bookTitle": "START WITH WHY",
+  "bookPages":  256,
+  "price": 390,
+  
+  "description": "Those who have had the greatest influence in the world all think, act, and communicate in the same way - and it's the opposite to most. In Start with Why, Simon Sinek uncovers the fundamental secret of their success - understanding their WHY - to help you find your own.",
+  "stock": 2,
+  "author": "Simon Sinek",
+  "category":"Psychology - Self-Help"
+}
+
+]

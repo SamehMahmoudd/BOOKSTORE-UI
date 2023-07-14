@@ -1,18 +1,66 @@
-import { useState ,useContext } from "react";
+import { useState ,useContext, useEffect } from "react";
 import "./order.css";
 import InfoComponent from "./infoPage/info";
 import DeliveryComponent from "./deliveryPage/delivery";
 import PaymentComponent from "./paymentPage/payment";
 import { orderActivePageCntxt } from "./orderRoute";
-import { useTranslation } from 'react-i18next';
+
+import { useSelector } from 'react-redux';
+import axios from "axios";
+
+
 
 
 function Order() {
 
-  const { t } = useTranslation();
-  /////////////////////////////////////////
+
+  const cart = useSelector((state) => state.cart);
+  let total=cart.reduce((total, product) => {
+    return (
+      total + Number(product.book.price) * product.quantity
+    );
+  }, 0);
+
+  const [order,setOrder]=useState({
+    info:{email:'',fullName:'',country:'',address:'',city:'',phone:undefined,landmark:undefined},
+    address:'',
+
+    totalPrice:total,
+    status:'pending',
+    items:[...cart]
+
+  })
+  
+  function handlePayment(){
+
+    if(total!==0){
+    axios
+      .post("http://localhost:3001/orders/", order, {
+        headers: {
+          authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzUwMTAwMTM0Y2Y0NmE4NDRiMmRkZiIsImlhdCI6MTY4NTM4OTU5NH0.26zyfxpYchRego4180tU958pVPiIu1xM0W4ayxUbzQw",
+        },
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    }
+
+  }
+
   const {orderActivePage,updatePage}=useContext(orderActivePageCntxt)
-  const [formData,setFormData]=useState({email:'',fullName:'',country:'',address:'',city:'',phone:undefined,landmark:undefined})
+
+  useEffect(()=>{
+
+    console.log(cart);
+
+  },[order])
+
+
   function handleActivePage(activePagee) {
     updatePage(activePagee);
 
@@ -37,9 +85,7 @@ function Order() {
                   : "col-4 d-flex align-items-center in-active"
               }
               id="nav-info"
-              onClick={() => {
-                handleActivePage("nav-info");
-              }}
+             
             >
               <i
                 className={
@@ -67,9 +113,7 @@ function Order() {
                   : "col-4 d-flex align-items-center in-active"
               }
               id="nav-delivery"
-              onClick={() => {
-                handleActivePage("nav-delivery");
-              }}
+             
             >
               <i
                 className={
@@ -97,9 +141,7 @@ function Order() {
                   : "col-4 d-flex align-items-center in-active"
               }
               id="nav-payment"
-              onClick={() => {
-                handleActivePage("nav-payment");
-              }}
+              
             >
               <i
                 className={
@@ -120,9 +162,14 @@ function Order() {
               <span className="nav-span mx-3">{t('order.payment')}</span>
             </div>
           </div>
-          {orderActivePage==='nav-info' &&    <InfoComponent data={formData} updatingData={setFormData} /> }
-          {orderActivePage==='nav-delivery' &&  <DeliveryComponent/> }
-          {orderActivePage==='nav-payment' &&  <PaymentComponent/> }
+
+
+
+              {orderActivePage==='nav-info'     &&  <InfoComponent order={order} updatingOrder={setOrder} /> }
+              {orderActivePage==='nav-delivery' &&  <DeliveryComponent order={order} updatingOrder={setOrder}/> }
+              {orderActivePage==='nav-payment'  &&  <PaymentComponent payment={handlePayment}/> }
+
+
         </div>
       </div>
     </>

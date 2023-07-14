@@ -73,10 +73,12 @@ function SideCart({ isCartOpen, handleClose }) {
                 </div>
                 <div>
                   <Link to={`/order`}>
-                    <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn">{t('side-cart.btn-order')}</button>
+
+                    <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" onClick={() => { handleClose()}}>MAKE AN OREDER</button>
                   </Link>
                 </div>
-                <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn">{t('side-cart.btn-continue')}</button>
+                <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn" onClick={() => { handleClose()}}> CONTINUE SHOPPING</button>
+
               </div>
             )}
             
