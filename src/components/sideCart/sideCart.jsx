@@ -1,19 +1,18 @@
-import { Link } from 'react-router-dom'
-import './sideCart.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { decreaseBookQuantity, emptyCart, increaseBookQuantity, removeFromCart } from '../../store/reducers/cartSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { decreaseBookQuantity, emptyCart, increaseBookQuantity, removeFromCart } from '../../store/reducers/cartSlice';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom'
+import './sideCart.css';
 
 function SideCart({ isCartOpen, handleClose }) {
 
-
   const {t} = useTranslation();
   //////////////////////////////////////////////
-  const cart = useSelector((state) => state.cart)
+  const cart = useSelector((state) => state.cart);
   const count = cart.reduce((total, product) => {
     return total + product.quantity
   }, 0)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -73,15 +72,14 @@ function SideCart({ isCartOpen, handleClose }) {
                 </div>
                 <div>
                   <Link to={`/order`}>
-
-                    <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" onClick={() => { handleClose()}}>MAKE AN OREDER</button>
+                    <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" 
+                    onClick={() => { handleClose()}}>{t('side-cart.btn-order')}</button>
                   </Link>
                 </div>
-                <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn" onClick={() => { handleClose()}}> CONTINUE SHOPPING</button>
-
+                <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn" 
+                onClick={() => { handleClose()}}>{t('side-cart.btn-continue')}</button>
               </div>
             )}
-            
           </div>
         </div>
       </div>
@@ -89,4 +87,4 @@ function SideCart({ isCartOpen, handleClose }) {
   )
 }
 
-export default SideCart
+export default SideCart;

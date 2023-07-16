@@ -1,19 +1,20 @@
 import { useState ,useContext, useEffect } from "react";
-import "./order.css";
 import InfoComponent from "./infoPage/info";
 import DeliveryComponent from "./deliveryPage/delivery";
 import PaymentComponent from "./paymentPage/payment";
 import { orderActivePageCntxt } from "./orderRoute";
-
 import { useSelector } from 'react-redux';
+import { useTranslation } from "react-i18next";
 import axios from "axios";
+import "./order.css";
 
 
 
 
 function Order() {
 
-
+  const { t } = useTranslation();
+  ///////////////////////////////////////////
   const cart = useSelector((state) => state.cart);
   let total=cart.reduce((total, product) => {
     return (
@@ -24,7 +25,6 @@ function Order() {
   const [order,setOrder]=useState({
     info:{email:'',fullName:'',country:'',address:'',city:'',phone:undefined,landmark:undefined},
     address:'',
-
     totalPrice:total,
     status:'pending',
     items:[...cart]
@@ -63,7 +63,6 @@ function Order() {
 
   function handleActivePage(activePagee) {
     updatePage(activePagee);
-
   }
 
   return (
@@ -84,9 +83,7 @@ function Order() {
                   ? "col-4 d-flex align-items-center"
                   : "col-4 d-flex align-items-center in-active"
               }
-              id="nav-info"
-             
-            >
+              id="nav-info" >
               <i
                 className={
                   orderActivePage === "nav-info"
@@ -112,9 +109,7 @@ function Order() {
                   ? "col-4 d-flex align-items-center"
                   : "col-4 d-flex align-items-center in-active"
               }
-              id="nav-delivery"
-             
-            >
+              id="nav-delivery">
               <i
                 className={
                   orderActivePage === "nav-delivery"
@@ -140,9 +135,7 @@ function Order() {
                   ? "col-4 d-flex align-items-center"
                   : "col-4 d-flex align-items-center in-active"
               }
-              id="nav-payment"
-              
-            >
+              id="nav-payment">
               <i
                 className={
                   orderActivePage === "nav-payment"
@@ -162,15 +155,10 @@ function Order() {
               <span className="nav-span mx-3">{t('order.payment')}</span>
             </div>
           </div>
-
-
-
-              {orderActivePage==='nav-info'     &&  <InfoComponent order={order} updatingOrder={setOrder} /> }
-              {orderActivePage==='nav-delivery' &&  <DeliveryComponent order={order} updatingOrder={setOrder}/> }
-              {orderActivePage==='nav-payment'  &&  <PaymentComponent payment={handlePayment}/> }
-
-
-        </div>
+            {orderActivePage==='nav-info'     &&  <InfoComponent order={order} updatingOrder={setOrder} /> }
+            {orderActivePage==='nav-delivery' &&  <DeliveryComponent order={order} updatingOrder={setOrder}/> }
+            {orderActivePage==='nav-payment'  &&  <PaymentComponent payment={handlePayment}/> }
+          </div>
       </div>
     </>
   );
