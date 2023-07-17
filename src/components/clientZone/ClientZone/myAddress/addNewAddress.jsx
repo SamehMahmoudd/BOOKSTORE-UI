@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 const AddNewAddress = ({ isVisable, onClose }) => {
+  const [newAddress, setNewAddress] = useState();
   if (!isVisable) return null;
+  // hundleValue = (e)=>{
+  //   const{name,value} =e.target
+  //   this.
+  // }
   return (
     <div className="modal-backdrop in w-100 ">
       <div className="modal-header container w-75 fs-3 ">

@@ -1,16 +1,80 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import ClientZone from "../ClientZone/ClientZone";
-import {
-  FacebookLoginButton,
-  GoogleLoginButton,
-} from "react-social-login-buttons";
-import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
+import React, { useRef, useState, useEffect, useContext } from "react";
+import { Formik, ErrorMessage, Form, Field } from "formik";
+import { registerValidation } from "../../../ValidationSchema/registerValidation";
+// const login_URL = "/auth/login";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function ClientzoneRegister() {
-  const [profile, setprofile] = useState(null);
-
+  const userRef = useRef();
+  const errRef = useRef();
+  const [fName, setFristName] = useState("");
+  const [lName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState("");
+  useEffect(() => {
+    userRef?.current?.focus();
+  }, []);
+  useEffect(() => {
+    setErrMsg("");
+  }, [email, fName, lName, password, phoneNumber, address]);
+  const register = async (e) => {
+    e.preventDefault();
+    updatePage("nav-delivery");
+    console.log(e);
+    try {
+      const res = await axios.post("http://localhost:3001/auth/register", {
+        fristName: fName,
+        lastName: lName,
+        email: email,
+        password: password,
+        phoneNumber: phoneNumber,
+        address: address,
+        country: country,
+      });
+
+      // console.log(res);
+      setFristName("");
+      setLastName("");
+      setEmail("");
+      setpassword("");
+      setPhoneNumber("");
+      setAddress("");
+      setCountry("");
+      setSuccess(true);
+      alert("succefully registration");
+    } catch (err) {
+      if (!err?.res) {
+        setErrMsg("No Server is Response");
+      } else if (err.res?.status === 400) {
+        setErrMsg("Missing Email or Password validation ");
+      } else if (err.res?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Register Faild ");
+      }
+      errRef.current.focus();
+    }
+  };
+  function handleFormData(eve) {
+    const { name, value } = eve.target;
+    props.updatingData({ ...props.data, [name]: value });
+    console.log(props.data);
+  }
+
+  const initialValues = {
+    fName: "",
+    lName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    address: "",
+    country: "",
+  };
   return (
     <div className="mb-5">
       <div className="container-fluid page-header noBackground mb-5">
@@ -25,78 +89,257 @@ export default function ClientzoneRegister() {
           </div>
         </div>
       </div>
-      {!profile ? (
+      {success ? (
+        <ClientzoneRegister />
+      ) : (
         <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
           <div className="row login-forms box box-primary w-100 m-auto mb-lg">
-            <form className="bg-body text-center" action="#">
-              <p className="title fw-semibold mb-4">
-                please enter your email: {email}
-              </p>
-              <div className="form-group email mb-4">
-                <input
-                  className="form-control"
-                  type="text"
-                  name="example"
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="example@example.com"
-                  msg-required="Please Enter Your Email"
-                />
+            <>
+              <div
+                ref={errRef}
+                className={errMsg ? "errmsg" : "offscreen"}
+                aria-live="assertive"
+              >
+                {errMsg}
               </div>
-              <div className="form-group request m-4 pt-3">
-                <button className="btn btn-primary">
-                  Sign in or Create an Account
-                </button>
-              </div>
-              <div className="login-box pt-3">
-                <div className="social">
-                  <span className="mb-15 fw-semibold">Or Continue Using</span>
-                </div>
-                <LoginSocialGoogle
-                  client_id={
-                    "720953758849-av80tdajd4u9k5hgqqnh9dmj78dha5bu.apps.googleusercontent.com"
-                  }
-                  scope="openid profile email"
-                  discoveryDocs="claims_supported"
-                  access_type="offline"
-                  onResolve={({ provider, data }) => {
-                    console.log(provider, data);
-                    setprofile(data);
-                  }}
-                  onReject={(err) => {
-                    console.log(err);
-                  }}
+              <>
+                <Formik
+                  className="bg-body text-center"
+                  initialValues={initialValues}
+                  validationSchema={registerValidation}
+                  onSubmit={register}
                 >
-                  <div className="social-login-btn m-auto">
-                    <div className="mb-3">
-                      <GoogleLoginButton />
+                  <Form>
+                    <Field
+                      type="text"
+                      name="fName"
+                      onChange={(e) => setFristName(e.target.value)}
+                      value={fName}
+                      placeholder="fristName *"
+                      className="form-control mb-3 p-3"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                    <ErrorMessage
+                      name="fName"
+                      component="p"
+                      className="text-danger"
+                    />
+                    <Field
+                      type="text"
+                      name="lName"
+                      onChange={(e) => setLastName(e.target.value)}
+                      value={lName}
+                      placeholder="lastName *"
+                      className="form-control mb-3 p-3"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                    <ErrorMessage
+                      name="lName"
+                      component="p"
+                      className="text-danger"
+                    />
+                    <Field
+                      type="email"
+                      name="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                      placeholder="Email *"
+                      className="form-control mb-3 p-3"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="p"
+                      className="text-danger"
+                    />
+                    <Field
+                      type="password"
+                      name="password"
+                      onChange={(e) => setpassword(e.target.value)}
+                      value={password}
+                      placeholder="Password *"
+                      className="form-control mb-3 p-3"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="p"
+                      className="text-danger"
+                    />
+                    <Field
+                      type="text"
+                      name="phoneNumber"
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      value={phoneNumber}
+                      placeholder="phoneNumber *"
+                      className="form-control mb-3 p-3"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                    <ErrorMessage
+                      name="phoneNumber"
+                      component="p"
+                      className="text-danger"
+                    />
+                    <Field
+                      type="text"
+                      name="address"
+                      onChange={(e) => setAddress(e.target.value)}
+                      value={address}
+                      placeholder="Adress *"
+                      className="form-control mb-3 p-3"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                    <ErrorMessage
+                      name="address"
+                      component="p"
+                      className="text-danger"
+                    />
+                    <Field
+                      type="text"
+                      name="country"
+                      onChange={(e) => setCountry(e.target.value)}
+                      value={country}
+                      placeholder="City *"
+                      className="form-control mb-3 p-3"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-default"
+                    />
+                    <ErrorMessage
+                      name="country"
+                      component="p"
+                      className="text-danger"
+                    />
+                    <div className="form-group request m-4 pt-3">
+                      <button className="btn btn-primary" type="submit">
+                        <span>Register</span>
+                      </button>
                     </div>
-                  </div>
-                </LoginSocialGoogle>
-                <LoginSocialFacebook
-                  appId="920872289211071"
-                  onResolve={({ data }) => {
-                    console.log( data);
-                    setprofile(data);
-                  }}
-                  onReject={(err) => {
-                    console.log(err);
-                  }}
-                >
-                  <div className="social-login-btn m-auto">
-                    <div className="mb-3">
-                      <FacebookLoginButton />
+                    <div className="form-group request m-4 pt-3">
+                      <span className="fw-semibold">
+                        if you have Account alredy?{" "}
+                        {/* <a href={navigate("/register")}>Sign in</a> */}
+                      </span>
                     </div>
+                  </Form>
+                </Formik>
+                {/* <form className="bg-body text-center" onSubmit={register}>
+                  <p className="title fw-semibold mb-4">
+                    please enter your Register:
+                  </p>
+                  <div class="input-group mb-3">
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="inputGroupFile02"
+                    />
+                    <label class="input-group-text" for="inputGroupFile02">
+                      Upload
+                    </label>
                   </div>
-                </LoginSocialFacebook>
-            
-              </div>
-            </form>
+                  <div className="form-group email mb-4">
+                    <input
+                      className="form-control"
+                      type="email"
+                      name="example"
+                      autoComplete="off"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                      placeholder="example@example.com"
+                      required
+                    />
+                  </div>
+                  <div className="form-group  mb-4">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="validationTooltip01"
+                      defaultValue="Mark"
+                      required
+                    />
+                    <div className="valid-tooltip">Looks good!</div>
+                  </div>
+                  <div className="">
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder="Enter your FristName"
+                      required
+                    />
+                  </div>
+                  <div className="form-group  mb-4">
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(e) => setLastName(e.target.value)}
+                      value={lName}
+                      placeholder="Enter your LastName"
+                      required
+                    />
+                  </div>
+                  <div className="form-group mb-4">
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      value={phoneNumber}
+                      placeholder="Enter your PhoneNumber"
+                      required
+                    />
+                  </div>
+                  <div className="form-group  mb-4">
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(e) => setAddress(e.target.value)}
+                      value={address}
+                      placeholder="Enter your Address"
+                      required
+                    />
+                  </div>
+                  <div className="form-group  mb-4">
+                    <input
+                      className="form-control"
+                      type="text"
+                      onChange={(e) => setAddress(e.target.value)}
+                      value=""
+                      placeholder="Enter your Address"
+                      required
+                    />
+                  </div>
+                  <div className="form-group password mb-4">
+                    <input
+                      className="form-control"
+                      type="password"
+                      onChange={(e) => setpassword(e.target.value)}
+                      value={password}
+                      placeholder="Enter your password"
+                      required
+                    />
+                  </div>
+                  <div className="form-group request m-4 pt-3">
+                    <button className="btn btn-primary">
+                      <span>Register</span>
+                    </button>
+                  </div>
+                  <div className="form-group request m-4 pt-3">
+                    <span className="fw-semibold">
+                      if you have Account alredy?{" "}
+                      {/* <a href={navigate("/register")}>Sign in</a> */}
+                {/* </span> */}
+                {/* </div> */}
+                {/* </form> */}
+              </>
+            </>
           </div>
         </div>
-      ) : (
-        ""
       )}
-      {profile ? <ClientZone profile={profile} /> : ""}
+      ;
     </div>
   );
 }

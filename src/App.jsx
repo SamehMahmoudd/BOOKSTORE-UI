@@ -16,6 +16,8 @@ import Search from "./components/navbar/icons-comp/search-comp/search";
 import Share from "./components/navbar/icons-comp/share-comp/share";
 import Call from "./components/navbar/icons-comp/call-comp/call";
 import Category from "./components/home-page/category/category-section";
+import ClientzoneLogin from "./components/clientZone/ClientZoneRegister/Clientzone-Login";
+import ClientzoneRegister from "./components/clientZone/ClientZoneRegister/Clientzone-Register";
 
 export default function App() {
   return (
@@ -32,7 +34,9 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/order" element={<OrderRoute />} />
-        <Route path="/clientZone" element={<CLientZoneRouter />} />
+        <Route path="/admin" element={<CLientZoneRouter />} />
+        <Route path="/login" element={<ClientzoneLogin />} />
+        <Route path="/register" element={<ClientzoneRegister />} />
         <Route path="*" element={<NotFound />} />
         ///////////////////////////////////////////////////////////
         <Route path="/search" element={<Search />} />
