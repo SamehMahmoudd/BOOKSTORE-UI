@@ -71,14 +71,14 @@ function DeliveryComponent(props) {
           <div id="order-container-delivery">
             {cart.map((product) => {
               return (
-                <div className="card d-flex flex-row mt-3 order-details h-25" key={product.book.id}>
+                <div className="card d-flex flex-row mt-3 order-details h-25" key={product.book._id}>
                   <img
-                    src={product.book.cover_image}
+                    src={product.book.bookImage}
                     className="card-img-top w-50"
                     style={{objectFit:"contain" , height:'100%'}}
                   />
                   <div className="card-body">
-                    <h5>{product.book.title}</h5>
+                    <h5>{product.book.bookTitle}</h5>
                     <span>{t('order.delivery-sec.quan')} : {product.quantity}</span>
                     <h5 style={{ color: "#900c3f" }}>
                       {Number(product.book.price) * product.quantity}.00 {t('product-details.p-egp')}

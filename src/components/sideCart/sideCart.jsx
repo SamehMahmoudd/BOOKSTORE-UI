@@ -36,12 +36,12 @@ function SideCart({ isCartOpen, handleClose }) {
                   <div className="card mb-3" style={{maxWidth: "480px"}} key={product.book.id}>
                     <div className="row g-0" >
                       <div className="col-md-4">
-                        <img  className="img-fluid " src={product.book.cover_image} alt="cover_image"/>
+                        <img  className="img-fluid " src={product.book.bookImage} alt="cover_image"/>
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
                           <div className='d-flex justify-content-between'>
-                            <h3 className="card-title">{product.book.title}</h3>
+                            <h3 className="card-title">{product.book.bookTitle}</h3>
                             <i className="bi bi-trash" onClick={() => {dispatch(removeFromCart(product))}}></i>
                             {/* <i className="bi bi-trash" onClick={() => {delete(product.book)}}></i> */}
                           </div>

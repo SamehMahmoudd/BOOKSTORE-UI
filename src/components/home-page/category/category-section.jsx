@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import './category.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { getCategories } from '../../../services/categoryService'
-import { setCategories } from '../../../store/reducers/categorySlice'
+import {  useSelector } from 'react-redux'
+
 import { useTranslation } from 'react-i18next'
 
 const Category = () => {
-  const categories = useSelector((state) => state.categories)
-  // const dispatch = useDispatch()
+  const categories = useSelector((state) => state.categories);
 
+
+  // const dispatch = useDispatch()
   // useEffect(() => {
   //   getCategories()
   //     .then((data) => {
@@ -32,11 +32,11 @@ const Category = () => {
         <div className="row row-cols-lg-4 row-cols-md-2 row-cols-1 g-4">
           {categories.map((cat) => {
             return (
-              <div className="col" key={cat.id}>
+              <div className="col" key={cat._id}>
                 <div className="card text-bg-dark">
                   <img src="/assets/img/back-store.jpg" className="card-img" alt="..."/>
                   <div className="card-img-overlay text-center">
-                    <p className="card-text">{cat.num_books} {t('home.category.num-text')}</p>
+                    {/* <p className="card-text">{cat.num_books} {t('home.category.num-text')}</p> */}
                     <Link to={`/store`}>
                       <button
                         type="button"

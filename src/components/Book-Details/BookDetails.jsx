@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useParams } from 'react-router-dom'
-import './BookDetails.css'
-import { addToCart } from '../../store/reducers/cartSlice'
-import Related from './related-section'
-import Review from './review/review'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useParams } from 'react-router-dom';
+import { addToCart } from '../../store/reducers/cartSlice';
+import Related from './related-section';
+import Review from './review/review';
 import { useTranslation } from 'react-i18next';
-
+import './BookDetails.css';
 
 export default function BookDetails() {
 
   const { t } = useTranslation();
   ////////////////////////////////////////////
-  const { id } = useParams();
+  const { _id } = useParams();
   const book = useSelector((state) =>
-    state.books.find((book) => book.id === +id)
+    state.books.find((book) => book._id)
+    
   )
-
+  // console.log(book);
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
 
@@ -42,10 +42,10 @@ export default function BookDetails() {
             <NavLink to="/store" className="nav-link">{t('product-details.store')}</NavLink>
           </li>
           <li className="breadcrumb-item">
-            <NavLink to="/category" className="nav-link">{t('product-details.title')}</NavLink>
+            <NavLink to="/category" className="nav-link">{book?.category.name}</NavLink>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
-            {book?.title}
+            {book?.bookTitle}
           </li>
         </ol>
       </nav>
@@ -56,7 +56,7 @@ export default function BookDetails() {
             <div className="row text-center">
               <div className="heading d-flex flex-column align-items-center mb-1">
                 <div>
-                  <h1>{book?.title}</h1>
+                  <h1>{book?.bookTitle}</h1>
                 </div>
                 <div className="small"></div>
               </div>
@@ -69,13 +69,13 @@ export default function BookDetails() {
             <div className="row  gx-lg-5 ">
               <div className="col-md-4">
                 <div className="zoom " onMouseMove={(e) => handleZoom(e)}
-                  style={{ borderRadius: '12px', backgroundImage: `url(${book?.cover_image})`}}>
-                  <img className="card-img-top mb-md-0" src={book?.cover_image} alt="Book Cover"/>
+                  style={{ borderRadius: '12px', backgroundImage: `url(${book?.bookImage})`}}>
+                  <img className="card-img-top mb-md-0" src={book?.bookImage} alt="Book Cover"/>
                 </div>
               </div>
               <div className="col-md-8"><br /><br/>
                 <div className="fs-5 d-flex flex-column mb-3">
-                  <span className="text-decoration-line-through p-2">{book?.price2}.00</span>
+                  {/* <span className="text-decoration-line-through p-2">{book?.price2}.00</span> */}
                   <span className="price">{book?.price}.00 {t('product-details.p-egp')} </span>
                 </div>
                 <div>
@@ -87,18 +87,18 @@ export default function BookDetails() {
                 </div><br/>
                 <ul className="list-unstyled">
                   <li>
-                    <span>{t('product-details.t-page')} : {book?.pages}</span>
+                    <span>{t('product-details.t-page')} : {book?.bookPages}</span>
                   </li>
                   <li>
-                    <span>{t('product-details.t-category')}</span>
+                    <span>{t('product-details.t-category')}{book?.category.name}</span>
                   </li>
                   <li>
-                    <span>{t('product-details.t-publication')}: {book?.releaseDate}</span>
+                    <span>{t('product-details.t-publication')} : {book?.author.name}</span>
                   </li>
-                  {/* <li>
-                    <span>SKU :</span>
+                  <li>
+                    <span>SKU : </span>
                     <span id="productSku" data-sku="9789778616187">9789778616187</span>
-                  </li> */}
+                  </li>
                   <li
                     id="productShipping"
                     data-unique-id="63131a99c06d4"
@@ -164,7 +164,7 @@ export default function BookDetails() {
                 {/* Description tab content */}
                 <div className="container p-0 d-flex align-items-center justify-content-center">
                   <p style={{textAlign: 'justify', paddingTop: '10px', borderRadius: '5px',color: 'gray',}}>
-                    <strong>{book?.detailes}</strong>
+                    <strong>{book?.description}</strong>
                   </p>
                 </div>
               </div>
@@ -181,7 +181,6 @@ export default function BookDetails() {
           </div>
           <div className="container px-4 px-lg-5 mt-5">
             <div className="row gx-4 gx-lg-5 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center h-100">
-              {/* <Product /> */}
               <Related/>
             </div>
           </div>

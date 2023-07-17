@@ -115,15 +115,15 @@ const Filter = () => {
           <div className="collapse multi-collapse" id="multiCollapseExample2">
             {authors.map((author) => {
               return (
-                <li className="list-group-item" key={author.id}>
+                <li className="list-group-item" key={author._id}>
                   <input
                     className="form-check-input mx-2"
                     type="checkbox"
-                    id={author.surname}
-                    value={author.id}
+                    id={author._id}
+                    value={author._id}
                     onChange={filterHandler} />
-                  <label className="form-check-label" htmlFor={author.surname}>
-                    {author.surname}
+                  <label className="form-check-label" htmlFor={author.name}>
+                    {author.name}
                   </label>
                 </li>
               );

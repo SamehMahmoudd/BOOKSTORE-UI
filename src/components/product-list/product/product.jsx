@@ -16,12 +16,12 @@ const Product = () => {
     <>
       {books.map((book) => {
         return (
-          <div className="col mb-5" key={book.id}>
+          <div className="col mb-5" key={book._id}>
             <div className="card h-100" style={style}>
-              <img className="card-img-top" src={book.cover_image} style={{height:'350px'}} />
+              <img className="card-img-top" src={book.bookImage} style={{height:'350px'}} />
               <div className="card-body p-4">
                 <div className="text-center">
-                  <h5 className="fw-bolder">{book.title}</h5>
+                  <h5 className="fw-bolder">{book.bookTitle}</h5>
                   <p className="card-text">{book.price}.00$</p>
                   <div>
                     <StarRate/>
@@ -30,7 +30,7 @@ const Product = () => {
               </div>
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div className="text-center">
-                  <Link to={`/details/${book.id}`}>
+                  <Link to={`/details/${book._id}`}>
                     <a className="btn btn-outline-dark mt-auto">
                       {t('product-list.product.btn')}
                     </a>
