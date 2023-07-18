@@ -55,7 +55,7 @@ const Product = () => {
       
       {sortedBooks.length == 0 ? <h1 style={{textAlign:'center',width:'100%'}}>Books Not found</h1>: sortedBooks.map((book) =>  {
         return (
-          <div className="col mb-5" key={book._id}>
+          <div className="col mb-5" style={{height:'620px'}} key={book._id}>
             <div className="card h-100" style={style}>
               <img className="card-img-top" src={book.bookImage} style={{height:'350px'}} />
               <div className="card-body p-4">

@@ -35,10 +35,10 @@ const Shop = () => {
         <div className="small"></div>
       </div>
       
-      <div className="container">
-        <div className="row gx-lg-4">
+      <div className="container" >
+        <div className="row gx-lg-4" >
           <Filter />
-          <div className="row row-cols-md-2 row-cols-lg-3  row-cols-1 col-9 px-5">
+          <div className="row row-cols-md-2 row-cols-lg-3  row-cols-1 col-9 px-5" style={{ alignContent: 'flex-start' }}>
           <Product />
           </div>
         </div>

@@ -16,9 +16,14 @@ export default function BookDetails() {
 
   const book = useSelector((state) =>state.books.books.find((book) => book._id === id))
   const category = useSelector((state) => state.categories.find((cat)=>cat._id === book.category));
+  const authorName = book.author.name;
+  const authorBooks = useSelector((state) => state.books.books.filter((book) => book.author.name === authorName));
+  const stock = book.bookStock
   console.log('====================================');
-  console.log(book);
+  console.log('authorBooks:',authorBooks);
+  console.log('bookStock:',stock);
   console.log('====================================');
+  
   
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
@@ -78,7 +83,6 @@ export default function BookDetails() {
               </div>
               <div className="col-md-8"><br /><br/>
                 <div className="fs-5 d-flex flex-column mb-3">
-                  {/* <span className="text-decoration-line-through p-2">{book?.price2}.00</span> */}
                   <span className="price">{book?.price}.00 {t('product-details.p-egp')} </span>
                 </div>
                 <div>
