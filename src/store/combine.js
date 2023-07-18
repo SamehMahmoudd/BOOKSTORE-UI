@@ -3,7 +3,7 @@ import booksSlice from './reducers/booksSlice'
 import categorySlice from './reducers/categorySlice';
 import authorSlice from './reducers/authorSlice';
 import cartSlice from './reducers/cartSlice';
-import addressSlice from './reducers/addressSlice';
+import loaderSlice from './reducers/loaderSlice';
 
 
 export default combineReducers({
@@ -11,6 +11,6 @@ export default combineReducers({
     categories: categorySlice,
     authors: authorSlice,
     cart: cartSlice,
-    emailAddress :addressSlice
+    loader :loaderSlice,
 });
 

@@ -4,7 +4,7 @@ import { UserSevice } from "../../services/userService";
  const initialState ={  
  isloader :false
 }
- const AddressSlice = createSlice({
+ const loaderSlice = createSlice({
     name : "Loader",
     initialState,
     reducers:{
@@ -23,6 +23,6 @@ import { UserSevice } from "../../services/userService";
     }
  })
 
- export const {addAdress } = AddressSlice.actions
+ export const {loader } = loaderSlice.actions
 
- export default AddressSlice.reducer
+ export default loaderSlice.reducer

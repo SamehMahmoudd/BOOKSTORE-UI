@@ -10,7 +10,7 @@ import {
   GoogleLoginButton,
 } from "react-social-login-buttons";
 import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ClientzoneRegister from "./Clientzone-Register";
 export default function ClientzoneLogin() {
   const { setAuth } = useContext(AuthContext);
@@ -124,7 +124,7 @@ export default function ClientzoneLogin() {
                   </div>
                   <div className="form-group request m-4 pt-3">
                     <span className="fw-semibold">
-                      Need An Account ? <a href="#">Sign Up</a>
+                      Need An Account ? <Link to="/register">Sign Up</Link>
                     </span>
                   </div>
                   <div className="login-box pt-3">

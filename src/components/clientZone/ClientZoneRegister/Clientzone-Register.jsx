@@ -1,43 +1,67 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { Formik, ErrorMessage, Form, Field } from "formik";
-import { registerValidation } from "../../../ValidationSchema/registerValidation";
+// import { Formik, ErrorMessage, Form, Field } from "formik";
+// import { registerValidation } from "../../../ValidationSchema/registerValidation";
 // const login_URL = "/auth/login";
+import Spinner from "react-bootstrap/Spinner";
+import swal from "sweetalert";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../../../context/authProvider";
 export default function ClientzoneRegister() {
+  const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
-  const [fName, setFristName] = useState("");
-  const [lName, setLastName] = useState("");
+  const [image, setImage] = useState("");
+  const [fristName, setFristName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [country, setCountry] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState(false);
   useEffect(() => {
     userRef?.current?.focus();
   }, []);
   useEffect(() => {
     setErrMsg("");
-  }, [email, fName, lName, password, phoneNumber, address]);
+  }, [
+    image,
+    email,
+    fristName,
+    lastName,
+    password,
+    phoneNumber,
+    address,
+    country,
+  ]);
   const register = async (e) => {
     e.preventDefault();
-    updatePage("nav-delivery");
     console.log(e);
     try {
       const res = await axios.post("http://localhost:3001/auth/register", {
-        fristName: fName,
-        lastName: lName,
-        email: email,
-        password: password,
-        phoneNumber: phoneNumber,
-        address: address,
-        country: country,
+        image,
+        fristName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+        address,
+        country,
       });
-
-      // console.log(res);
+      console.log(res);
+      setAuth({
+        image,
+        fristName,
+        lastName,
+        email,
+        password,
+        phoneNumber,
+        address,
+        country,
+      });
+      setImage("");
       setFristName("");
       setLastName("");
       setEmail("");
@@ -46,8 +70,9 @@ export default function ClientzoneRegister() {
       setAddress("");
       setCountry("");
       setSuccess(true);
-      alert("succefully registration");
+      swal("succefully registration", "You clicked the button!", "success");
     } catch (err) {
+      swal("registration rejected ", "You clicked the button!", "warning");
       if (!err?.res) {
         setErrMsg("No Server is Response");
       } else if (err.res?.status === 400) {
@@ -60,21 +85,21 @@ export default function ClientzoneRegister() {
       errRef.current.focus();
     }
   };
-  function handleFormData(eve) {
-    const { name, value } = eve.target;
-    props.updatingData({ ...props.data, [name]: value });
-    console.log(props.data);
-  }
+  // function handleFormData(eve) {
+  //   const { name, value } = eve.target;
+  //   props.updatingData({ ...props.data, [name]: value });
+  //   console.log(props.data);
+  // }
 
-  const initialValues = {
-    fName: "",
-    lName: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
-    address: "",
-    country: "",
-  };
+  // const initialValues = {
+  //   fristName: "",
+  //   LastName: "",
+  //   email: "",
+  //   password: "",
+  //   phoneNumber: "",
+  //   address: "",
+  //   country: "",
+  // };
   return (
     <div className="mb-5">
       <div className="container-fluid page-header noBackground mb-5">
@@ -89,21 +114,18 @@ export default function ClientzoneRegister() {
           </div>
         </div>
       </div>
-      {success ? (
-        <ClientzoneRegister />
-      ) : (
-        <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
-          <div className="row login-forms box box-primary w-100 m-auto mb-lg">
+      <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
+        <div className="row login-forms box box-primary w-100 m-auto mb-lg">
+          <>
+            <div
+              ref={errRef}
+              className={errMsg ? "errmsg" : "offscreen"}
+              aria-live="assertive"
+            >
+              {errMsg}
+            </div>
             <>
-              <div
-                ref={errRef}
-                className={errMsg ? "errmsg" : "offscreen"}
-                aria-live="assertive"
-              >
-                {errMsg}
-              </div>
-              <>
-                <Formik
+              {/* <Formik
                   className="bg-body text-center"
                   initialValues={initialValues}
                   validationSchema={registerValidation}
@@ -112,31 +134,31 @@ export default function ClientzoneRegister() {
                   <Form>
                     <Field
                       type="text"
-                      name="fName"
+                      name="fristName"
                       onChange={(e) => setFristName(e.target.value)}
-                      value={fName}
+                      value={fristName}
                       placeholder="fristName *"
                       className="form-control mb-3 p-3"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
                     />
                     <ErrorMessage
-                      name="fName"
+                      name="fristName"
                       component="p"
                       className="text-danger"
                     />
                     <Field
                       type="text"
-                      name="lName"
+                      name="LastName"
                       onChange={(e) => setLastName(e.target.value)}
-                      value={lName}
+                      value={LastName}
                       placeholder="lastName *"
                       className="form-control mb-3 p-3"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
                     />
                     <ErrorMessage
-                      name="lName"
+                      name="LastName"
                       component="p"
                       className="text-danger"
                     />
@@ -224,122 +246,121 @@ export default function ClientzoneRegister() {
                       <span className="fw-semibold">
                         if you have Account alredy?{" "}
                         {/* <a href={navigate("/register")}>Sign in</a> */}
-                      </span>
-                    </div>
-                  </Form>
-                </Formik>
-                {/* <form className="bg-body text-center" onSubmit={register}>
-                  <p className="title fw-semibold mb-4">
-                    please enter your Register:
-                  </p>
-                  <div class="input-group mb-3">
-                    <input
-                      type="file"
-                      className="form-control"
-                      id="inputGroupFile02"
-                    />
-                    <label class="input-group-text" for="inputGroupFile02">
-                      Upload
-                    </label>
-                  </div>
-                  <div className="form-group email mb-4">
-                    <input
-                      className="form-control"
-                      type="email"
-                      name="example"
-                      autoComplete="off"
-                      onChange={(e) => setEmail(e.target.value)}
-                      value={email}
-                      placeholder="example@example.com"
-                      required
-                    />
-                  </div>
-                  <div className="form-group  mb-4">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="validationTooltip01"
-                      defaultValue="Mark"
-                      required
-                    />
-                    <div className="valid-tooltip">Looks good!</div>
-                  </div>
-                  <div className="">
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="Enter your FristName"
-                      required
-                    />
-                  </div>
-                  <div className="form-group  mb-4">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(e) => setLastName(e.target.value)}
-                      value={lName}
-                      placeholder="Enter your LastName"
-                      required
-                    />
-                  </div>
-                  <div className="form-group mb-4">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      value={phoneNumber}
-                      placeholder="Enter your PhoneNumber"
-                      required
-                    />
-                  </div>
-                  <div className="form-group  mb-4">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(e) => setAddress(e.target.value)}
-                      value={address}
-                      placeholder="Enter your Address"
-                      required
-                    />
-                  </div>
-                  <div className="form-group  mb-4">
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(e) => setAddress(e.target.value)}
-                      value=""
-                      placeholder="Enter your Address"
-                      required
-                    />
-                  </div>
-                  <div className="form-group password mb-4">
-                    <input
-                      className="form-control"
-                      type="password"
-                      onChange={(e) => setpassword(e.target.value)}
-                      value={password}
-                      placeholder="Enter your password"
-                      required
-                    />
-                  </div>
-                  <div className="form-group request m-4 pt-3">
-                    <button className="btn btn-primary">
+              {/* </span> */}
+              {/* </div> */}
+              {/* </Form> */}
+              {/* </Formik> */}
+              <form className="bg-body text-center" onSubmit={register}>
+                <p className="title fw-semibold mb-4">
+                  please enter your Register:
+                </p>
+                <div class="input-group mb-3">
+                  <input
+                    type="file"
+                    className="form-control"
+                    onChange={(e) => setImage(e.target.value)}
+                    value={image}
+                    placeholder="Enter your FristName"
+                    required
+                  />
+                </div>
+                <div className="form-group  mb-4">
+                  <input
+                    type="text"
+                    className="form-control"
+                    onChange={(e) => setFristName(e.target.value)}
+                    value={fristName}
+                    placeholder="Enter your FristName"
+                    required
+                  />
+                </div>
+                <div className="form-group  mb-4">
+                  <input
+                    className="form-control"
+                    type="text"
+                    onChange={(e) => setLastName(e.target.value)}
+                    value={lastName}
+                    placeholder="Enter your LastName"
+                    required
+                  />
+                </div>
+                <div className="form-group email mb-4">
+                  <input
+                    className="form-control"
+                    type="email"
+                    name="example"
+                    autoComplete="off"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    placeholder="example@example.com"
+                    required
+                  />
+                </div>
+                <div className="form-group  mb-4">
+                  <input
+                    className="form-control"
+                    type="password"
+                    onChange={(e) => setpassword(e.target.value)}
+                    value={password}
+                    placeholder="Enter your password"
+                    required
+                  />
+                </div>
+                <div className="form-group mb-4">
+                  <input
+                    className="form-control"
+                    type="text"
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    value={phoneNumber}
+                    placeholder="Enter your PhoneNumber"
+                    required
+                  />
+                </div>
+                <div className="form-group  mb-4">
+                  <input
+                    className="form-control"
+                    type="text"
+                    onChange={(e) => setAddress(e.target.value)}
+                    value={address}
+                    placeholder="Enter your Address"
+                    required
+                  />
+                </div>
+                <div className="form-group  mb-4">
+                  <input
+                    className="form-control"
+                    type="text"
+                    onChange={(e) => setCountry(e.target.value)}
+                    value={country}
+                    placeholder="Enter your country"
+                    required
+                  />
+                </div>
+                <div className="form-group request m-4 pt-3">
+                  <button className="btn btn-primary">
+                    {success ? (
+                      <Spinner
+                        animation="border"
+                        role="status"
+                        className="container d-flex align-items-center justify-content-center"
+                      >
+                        <span className="visually-hidden ">Loading...</span>
+                      </Spinner>
+                    ) : (
                       <span>Register</span>
-                    </button>
-                  </div>
-                  <div className="form-group request m-4 pt-3">
-                    <span className="fw-semibold">
-                      if you have Account alredy?{" "}
-                      {/* <a href={navigate("/register")}>Sign in</a> */}
-                {/* </span> */}
-                {/* </div> */}
-                {/* </form> */}
-              </>
+                    )}
+                  </button>
+                </div>
+                <div className="form-group request m-4 pt-3">
+                  <span className="fw-semibold">
+                    if you have Account alredy? <Link to="/login">Sign in</Link>
+                  </span>
+                </div>
+              </form>
             </>
-          </div>
+          </>
         </div>
-      )}
-      ;
+      </div>
     </div>
   );
 }
