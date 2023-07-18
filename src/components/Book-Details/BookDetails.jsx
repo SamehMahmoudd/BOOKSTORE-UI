@@ -11,6 +11,7 @@ export default function BookDetails() {
 
   const { t } = useTranslation();
   ////////////////////////////////////////////
+
   const { id } = useParams();
   
 
@@ -23,7 +24,6 @@ export default function BookDetails() {
   console.log('authorBooks:',authorBooks);
   console.log('bookStock:',stock);
   console.log('====================================');
-  
   
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
@@ -173,6 +173,7 @@ export default function BookDetails() {
                   <h4 style={{textAlign: 'right', paddingTop: '10px', borderRadius: '5px',color: 'gray',}}>
                     <strong>{book?.description}</strong>
                   </h4>
+
                 </div>
               </div>
             </div>
