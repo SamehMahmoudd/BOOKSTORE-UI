@@ -1,19 +1,18 @@
-import { Link } from 'react-router-dom'
-import './sideCart.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { decreaseBookQuantity, emptyCart, increaseBookQuantity, removeFromCart } from '../../store/reducers/cartSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { decreaseBookQuantity, emptyCart, increaseBookQuantity, removeFromCart } from '../../store/reducers/cartSlice';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom'
+import './sideCart.css';
 
 function SideCart({ isCartOpen, handleClose }) {
 
-
   const {t} = useTranslation();
   //////////////////////////////////////////////
-  const cart = useSelector((state) => state.cart)
+  const cart = useSelector((state) => state.cart);
   const count = cart.reduce((total, product) => {
     return total + product.quantity
   }, 0)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -37,12 +36,12 @@ function SideCart({ isCartOpen, handleClose }) {
                   <div className="card mb-3" style={{maxWidth: "480px"}} key={product.book.id}>
                     <div className="row g-0" >
                       <div className="col-md-4">
-                        <img  className="img-fluid " src={product.book.cover_image} alt="cover_image"/>
+                        <img  className="img-fluid " src={product.book.bookImage} alt="cover_image"/>
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
                           <div className='d-flex justify-content-between'>
-                            <h3 className="card-title">{product.book.title}</h3>
+                            <h3 className="card-title">{product.book.bookTitle}</h3>
                             <i className="bi bi-trash" onClick={() => {dispatch(removeFromCart(product))}}></i>
                             {/* <i className="bi bi-trash" onClick={() => {delete(product.book)}}></i> */}
                           </div>
@@ -73,15 +72,14 @@ function SideCart({ isCartOpen, handleClose }) {
                 </div>
                 <div>
                   <Link to={`/order`}>
-
-                    <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" onClick={() => { handleClose()}}>MAKE AN OREDER</button>
+                    <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" 
+                    onClick={() => { handleClose()}}>{t('side-cart.btn-order')}</button>
                   </Link>
                 </div>
-                <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn" onClick={() => { handleClose()}}> CONTINUE SHOPPING</button>
-
+                <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn" 
+                onClick={() => { handleClose()}}>{t('side-cart.btn-continue')}</button>
               </div>
             )}
-            
           </div>
         </div>
       </div>
@@ -89,4 +87,4 @@ function SideCart({ isCartOpen, handleClose }) {
   )
 }
 
-export default SideCart
+export default SideCart;

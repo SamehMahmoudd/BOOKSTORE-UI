@@ -15,9 +15,10 @@ import CLientZoneRouter from './components/clientZone/CLientZoneRouter'
 import Search from './components/navbar/icons-comp/search-comp/search';
 import Share from './components/navbar/icons-comp/share-comp/share';
 import Call from './components/navbar/icons-comp/call-comp/call';
-import Category from "./components/home-page/category/category-section";
+// import Category from "./components/home-page/category/category-section";
 import LangSwitch from "./components/navbar/icons-comp/lang-comp/lang";
 import Test from "./components/i18n/test";
+import Categories from "./components/home-page/category/Categories";
 
 
 export default function App() {
@@ -28,8 +29,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/store" element={<Shop />} />
+        <Route path="/category" element={<Categories />}/>
+        <Route path="/store/:id" element={<Shop />} />
         <Route path="/details/:id" element={<BookDetails />} />
         <Route path="/tranding" element={<Tranding />} />
         <Route path="/about" element={<About />} />

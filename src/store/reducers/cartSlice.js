@@ -29,18 +29,9 @@ export const cartSlice = createSlice({
       })
     },
     removeFromCart: (state, action) => {
-      // const index = state.find(product => product.book.id === action.payload.book.id);
-      // return state.slice(0, index).concat(index + 1);
-      // const product = state.filter((p, index) => index !== action.payload)
-
-      // const index = state.filter(product => {
-      //   product.book.id !== action.payload;
-      //   return state = [...state, action.payload];
-      // });
-      console.log(action.payload.book.id);
-      console.log(action.payload);
-      // console.log(product)
+      return state = []
     },
+    
     emptyCart: (state, action) => {
       return state = []
     }

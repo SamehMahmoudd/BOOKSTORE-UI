@@ -1,27 +1,66 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import Rating from '../../rating/rating'
+import React , { useState }from 'react'
+import { useSelector ,useDispatch } from 'react-redux'
+import { Link,useParams } from 'react-router-dom'
 import StarRate from '../../rating/rating'
 import { useTranslation } from 'react-i18next'
+import { catId } from '../../../store/reducers/booksSlice';
 
 const Product = () => {
-
-  const { t } = useTranslation();
-  ////////////////////////////////////////////
   const style = { boxShadow: '10px 10px 5px #aaaaaa' }
-  const books = useSelector((state) => state.books)
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+ 
+  const { id } = useParams();
+  dispatch(catId(id));
+  console.log('====================================');
+  console.log('id from component----->',id);
+  console.log('====================================');
+  
+  // const books = useSelector((state) => state.books.filterCount > 0 ? state.books.filteredBooks:state.books.books)
+  const books = useSelector((state) => {
+    if (state.books.filterCount > 0) {
+      return state.books.filteredBooks;
+    } else if (state.books.categoryId) {
+      return state.books.books.filter((book) => book.category === state.books.categoryId);
+    } else {
+      return state.books.books;
+    }
+  });
+  const [selectedSortOption, setSelectedSortOption] = useState('');
+
+  const handleSortChange = (event) => {
+    const value = event.target.value;
+    setSelectedSortOption(value);
+    console.log('value = ',value);
+  };
+
+
+  const sortedBooks = [...books]
+  if (selectedSortOption === 'Des') {
+    sortedBooks.sort((a, b) => b.price - a.price);
+  } else if (selectedSortOption === 'Asc') {
+    sortedBooks.sort((a, b) => a.price - b.price);
+  }
 
   return (
     <>
-      {books.map((book) => {
+      <select style={{height:'50px'}} className="form-select form-select-lg mb-3 " aria-label=".form-select-lg example" 
+        value={selectedSortOption}
+        onChange={handleSortChange}
+      >
+        <option selected hidden>Sort By    </option>
+        <option value="Des">Price,high to low</option>
+        <option value="Asc">Price,low to high</option>
+      </select>
+      
+      {sortedBooks.length == 0 ? <h1 style={{textAlign:'center',width:'100%'}}>Books Not found</h1>: sortedBooks.map((book) =>  {
         return (
-          <div className="col mb-5" key={book.id}>
+          <div className="col mb-5" key={book._id}>
             <div className="card h-100" style={style}>
-              <img className="card-img-top" src={book.cover_image} style={{height:'350px'}} />
+              <img className="card-img-top" src={book.bookImage} style={{height:'350px'}} />
               <div className="card-body p-4">
                 <div className="text-center">
-                  <h5 className="fw-bolder">{book.title}</h5>
+                  <h5 className="fw-bolder">{book.bookTitle}</h5>
                   <p className="card-text">{book.price}.00$</p>
                   <div>
                     <StarRate/>
@@ -30,7 +69,7 @@ const Product = () => {
               </div>
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div className="text-center">
-                  <Link to={`/details/${book.id}`}>
+                  <Link to={`/details/${book._id}`}>
                     <a className="btn btn-outline-dark mt-auto">
                       {t('product-list.product.btn')}
                     </a>

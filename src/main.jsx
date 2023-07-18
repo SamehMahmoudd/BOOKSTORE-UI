@@ -12,7 +12,7 @@ import "./components/i18n/i18n.js";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <React.Suspense fallback="Loading">
+      <React.Suspense fallback={<div style={{fontSize:'50px',paddingTop:'100px',textAlign:'center'}}>Loading...</div>}>
         <Provider store={store}>
           <App />
         </Provider>

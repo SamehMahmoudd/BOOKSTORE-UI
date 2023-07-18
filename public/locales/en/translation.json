@@ -85,8 +85,8 @@
         "title":"NOVELS & ADULTS FICTION",
         "p-egp":"EGP",
         "t-page":"Pages",
-        "t-category":"Category : Horror Story ",
-        "t-publication":"Publication ",
+        "t-category":"Category : ",
+        "t-publication":"Author",
         "t-shipping":"Shipping",
         "shipping":"Shipping Cairo - Giza (3 Working Days)",
         "t-policy":" Return Policy",
@@ -188,7 +188,8 @@
         "payment-sec":{
             "choose-method":"Please choose your payment method",
             "cash":"Cash on Delivery",
-            "btn-order":"PLACE ORDER"
+            "btn-order":"PLACE ORDER",
+            "alert-comp":"Transaction completed by"
         }
     }
 }

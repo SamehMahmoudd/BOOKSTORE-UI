@@ -1,44 +1,55 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./sidebar.css";
+import { addPriceFilter,removePriceFilter,setAuthorFilter,removeAuthorFilter } from '../../../store/reducers/booksSlice';
 import { useTranslation } from 'react-i18next';
+import "./sidebar.css";
 
 const Filter = () => {
-
   const { t } = useTranslation();
 
-  const authors = useSelector((state) => state.authors);
 
-  // useEffect(() => {
-  //   getAuthors()
-  //     .then((data) => {
-  //       dispatch(setAuthors(data))
-  //     })
-  //     .catch((err) => {
-  //       console.log('error in getting authors', err)
-  //     })
-  // }, [])
-  ///////////////////////////////////////////////////
-  ///Btn-Collaps
+  const authors = useSelector((state) => state.authors);
+  // console.log('authors-------?',authors);
+  //============================================//
+  const dispatch = useDispatch();
+
+  const handelSelectedPrice = (event) =>{
+    const price = event.target.value; 
+    const isChecked = event.target.checked;
+    console.log('SelectedPrice:', price);
+    
+    if (isChecked) {
+      dispatch(addPriceFilter(price)); 
+    
+    }else if(!isChecked){
+      dispatch(removePriceFilter(price)); 
+    }
+    console.log('Checkbox checked:', event.target.checked);
+  }
+//============================================//
+ 
+  
+  //Btn-Collaps
   const [isClick, setClick] = useState("false");
   const handleclick = () => {
-    console.log("like");
     setClick(!isClick);
   };
-  ////////////////////////////////////////////////////
-  ///get selected checked box
-  const [filterById, setFilterById] = useState([]);
-  const filterHandler = (event) => {
-    if (event.target.checked) {
-      setFilterById([...filterById, event.target.value]);
-      console.log(event.target.value);
-    } else {
-      setFilterById(
-        filterById.filter((filter) => filter !== event.target.value)
-      );
-      // console.log(event.target.value);
+
+ //=============get selected Auther ================//
+  // const [filterById, setFilterById] = useState([]);
+
+  const  handelSelectedAuther = (event) => {
+    const auther = event.target.value; 
+    const isChecked = event.target.checked;
+    console.log('SelectedAuthor:', auther);
+    
+    if (isChecked) {
+      dispatch(setAuthorFilter(auther)); 
+    }else if(!isChecked){
+      dispatch(removeAuthorFilter(auther)); 
     }
-  };
+    console.log('Checkbox checked:', event.target.checked);
+};
 
   return (
     <>
@@ -63,35 +74,55 @@ const Filter = () => {
           <div className="collapse multi-collapse" id="multiCollapseExample1">
             <li className="list-group-item">
               <input className="form-check-input mx-2"
-                type="checkbox" id='' value='' onChange={filterHandler}/>
+                type="checkbox"
+                id='0-49'
+                value='0-49'
+                onChange={handelSelectedPrice}
+              />
               <label className="form-check-label" htmlFor=''>
                 {t('product-list.filter.p1')}
               </label>
             </li>
             <li className="list-group-item">
               <input className="form-check-input mx-2"
-                type="checkbox" id='' value='' onChange={filterHandler}/>
+                type="checkbox"
+                id='50-100'
+                value='50-100'
+                onChange={handelSelectedPrice}
+              />
               <label className="form-check-label" htmlFor=''>
                 {t('product-list.filter.p2')}
               </label>
             </li>
             <li className="list-group-item">
               <input className="form-check-input mx-2"
-                type="checkbox" id='' value='' onChange={filterHandler}/>
+                type="checkbox"
+                id='100-199'
+                value='100-199'
+                onChange={handelSelectedPrice}
+              />
               <label className="form-check-label" htmlFor=''>
                 {t('product-list.filter.p3')}
               </label>
             </li>
             <li className="list-group-item">
               <input className="form-check-input mx-2"
-                type="checkbox" id='' value='' onChange={filterHandler}/>
+                type="checkbox"
+                id='200-299'
+                value='200-299'
+                onChange={handelSelectedPrice}
+              />
               <label className="form-check-label" htmlFor=''>
                 {t('product-list.filter.p4')}
               </label>
             </li>
             <li className="list-group-item">
               <input className="form-check-input mx-2"
-                type="checkbox" id='' value='' onChange={filterHandler}/>
+                type="checkbox"
+                id='300-1000'
+                value='300-1000'
+                onChange={handelSelectedPrice}
+              />
               <label className="form-check-label" htmlFor=''>
                 {t('product-list.filter.p5')}
               </label>
@@ -115,15 +146,17 @@ const Filter = () => {
           <div className="collapse multi-collapse" id="multiCollapseExample2">
             {authors.map((author) => {
               return (
-                <li className="list-group-item" key={author.id}>
+                // console.log('wwwwwwwwwwwwwww',author.name),
+                <li className="list-group-item" key={author._id}>
                   <input
                     className="form-check-input mx-2"
                     type="checkbox"
-                    id={author.surname}
-                    value={author.id}
-                    onChange={filterHandler} />
-                  <label className="form-check-label" htmlFor={author.surname}>
-                    {author.surname}
+                    id={author._id}
+                    value={author.name}
+                    onChange={handelSelectedAuther}
+                     />
+                  <label className="form-check-label" htmlFor={author.name}>
+                    {author.name}
                   </label>
                 </li>
               );
