@@ -5,15 +5,17 @@ import { ClientActivePageCntxt } from "../../clientZone/CLientZoneRouter";
 import Profile from "./profile/Profile";
 import MyAddress from "./myAddress/MyAddress";
 import MyStore from "./myStore/MyStore";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-import ClientzoneRegister from "../ClientZoneRegister/Clientzone-Login";
+
+
 function ClientZone({ profile }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLogding] = useState("");
   const [user, setUser] = useState("");
-  console.log(setUser);
+  // console.log(setUser);
 
   const handleLogout = async () => {
     try {
@@ -31,7 +33,18 @@ function ClientZone({ profile }) {
   }
   return (
     <div className=" container page-header noBackground">
-
+       <div className="container-fluid page-header noBackground mb-5">
+        <div className="row">
+          <div className="container modulesTitleContainer">
+            <div className="row modulesTitle text-center pt-4 pb-3">
+              <div className="page-header-wrap">
+                <h2 className="mb-3">{t("client-zone.client.reg-title")}</h2>
+                <span className="hr m-auto"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div>
         {loading ? (
           <Spinner
@@ -94,10 +107,10 @@ function ClientZone({ profile }) {
                 <div className="clientemail">
                   <span className="email fw-bold d-block mb-2">{""}</span>
                   <i
-                    class="bi-box-arrow-in-right fw-bold  logoutBtn border  p-2"
+                    className="bi-box-arrow-in-right fw-bold  logoutBtn border  p-2"
                     onClick={handleLogout}
                   >
-                    &nbsp; logout
+                    &nbsp; {t('client-zone.client.btn-log')}
                   </i>
                 </div>
               </div>
@@ -106,8 +119,8 @@ function ClientZone({ profile }) {
                 className="form-control hidden-xs visible-xs "
                 style={{ display: "none", marginBottom: "20px" }}
               >
-                <option value="profile">Profile </option>
-                <option value="addresses">My Addresses</option>
+                <option value="profile">{t('client-zone.client.t-profile')}</option>
+                <option value="addresses">{t('client-zone.client.t-address')}</option>
               </select>
               <div
                 id="clientZone-menu-tabs"
@@ -125,8 +138,8 @@ function ClientZone({ profile }) {
                   }}
                 >
                   <div className="icon-container">
-                    <i class="bi-person-fill icons">&nbsp;</i>
-                    <span>Profile</span>
+                    <i className="bi-person-fill icons">&nbsp;</i>
+                    <span>{t('client-zone.client.t-profile')}</span>
                   </div>
                 </div>
                 <div
@@ -141,8 +154,8 @@ function ClientZone({ profile }) {
                   }}
                 >
                   <div className="icon-container">
-                    <i class="bi-houses-fill">&nbsp;</i>
-                    <span>My Addresses</span>
+                    <i className="bi-houses-fill">&nbsp;</i>
+                    <span>{t('client-zone.client.t-address')}</span>
                   </div>
                 </div>
                 <div
@@ -157,10 +170,9 @@ function ClientZone({ profile }) {
                   }}
                 >
                   <div className="icon-container">
-                    <i class="bi-google-play icons">&nbsp;</i>
-                    <span>My Store</span>
+                    <i className="bi-google-play icons">&nbsp;</i>
+                    <span>{t('client-zone.client.t-store')}</span>
                   </div>
-
                 </div>
               </div>
             </div>

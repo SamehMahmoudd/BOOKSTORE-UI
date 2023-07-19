@@ -100,7 +100,10 @@ export default function BookDetails() {
                     <span>{t('product-details.t-category')}{category.name}</span>
                   </li>
                   <li>
-                    <span>{t('product-details.t-publication')} : {book?.author.name}</span>
+                    <span>{t('product-details.t-author')} : {book?.author.name}</span>
+                  </li>
+                  <li>
+                    <span>{t('product-details.t-publication')} : {book?.publishedYear}</span>
                   </li>
                   <li>
                     <span>SKU : </span>

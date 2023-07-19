@@ -1,4 +1,4 @@
-
+import { useTranslation } from "react-i18next";
 import React, { useRef, useState, useEffect, useContext } from "react";
 // import { Formik, ErrorMessage, Form, Field } from "formik";
 // import { registerValidation } from "../../../ValidationSchema/registerValidation";
@@ -86,6 +86,7 @@ export default function ClientzoneRegister() {
       errRef.current.focus();
     }
   };
+  const { t } = useTranslation();
   // function handleFormData(eve) {
   //   const { name, value } = eve.target;
   //   props.updatingData({ ...props.data, [name]: value });
@@ -102,14 +103,13 @@ export default function ClientzoneRegister() {
   //   country: "",
   // };
   return (
-    <div className="mb-5">
+    <div className="m-5">
       <div className="container-fluid page-header noBackground mb-5">
-
         <div className="row">
           <div className="container modulesTitleContainer">
             <div className="row modulesTitle text-center pt-4 pb-3">
               <div className="page-header-wrap">
-                <h2 className="mb-3">{t('client-zone.client.title')}</h2>
+                <h2 className="mb-3">{t("client-zone.client.reg-title")}</h2>
                 <span className="hr m-auto"></span>
               </div>
             </div>
@@ -120,6 +120,7 @@ export default function ClientzoneRegister() {
       <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
         <div className="row login-forms box box-primary w-100 m-auto mb-lg">
           <>
+
             <div
               ref={errRef}
               className={errMsg ? "errmsg" : "offscreen"}
@@ -256,9 +257,9 @@ export default function ClientzoneRegister() {
               {/* </Formik> */}
               <form className="bg-body text-center" onSubmit={register}>
                 <p className="title fw-semibold mb-4">
-                  please enter your Register:
+                   {t('client-zone.client.reg-email')}
                 </p>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                   <input
                     type="file"
                     className="form-control"

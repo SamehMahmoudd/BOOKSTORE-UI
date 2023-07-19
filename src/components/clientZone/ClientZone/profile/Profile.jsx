@@ -1,5 +1,5 @@
-
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Profile() {
   const {t} = useTranslation();
@@ -13,15 +13,15 @@ export default function Profile() {
             <div className="col-xs-12 col-md-6">
               {/* First name */}
               <div className="form-group">
-                <label htmlFor="first_name">First Name</label>
+                <label htmlFor="first_name">{t('client-zone.profile.l-fname')}</label>
                 <input
                   type="text"
                   id="first_name"
                   name="first_name"
                   className="form-control"
-                  placeholder="First Name"
+                  placeholder={t('client-zone.profile.l-fname')}
                 />
-              </div>{" "}
+              </div>
               {/* nickname */}
               <div className="form-group forum-property hidden">
                 <label htmlFor="nickname">Nickname</label>
@@ -32,10 +32,10 @@ export default function Profile() {
                   className="form-control"
                   placeholder="Nickname"
                 />
-              </div>{" "}
+              </div>
               {/* Country */}
               <div className="form-group">
-                <label htmlFor="country">Country</label>
+                <label htmlFor="country">{t('client-zone.profile.l-country')}</label>
                 <select
                   id="country"
                   name="country"
@@ -304,33 +304,33 @@ export default function Profile() {
               </div>
             </div>
             <div className="col-xs-12 col-md-6">
-              {/* Last name */}{" "}
+              {/* Last name */}
               <div className="form-group">
-                <label htmlFor="last_name">Last Name</label>
+                <label htmlFor="last_name">{t('client-zone.profile.l-lname')}</label>
                 <input
                   type="text"
                   id="last_name"
                   name="last_name"
                   className="form-control"
-                  placeholder="Last Name"
+                  placeholder={t('client-zone.profile.l-lname')}
                 />
-              </div>{" "}
+              </div>
               {/* Phone */}
               <div className="form-group">
-                <label htmlFor="phone">Phone</label>
+                <label htmlFor="phone">{t('client-zone.profile.l-phone')}</label>
                 <input
                   type="text"
                   id="phone"
                   name="phone"
                   className="form-control"
-                  placeholder="Phone Number"
+                  placeholder={t('client-zone.profile.l-phone')}
                 />
-              </div>{" "}
+              </div>
               {/* Subscribe */}
               <div className="form-group profile-container-subscribe">
-                <label htmlFor="unsubscribe">Subscribe</label>
+                <label htmlFor="unsubscribe">{t('client-zone.profile.l-sub')}</label>
                 <span className="profile-container-subscribe-text">
-                  Receive our latest news and updates!
+                  {t('client-zone.profile.sub-text')}
                 </span>
                 <div className="checkbox">
                   <label className="checkbox-label">
@@ -341,13 +341,13 @@ export default function Profile() {
                     />
                     <span className="checkbox-custom" />
                     &nbsp;
-                    <span className="input-title">Keep me updated</span>
+                    <span className="input-title">{t('client-zone.profile.check')}</span>
                   </label>
                 </div>
               </div>
               <div className="form-group profile-container-btn">
                 <button type="submit" className="btn btn-lg btn-danger">
-                  <span>Save</span>
+                  <span>{t('client-zone.profile.btn')}</span>
                   <i
                     className="bi bi-arrow-repeat fa-spin"
                     style={{

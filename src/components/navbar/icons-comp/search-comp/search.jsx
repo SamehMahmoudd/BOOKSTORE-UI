@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import './../overlay.css';
 
 function Search() {
-    const books = useSelector((state) => state.books);
+    const books = useSelector((state) => state.books.books);
     //setInputValue(value) is called to update the inputValue with the new value.
     const [inputValue, setInputValue] = useState('');
     const [filteredBooks, setFilteredBooks] = useState(books);
@@ -16,7 +16,7 @@ function Search() {
     };
 
     const searchQuery  = ()=>{
-        const filtered  = books.filter((book) => book.title.toLowerCase().includes(inputValue.toLowerCase()));
+        const filtered  = books.filter((book) => book.bookTitle.toLowerCase().includes(inputValue.toLowerCase()));
         setFilteredBooks(filtered)
     }
 
@@ -37,12 +37,15 @@ function Search() {
                 <button onClick={searchQuery} id='searchBtn'><i className ="bi bi-search"></i></button>
             </div>
             <div id="item-list" className='row'>
-                <div className='col'>
-                <ul>
+                <div className='col '>
+                <ul style={{listStyleType:'none'}} > 
                     {filteredBooks.map((book) => (
-                        <li key={book.id}>
-                        <Link to={`/details/${book.id}`} style={{ textDecoration: 'none' }}>
-                            <h3 className=' text-white'>{book.title}</h3>
+                        <li key={book._id}>
+                        <Link to={`/details/${book._id}`} style={{ textDecoration: 'none' }}>
+                            <div className="d-flex justify-content-center">
+                                <img src={book.bookImage} width={'40px'} height={'60px'} className='mb-4'/>
+                                <h3 className='text-white my-3 mx-4'>{book.bookTitle}</h3>
+                            </div><hr/>
                         </Link>
                         </li>
                     ))}

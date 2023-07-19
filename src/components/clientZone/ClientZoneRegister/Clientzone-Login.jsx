@@ -11,6 +11,7 @@ import {
 import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import UseAuth from "../../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 export default function ClientzoneLogin() {
   const { setAuth } = UseAuth();
   const emailRef = useRef();
@@ -55,6 +56,7 @@ export default function ClientzoneLogin() {
       errRef.current.focus();
     }
   };
+  const { t } = useTranslation();
   return (
     <div className="mb-5">
       <div className="container-fluid page-header noBackground mb-5">
@@ -62,7 +64,7 @@ export default function ClientzoneLogin() {
           <div className="container modulesTitleContainer">
             <div className="row modulesTitle text-center pt-4 pb-3">
               <div className="page-header-wrap">
-                <h2 className="mb-3">CLIENT ZONE</h2>
+                <h2 className="mb-3">{t("client-zone.client.log-title")}</h2>
                 <span className="hr m-auto"></span>
               </div>
             </div>
@@ -82,7 +84,7 @@ export default function ClientzoneLogin() {
             <>
               <form className="bg-body text-center" onSubmit={login}>
                 <p className="title fw-semibold mb-4">
-                  please enter your Login:
+                  {t('client-zone.client.reg-email')}
                 </p>
                 <div className="form-group email mb-4">
                   <input
@@ -102,23 +104,23 @@ export default function ClientzoneLogin() {
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
-                    placeholder="Enter your password"
+                    placeholder={t('client-zone.client.reg-pass')}
                     required
                   />
                 </div>
                 <div className="form-group request m-4 pt-3">
                   <button className="btn btn-primary">
-                    <span>Login</span>
+                    <span>{t('client-zone.client.reg-btn-login')}</span>
                   </button>
                 </div>
                 <div className="form-group request m-4 pt-3">
                   <span className="fw-semibold">
-                    Need An Account ? <Link to="/register">Sign Up</Link>
+                    {t('client-zone.client.reg-account')} <Link to="/register"> {t('client-zone.client.sign')}</Link>
                   </span>
                 </div>
                 <div className="login-box pt-3">
                   <div className="social">
-                    <span className="mb-15 fw-semibold">Or Continue Using</span>
+                    <span className="mb-15 fw-semibold"> {t('client-zone.client.reg-continue-using')}</span>
                   </div>
                   <LoginSocialGoogle
                     client_id={
