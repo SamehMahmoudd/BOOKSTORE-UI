@@ -1,3 +1,4 @@
+
 import React, { useRef, useState, useEffect, useContext } from "react";
 // import { Formik, ErrorMessage, Form, Field } from "formik";
 // import { registerValidation } from "../../../ValidationSchema/registerValidation";
@@ -103,17 +104,19 @@ export default function ClientzoneRegister() {
   return (
     <div className="mb-5">
       <div className="container-fluid page-header noBackground mb-5">
+
         <div className="row">
           <div className="container modulesTitleContainer">
             <div className="row modulesTitle text-center pt-4 pb-3">
               <div className="page-header-wrap">
-                <h2 className="mb-3">CLIENT ZONE</h2>
+                <h2 className="mb-3">{t('client-zone.client.title')}</h2>
                 <span className="hr m-auto"></span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
         <div className="row login-forms box box-primary w-100 m-auto mb-lg">
           <>
@@ -241,6 +244,7 @@ export default function ClientzoneRegister() {
                       <button className="btn btn-primary" type="submit">
                         <span>Register</span>
                       </button>
+
                     </div>
                     <div className="form-group request m-4 pt-3">
                       <span className="fw-semibold">

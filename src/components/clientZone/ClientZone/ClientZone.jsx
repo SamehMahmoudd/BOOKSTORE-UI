@@ -5,6 +5,7 @@ import { ClientActivePageCntxt } from "../../clientZone/CLientZoneRouter";
 import Profile from "./profile/Profile";
 import MyAddress from "./myAddress/MyAddress";
 import MyStore from "./myStore/MyStore";
+
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import ClientzoneRegister from "../ClientZoneRegister/Clientzone-Login";
@@ -24,11 +25,13 @@ function ClientZone({ profile }) {
     }
   };
   const { clientActivePage, updatePage } = useContext(ClientActivePageCntxt);
+
   function handleActivePage(activePage) {
     updatePage(activePage);
   }
   return (
     <div className=" container page-header noBackground">
+
       <div>
         {loading ? (
           <Spinner
@@ -87,6 +90,7 @@ function ClientZone({ profile }) {
                     </div>
                   </form>
                 </div>
+
                 <div className="clientemail">
                   <span className="email fw-bold d-block mb-2">{""}</span>
                   <i
@@ -156,6 +160,7 @@ function ClientZone({ profile }) {
                     <i class="bi-google-play icons">&nbsp;</i>
                     <span>My Store</span>
                   </div>
+
                 </div>
               </div>
             </div>

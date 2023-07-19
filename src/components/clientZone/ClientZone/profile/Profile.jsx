@@ -1,6 +1,11 @@
+
 import React from "react";
+
 export default function Profile() {
+  const {t} = useTranslation();
+
   return (
+
     <div className="profile box-primary">
       <div className="profile-container">
         <form id="clientProfile" encType="multipart/form-data">
@@ -295,6 +300,7 @@ export default function Profile() {
                   <option value="ZMB">Zambia</option>{" "}
                   <option value="ZWE">Zimbabwe</option>
                 </select>
+
               </div>
             </div>
             <div className="col-xs-12 col-md-6">

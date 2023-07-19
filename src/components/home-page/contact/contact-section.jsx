@@ -1,4 +1,5 @@
 import React from "react";
+
 import emailjs from "emailjs-com";
 import swal from "sweetalert";
 import "./contact.css";
@@ -19,12 +20,14 @@ const Contact = () => {
       })
       .catch((err) => console.log(err));
   }
+
   return (
     <>
       <div className="content mt-5 mt-4" id="Contact">
         <div className="container">
           <div className="row">
             <div className="heading d-flex flex-column align-items-center mb-5">
+
               <div>
                 <h1>Contact Us</h1>
               </div>
@@ -49,6 +52,7 @@ const Contact = () => {
                   <li className="d-flex text-black mb-2">
                     <div>
                       <i className="bi bi-envelope"></i>
+
                     </div>
                     <a
                       className="contact-info"
@@ -80,6 +84,7 @@ const Contact = () => {
                 </div>
               </ul>
             </div>
+
             <div className="col-md-6">
               <form
                 className="mb-5"
@@ -139,6 +144,7 @@ const Contact = () => {
                   </div>
                 </div>
               </form>
+
               <div id="form-message-warning mt-4"></div>
             </div>
           </div>

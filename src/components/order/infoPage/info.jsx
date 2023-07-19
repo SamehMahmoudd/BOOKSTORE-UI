@@ -2,7 +2,10 @@ import { useContext } from "react";
 import { orderActivePageCntxt } from "../orderRoute";
 import { Formik, ErrorMessage, Form, Field } from "formik";
 import { orderValidation } from "../../../ValidationSchema/orderValidation";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import "./info.css";
+
 
 function InfoComponent(props) {
   const { updatePage } = useContext(orderActivePageCntxt);
@@ -146,14 +149,19 @@ function InfoComponent(props) {
               <h5>The power of now-Eckhart Tolle</h5>
               <span>Quantity:1</span>
               <h5 style={{ color: "#900c3f" }}>200 EGP</h5>
+
             </div>
-          </div>
-          <div className="row m-5 " id="total">
+          );
+        })}
+        </div>
+        <div className="row m-5 " id="total">
             <div className="col-6">
-              <h5>Total:</h5>
+              <h5>{t('order.info-sec.total')} : </h5>
             </div>
             <div className="col-6" id="total-price">
+
               <h5 style={{ color: "#900c3f" }}>200 EGP</h5>
+
             </div>
           </div>
         </div>

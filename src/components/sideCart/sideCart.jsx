@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import "./sideCart.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,7 @@ function SideCart({ isCartOpen, handleClose }) {
   const count = cart.reduce((total, product) => {
     return total + product.quantity;
   }, 0);
+
   const dispatch = useDispatch();
 
   return (
@@ -24,6 +26,7 @@ function SideCart({ isCartOpen, handleClose }) {
           id="mySideCart"
         >
           <header>
+
             <h3>Your cart</h3>
             <a
               id="closeBtn"
@@ -33,15 +36,17 @@ function SideCart({ isCartOpen, handleClose }) {
             >
               ×
             </a>
+
           </header>
           <div className="side-cart-body">
             {count <= 0 ? (
               <div>
                 <div className="empty-cart text-center">
-                  <h4>Your shipping cart is empty</h4>
+                  <h4>{t('side-cart.empty-text')}</h4>
                 </div>
               </div>
             ) : (
+
               <div className="card-product">
                 {cart.map((product) => {
                   return (
@@ -100,6 +105,7 @@ function SideCart({ isCartOpen, handleClose }) {
                                 <i className="bi bi-plus"></i>
                               </button>
                             </div>
+
                           </div>
                         </div>
                       </div>
@@ -107,6 +113,7 @@ function SideCart({ isCartOpen, handleClose }) {
                   );
                 })}
                 <div>
+
                   <p className="d-flex justify-content-between">
                     <h6>Total : </h6>
                     <h6
@@ -117,18 +124,22 @@ function SideCart({ isCartOpen, handleClose }) {
                     >
                       EMPTY CART
                     </h6>
+
                   </p>
                   <p className="fs-5" style={{ fontWeight: "bolder" }}>
                     {cart.reduce((total, product) => {
                       return (
                         total + Number(product.book.price) * product.quantity
+
                       );
                     }, 0)}
                     .00 EGP
+
                   </p>
                 </div>
                 <div>
                   <Link to={`/order`}>
+
                     <button
                       className="btn btn-custom btn-lg w-100 m-3"
                       id="orderBtn"
@@ -144,6 +155,7 @@ function SideCart({ isCartOpen, handleClose }) {
                   {" "}
                   CONTINUE SHOPPING
                 </button>
+
               </div>
             )}
           </div>

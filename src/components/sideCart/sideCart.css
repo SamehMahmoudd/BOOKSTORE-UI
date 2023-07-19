@@ -13,9 +13,18 @@
     background-color: white;
     transition: right 0.5s ease;
     overflow-y: auto;
-   
-    
 }
+/* body[dir='rtl'] .side-cart{
+  position: fixed;
+  top: 0;
+  left: -100%;
+  z-index: 1111;
+    width: 40%;
+    height: 100%;
+    background-color: white;
+    transition: right 0.5s ease;
+    overflow-y: auto;
+} */
 @media screen and (max-width: 1100px) {
   .side-cart {
     width: 50%;
@@ -30,7 +39,7 @@
 .side-cart.active {
     right: 0;
     transition: right 0.5s ease;
-  }
+}
 
 .side-cart header{
 display: flex;
@@ -112,5 +121,16 @@ header a:hover {
 .card-product .price{
   color: var(--color);
 }
-  
+ 
+/* img -> dir */
+body[dir='rtl'] .card-product img{
+  border-top-right-radius:8px !important;
+  border-bottom-right-radius:8px !important;
+}
+
+body[dir='ltr']  .card-product img{
+  border-top-left-radius:8px !important;
+  border-bottom-left-radius:8px !important;
+}
+/* ** */
   

@@ -37,3 +37,13 @@
 .badge{
     background-color: #900c3f !important;
 }
+/* dir */
+.nav{
+    padding-inline-start: 0px !important;
+}
+body[dir='rtl'] .footer{
+    margin-right: 60% !important;
+}
+body[dir='ltr'] .footer{
+    margin-left: 55% !important;
+}

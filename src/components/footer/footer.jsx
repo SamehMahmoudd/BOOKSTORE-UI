@@ -1,34 +1,38 @@
 import React from "react";
 import '../navbar/nav.css'
 import { NavLink } from "react-router-dom";
+import { Trans, useTranslation} from 'react-i18next'
 
 const Footer = () => {
-    
+
+  const { t } = useTranslation();
   return (
     <>
         <div className="container-fluid m-0 p-0">
           <nav className="navbar navbar-expand-lg navbar-light p-2 d-flex">
             <ul className="list-unstyled navbar-brand pt-4">
               <li className="mt-1 col-md-9 col-xs-12 text-md-left text-center px-5 fs-6">
-                Alef Bookstore-New Cairo<br />Copyright © 2023 All rights reserved
+                <p>{t('footer.desc1')}</p>
+                <p>{t('footer.desc2')}</p>
               </li>
             </ul>
+      
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav footer">
                 <li className="nav-item">
-                  <NavLink to="/home" className="nav-link">HOME</NavLink>
+                  <NavLink to="/home" className="nav-link"><Trans i18nKey="footer.home">HOME</Trans></NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/store" className="nav-link">STORE</NavLink>
+                  <NavLink to="/store" className="nav-link"><Trans i18nKey="footer.store">STORE</Trans></NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/tranding" className="nav-link">TRENDING NOW</NavLink>
+                  <NavLink to="/tranding" className="nav-link"><Trans i18nKey="footer.tranding">TRENDING NOW</Trans></NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/about" className="nav-link">ABOUT</NavLink>
+                  <NavLink to="/about" className="nav-link"><Trans i18nKey="footer.about">ABOUT</Trans></NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/contact" className="nav-link">CONTACT</NavLink>
+                  <NavLink to="/contact" className="nav-link"><Trans i18nKey="footer.contact">CONTACT</Trans></NavLink>
                 </li><hr />
             </ul><br />
           {/* <!-- Section: Social media --> */}
