@@ -102,7 +102,7 @@ const Navbar = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/login" className="nav-link">
+                      <NavLink to="/admin" className="nav-link">
                         <i className="bi bi-person-fill"></i>
                       </NavLink>
                     </li>

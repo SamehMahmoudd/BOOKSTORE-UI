@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 export const UserSevice =  createAsyncThunk('post/getAll',async ()=>{
-  const res = await axios.get("https://randomuser.me/api");
+  const res = await axios.get("http://localhost:3001/users");
     console.log("res"); 
     return res.data
 })

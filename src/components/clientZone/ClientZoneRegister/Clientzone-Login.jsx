@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import swal from "sweetalert";
-import AuthContext from "../../../context/authProvider";
 // import axiosroot from "../../../config/axiosConfigs";
 // const Login_URL = "/auth/login";
 import "../../../main";
@@ -10,18 +9,19 @@ import {
   GoogleLoginButton,
 } from "react-social-login-buttons";
 import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
-import { Link, useNavigate } from "react-router-dom";
-import ClientzoneRegister from "./Clientzone-Register";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import UseAuth from "../../../hooks/useAuth";
 export default function ClientzoneLogin() {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = UseAuth();
   const emailRef = useRef();
   const errRef = useRef();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState("");
   const [profile, setprofile] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   useEffect(() => {
     emailRef?.current?.focus();
   }, []);
@@ -35,21 +35,19 @@ export default function ClientzoneLogin() {
         email: email,
         password: password,
       });
-      console.log(res?.data);
       const accessToken = res?.data?.token;
-      setAuth({ email, password, accessToken });
-      localStorage.setItem("token", accessToken);
+      console.log(res);
+      localStorage.setItem("user", accessToken);
       setEmail("");
       setPassword("");
-      setSuccess(true);
-      setprofile(res.data);
-      navigate("/admin");
+      setAuth({ email, password, accessToken });
+      navigate(from, { replace: true });
     } catch (err) {
       if (!err?.res) {
         setErrMsg("No Server is Response");
-      } else if (err.res?.status == 400) {
+      } else if (err.res?.status === 400) {
         setErrMsg("Missing Email or Password ");
-      } else if (err.res?.status == 401) {
+      } else if (err.res?.status === 401) {
         setErrMsg("Unauthorized");
       } else {
         setErrMsg("Login Faild ");
@@ -71,113 +69,100 @@ export default function ClientzoneLogin() {
           </div>
         </div>
       </div>
-      {success ? (
-        <>
-          <ClientzoneRegister
-            ref={errRef}
-            className={errMsg ? "errMsg" : "offscreen"}
-            profile={profile}
-          />
-        </>
-      ) : (
-        <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
-          <div className="row login-forms box box-primary w-100 m-auto mb-lg">
+      <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
+        <div className="row login-forms box box-primary w-100 m-auto mb-lg">
+          <>
+            <div
+              ref={errRef}
+              className={errMsg ? "errmsg" : "offscreen"}
+              aria-live="assertive"
+            >
+              {errMsg}
+            </div>
             <>
-              <div
-                ref={errRef}
-                className={errMsg ? "errmsg" : "offscreen"}
-                aria-live="assertive"
-              >
-                {errMsg}
-              </div>
-              <>
-                <form className="bg-body text-center" onSubmit={login}>
-                  <p className="title fw-semibold mb-4">
-                    please enter your Login:
-                  </p>
-                  <div className="form-group email mb-4">
-                    <input
-                      className="form-control"
-                      type="email"
-                      name="example"
-                      autoComplete="off"
-                      onChange={(e) => setEmail(e.target.value)}
-                      value={email}
-                      placeholder="example@example.com"
-                      required
-                    />
+              <form className="bg-body text-center" onSubmit={login}>
+                <p className="title fw-semibold mb-4">
+                  please enter your Login:
+                </p>
+                <div className="form-group email mb-4">
+                  <input
+                    className="form-control"
+                    type="email"
+                    name="example"
+                    autoComplete="off"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    placeholder="example@example.com"
+                    required
+                  />
+                </div>
+                <div className="form-group password mb-4">
+                  <input
+                    className="form-control"
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    placeholder="Enter your password"
+                    required
+                  />
+                </div>
+                <div className="form-group request m-4 pt-3">
+                  <button className="btn btn-primary">
+                    <span>Login</span>
+                  </button>
+                </div>
+                <div className="form-group request m-4 pt-3">
+                  <span className="fw-semibold">
+                    Need An Account ? <Link to="/register">Sign Up</Link>
+                  </span>
+                </div>
+                <div className="login-box pt-3">
+                  <div className="social">
+                    <span className="mb-15 fw-semibold">Or Continue Using</span>
                   </div>
-                  <div className="form-group password mb-4">
-                    <input
-                      className="form-control"
-                      type="password"
-                      onChange={(e) => setPassword(e.target.value)}
-                      value={password}
-                      placeholder="Enter your password"
-                      required
-                    />
-                  </div>
-                  <div className="form-group request m-4 pt-3">
-                    <button className="btn btn-primary">
-                      <span>Login</span>
-                    </button>
-                  </div>
-                  <div className="form-group request m-4 pt-3">
-                    <span className="fw-semibold">
-                      Need An Account ? <Link to="/register">Sign Up</Link>
-                    </span>
-                  </div>
-                  <div className="login-box pt-3">
-                    <div className="social">
-                      <span className="mb-15 fw-semibold">
-                        Or Continue Using
-                      </span>
+                  <LoginSocialGoogle
+                    client_id={
+                      "720953758849-av80tdajd4u9k5hgqqnh9dmj78dha5bu.apps.googleusercontent.com"
+                    }
+                    scope="openid profile email"
+                    discoveryDocs="claims_supported"
+                    access_type="offline"
+                    onResolve={({ provider, data }) => {
+                      console.log(provider, data);
+                      setprofile(data);
+                    }}
+                    onReject={(err) => {
+                      console.log(err);
+                    }}
+                  >
+                    <div className="social-login-btn m-auto">
+                      <div className="mb-3">
+                        <GoogleLoginButton />
+                      </div>
                     </div>
-                    <LoginSocialGoogle
-                      client_id={
-                        "720953758849-av80tdajd4u9k5hgqqnh9dmj78dha5bu.apps.googleusercontent.com"
-                      }
-                      scope="openid profile email"
-                      discoveryDocs="claims_supported"
-                      access_type="offline"
-                      onResolve={({ provider, data }) => {
-                        console.log(provider, data);
-                        setprofile(data);
-                      }}
-                      onReject={(err) => {
-                        console.log(err);
-                      }}
-                    >
-                      <div className="social-login-btn m-auto">
-                        <div className="mb-3">
-                          <GoogleLoginButton />
-                        </div>
+                  </LoginSocialGoogle>
+                  <LoginSocialFacebook
+                    appId="920872289211071"
+                    onResolve={({ data }) => {
+                      console.log(data);
+                      setprofile(data);
+                    }}
+                    onReject={(err) => {
+                      console.log(err);
+                    }}
+                  >
+                    <div className="social-login-btn m-auto">
+                      <div className="mb-3">
+                        <FacebookLoginButton />
                       </div>
-                    </LoginSocialGoogle>
-                    <LoginSocialFacebook
-                      appId="920872289211071"
-                      onResolve={({ data }) => {
-                        console.log(data);
-                        setprofile(data);
-                      }}
-                      onReject={(err) => {
-                        console.log(err);
-                      }}
-                    >
-                      <div className="social-login-btn m-auto">
-                        <div className="mb-3">
-                          <FacebookLoginButton />
-                        </div>
-                      </div>
-                    </LoginSocialFacebook>
-                  </div>
-                </form>
-              </>
+                    </div>
+                  </LoginSocialFacebook>
+                </div>
+              </form>
             </>
-          </div>
+          </>
         </div>
-      )}
-      ;
+      </div>
     </div>
   );
 }

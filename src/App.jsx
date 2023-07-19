@@ -18,6 +18,8 @@ import Call from "./components/navbar/icons-comp/call-comp/call";
 import Category from "./components/home-page/category/category-section";
 import ClientzoneLogin from "./components/clientZone/ClientZoneRegister/Clientzone-Login";
 import ClientzoneRegister from "./components/clientZone/ClientZoneRegister/Clientzone-Register";
+import RequireAuth from "./components/requireAuth";
+import Layout from "./components/layout";
 
 export default function App() {
   return (
@@ -25,23 +27,27 @@ export default function App() {
       <ScrollToTop />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/store" element={<Shop />} />
-        <Route path="/details/:id" element={<BookDetails />} />
-        <Route path="/tranding" element={<Tranding />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/order" element={<OrderRoute />} />
-        <Route path="/admin" element={<CLientZoneRouter />} />
-        <Route path="/login" element={<ClientzoneLogin />} />
-        <Route path="/register" element={<ClientzoneRegister />} />
-        <Route path="*" element={<NotFound />} />
-        ///////////////////////////////////////////////////////////
-        <Route path="/search" element={<Search />} />
-        <Route path="/share" element={<Share />} />
-        <Route path="/call" element={<Call />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/store" element={<Shop />} />
+          <Route path="/details/:id" element={<BookDetails />} />
+          <Route path="/tranding" element={<Tranding />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route element={<RequireAuth />}>
+            <Route path="/order" element={<OrderRoute />} />
+          </Route>
+          <Route path="/admin" element={<CLientZoneRouter />} />
+          <Route path="login" element={<ClientzoneLogin />} />
+          <Route path="/register" element={<ClientzoneRegister />} />
+          <Route path="*" element={<NotFound />} />
+          ///////////////////////////////////////////////////////////
+          <Route path="/search" element={<Search />} />
+          <Route path="/share" element={<Share />} />
+          <Route path="/call" element={<Call />} />
+        </Route>
       </Routes>
       <Footer />
     </>
