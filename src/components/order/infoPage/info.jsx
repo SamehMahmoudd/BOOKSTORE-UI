@@ -8,14 +8,18 @@ import "./info.css";
 
 
 function InfoComponent(props) {
-
-  const { t } = useTranslation();
-  /////////////////////////////////////
-  const cart = useSelector((state) => state.cart);
   const { updatePage } = useContext(orderActivePageCntxt);
+
   function handleSubmit(evnt) {
-    props.updatingOrder({...props.order,  info:evnt })
+    evnt.preventDefault();
+
     updatePage("nav-delivery");
+  }
+
+  function handleFormData(eve) {
+    const { name, value } = eve.target;
+    props.updatingData({ ...props.data, [name]: value });
+    console.log(props.data);
   }
 
   const initialValues = {
@@ -30,8 +34,8 @@ function InfoComponent(props) {
 
   return (
     <>
-      <div className="row flex-column flex-md-row m-4" id="info-page">
-        <div className="col-12 col-md-8">
+      <div className="row flex-column  flex-md-row" id="info-page">
+        <div className="col-12 col-md-8 ">
           <Formik
             initialValues={initialValues}
             validationSchema={orderValidation}
@@ -41,94 +45,111 @@ function InfoComponent(props) {
               <Field
                 type="email"
                 name="email"
-                placeholder={t('order.info-sec.l-email')}
+                placeholder="Email *"
                 className="form-control w-75 mb-3 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
               />
-              <ErrorMessage name="email" component="p" className="text-danger"/>
+              <ErrorMessage
+                name="email"
+                component="p"
+                className="text-danger"
+              />
               <Field
                 type="text"
                 name="fullName"
-                placeholder={t('order.info-sec.l-name')}
+                placeholder="Full Name *"
                 className="form-control w-75 mb-3 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
               />
-              <ErrorMessage name="fullName" component="p" className="text-danger"/>
-
+              <ErrorMessage
+                name="fullName"
+                component="p"
+                className="text-danger"
+              />
               <Field
                 type="text"
                 name="country"
-                placeholder={t('order.info-sec.l-country')}
+                placeholder="Country *"
                 className="form-control w-75 mb-3 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
               />
-              <ErrorMessage name="country" component="p" className="text-danger"/>
-
+              <ErrorMessage
+                name="country"
+                component="p"
+                className="text-danger"
+              />
               <Field
                 type="text"
                 name="address"
-                placeholder={t('order.info-sec.l-address')}
+                placeholder="Adress *"
                 className="form-control w-75 mb-3 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
               />
-              <ErrorMessage name="address" component="p" className="text-danger"/>
-
+              <ErrorMessage
+                name="address"
+                component="p"
+                className="text-danger"
+              />
               <Field
                 type="text"
                 name="city"
-                placeholder={t('order.info-sec.l-city')}
+                placeholder="City *"
                 className="form-control w-75 mb-3 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
               />
               <ErrorMessage name="city" component="p" className="text-danger" />
-
               <Field
                 type="tel"
                 name="phone"
-                placeholder={t('order.info-sec.l-phone')}
+                placeholder="Phone *"
                 className="form-control w-75 mb-3 p-3 intl-tel-input "
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
               />
-              <ErrorMessage name="phone" component="p" className="text-danger"/>
-
+              <ErrorMessage
+                name="phone"
+                component="p"
+                className="text-danger"
+              />
               <Field
                 type="text"
                 name="landmark"
-                placeholder={t('order.info-sec.l-land')}
+                placeholder="Landmard (optional)"
                 className="form-control w-75 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
               />
-              <ErrorMessage name="landmark" component="p" className="text-danger"/>
-
-              <button className="btn btn-custom btn-lg mt-5 mb-4" type="submit"id="info-save">{t('order.info-sec.btn')}</button>
+              <ErrorMessage
+                name="landmark"
+                component="p"
+                className="text-danger"
+              />
+              <button
+                className="btn btn-custom btn-lg mt-5 mb-4"
+                type="submit"
+                id="info-save"
+              >
+                SAVE AND CONTINUE
+              </button>
             </Form>
           </Formik>
         </div>
+        <div className="col-12 col-md-4">
+          <div className="card d-flex flex-row mt-3 order-details">
+            <img
+              src="/assets/images/book.png"
+              className="card-img-top w-50 h-50"
+            />
+            <div className="card-body">
+              <h5>The power of now-Eckhart Tolle</h5>
+              <span>Quantity:1</span>
+              <h5 style={{ color: "#900c3f" }}>200 EGP</h5>
 
-        <div className="col-12 col-md-4" >
-          <div id="order-container">
-        {cart.map((product) => {
-          return (
-            <div className="card d-flex flex-row mt-3 order-details h-25" key={product.book._id}>
-              <img
-                src={product.book.bookImage}
-                className="card-img-top w-50"
-                style={{objectFit:"contain" , height:'50%'}}
-              />
-              <div className="card-body">
-                <h5>{product.book.bookTitle}</h5>
-                <span>{t('order.info-sec.quan')} : {product.quantity}</span>
-                <h5 style={{ color: "#900c3f" }}>
-                  {Number(product.book.price) * product.quantity}.00 {t('product-details.p-egp')}
-                </h5>
-              </div>
             </div>
           );
         })}
@@ -138,12 +159,9 @@ function InfoComponent(props) {
               <h5>{t('order.info-sec.total')} : </h5>
             </div>
             <div className="col-6" id="total-price">
-              <h5 style={{color: '#900c3f'}}>
-                {cart.reduce((total, product) => {
-                  return (
-                    total + Number(product.book.price) * product.quantity
-                  );
-                }, 0)}.00 {t('product-details.p-egp')}</h5>
+
+              <h5 style={{ color: "#900c3f" }}>200 EGP</h5>
+
             </div>
           </div>
         </div>
