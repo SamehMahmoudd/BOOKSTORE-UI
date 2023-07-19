@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </Routes>
       </AuthProvider>
     </Provider>
+    </React.Suspense>
   </BrowserRouter>
 
 );
