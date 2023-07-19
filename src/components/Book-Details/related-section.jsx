@@ -9,7 +9,7 @@ const Related = () => {
   const { t } = useTranslation();
 
   const style = { boxShadow: "10px 10px 5px #aaaaaa" };
-  const books = useSelector((state) => state.books);
+  const books = useSelector((state) => state.books.books);
 
   return (
     <>

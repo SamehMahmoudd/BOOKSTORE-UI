@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import SideCart from './../sideCart/sideCart'
-import { useSelector } from 'react-redux'
-import { Trans} from 'react-i18next'
-import './nav.css'
-
-
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import SideCart from "./../sideCart/sideCart";
+import { useSelector } from "react-redux";
+import { Trans } from 'react-i18next';
+import "./nav.css";
 
 const Navbar = () => {
 
@@ -88,7 +86,7 @@ const Navbar = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/clientZone" className="nav-link">
+                      <NavLink to="/admin" className="nav-link">
                         <i className="bi bi-person-fill"></i>
                       </NavLink>
                     </li>
@@ -113,4 +111,5 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+
+export default Navbar;

@@ -11,12 +11,20 @@ export default function BookDetails() {
 
   const { t } = useTranslation();
   ////////////////////////////////////////////
-  const { _id } = useParams();
-  const book = useSelector((state) =>
-    state.books.find((book) => book._id)
-    
-  )
-  // console.log(book);
+  const { id } = useParams();
+  
+
+  const book = useSelector((state) =>state.books.books.find((book) => book._id === id))
+  const category = useSelector((state) => state.categories.find((cat)=>cat._id === book.category));
+  const authorName = book.author.name;
+  const authorBooks = useSelector((state) => state.books.books.filter((book) => book.author.name === authorName));
+  const stock = book.bookStock
+  console.log('====================================');
+  console.log('authorBooks:',authorBooks);
+  console.log('bookStock:',stock);
+  console.log('====================================');
+  
+  
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
 
@@ -42,7 +50,7 @@ export default function BookDetails() {
             <NavLink to="/store" className="nav-link">{t('product-details.store')}</NavLink>
           </li>
           <li className="breadcrumb-item">
-            <NavLink to="/category" className="nav-link">{book?.category.name}</NavLink>
+            <NavLink to={`/store/${category._id}`} className="nav-link">{category.name}</NavLink>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             {book?.bookTitle}
@@ -75,7 +83,6 @@ export default function BookDetails() {
               </div>
               <div className="col-md-8"><br /><br/>
                 <div className="fs-5 d-flex flex-column mb-3">
-                  {/* <span className="text-decoration-line-through p-2">{book?.price2}.00</span> */}
                   <span className="price">{book?.price}.00 {t('product-details.p-egp')} </span>
                 </div>
                 <div>
@@ -90,10 +97,13 @@ export default function BookDetails() {
                     <span>{t('product-details.t-page')} : {book?.bookPages}</span>
                   </li>
                   <li>
-                    <span>{t('product-details.t-category')}{book?.category.name}</span>
+                    <span>{t('product-details.t-category')}{category.name}</span>
                   </li>
                   <li>
-                    <span>{t('product-details.t-publication')} : {book?.author.name}</span>
+                    <span>{t('product-details.t-author')} : {book?.author.name}</span>
+                  </li>
+                  <li>
+                    <span>{t('product-details.t-publication')} : {book?.publishedYear}</span>
                   </li>
                   <li>
                     <span>SKU : </span>
@@ -162,10 +172,10 @@ export default function BookDetails() {
             <div className="row">
               <div className="col-xs-12">
                 {/* Description tab content */}
-                <div className="container p-0 d-flex align-items-center justify-content-center">
-                  <p style={{textAlign: 'justify', paddingTop: '10px', borderRadius: '5px',color: 'gray',}}>
+                <div className="container ">
+                  <h4 style={{textAlign: 'right', paddingTop: '10px', borderRadius: '5px',color: 'gray',}}>
                     <strong>{book?.description}</strong>
-                  </p>
+                  </h4>
                 </div>
               </div>
             </div>
