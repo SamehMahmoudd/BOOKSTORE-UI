@@ -4,10 +4,11 @@ import "./nav.css";
 import { NavLink } from "react-router-dom";
 import SideCart from "./../sideCart/sideCart";
 import { useSelector } from "react-redux";
+import { useTranslation, Trans } from 'react-i18next';
 
 const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  const { t , i18n} = useTranslation();
   const counter = useSelector((state) =>
     state.cart.reduce((total, product) => {
       return total + product.quantity;

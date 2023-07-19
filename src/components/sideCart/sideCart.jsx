@@ -9,6 +9,9 @@ import {
   removeFromCart,
 } from "../../store/reducers/cartSlice";
 import Product from "./../product-list/product/product";
+import { useTranslation, Trans } from 'react-i18next';
+
+
 
 function SideCart({ isCartOpen, handleClose }) {
   const cart = useSelector((state) => state.cart);
@@ -42,7 +45,7 @@ function SideCart({ isCartOpen, handleClose }) {
             {count <= 0 ? (
               <div>
                 <div className="empty-cart text-center">
-                  <h4>{t('side-cart.empty-text')}</h4>
+               
                 </div>
               </div>
             ) : (
