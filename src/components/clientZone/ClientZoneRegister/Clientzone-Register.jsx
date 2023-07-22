@@ -2,21 +2,21 @@ import { useTranslation } from "react-i18next";
 
 import React, { useRef, useState, useEffect, useContext } from "react";
 
-import { Formik, ErrorMessage, Form, Field } from "formik";
+// import { Formik, ErrorMessage, Form, Field } from "formik";
 
-import { registerValidation } from "../../../ValidationSchema/registerValidation";
+// import { registerValidation } from "../../../ValidationSchema/registerValidation";
+
+// const login_URL = "/auth/login";
 
 import Spinner from "react-bootstrap/Spinner";
 
 import swal from "sweetalert";
 
+import axios from "axios";
+
 import { Link, useNavigate } from "react-router-dom";
 
 import AuthContext from "../../../context/authProvider";
-
-import axios from "../../../config/axiosConfig";
-
-const register_URL = "/auth/register";
 
 export default function ClientzoneRegister() {
 
@@ -28,7 +28,7 @@ export default function ClientzoneRegister() {
 
   const [image, setImage] = useState("");
 
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setfirstName] = useState("");
 
   const [lastName, setLastName] = useState("");
 
@@ -46,9 +46,6 @@ export default function ClientzoneRegister() {
 
   const [success, setSuccess] = useState(false);
 
-
-
-
   useEffect(() => {
 
     userRef?.current?.focus();
@@ -59,15 +56,37 @@ export default function ClientzoneRegister() {
 
     setErrMsg("");
 
-  }, [firstName, lastName, email, phoneNumber, password, address, country]);
+  }, [
 
-  const handleSubmit = async (e) => {
+    image,
+
+    email,
+
+    firstName,
+
+    lastName,
+
+    password,
+
+    phoneNumber,
+
+    address,
+
+    country,
+
+  ]);
+
+  const register = async (e) => {
+
+    e.preventDefault();
 
     console.log(e);
 
     try {
 
-      const res = await axios.post(register_URL, {
+      const res = await axios.post("http://localhost:3001/auth/register", {
+
+        image,
 
         firstName,
 
@@ -89,15 +108,17 @@ export default function ClientzoneRegister() {
 
       setAuth({
 
+        image,
+
         firstName,
 
         lastName,
 
         email,
 
-        phoneNumber,
-
         password,
+
+        phoneNumber,
 
         address,
 
@@ -105,7 +126,23 @@ export default function ClientzoneRegister() {
 
       });
 
-      setSuccess(false);
+      setImage("");
+
+      setfirstName("");
+
+      setLastName("");
+
+      setEmail("");
+
+      setpassword("");
+
+      setPhoneNumber("");
+
+      setAddress("");
+
+      setCountry("");
+
+      setSuccess(true);
 
       swal("succefully registration", "You clicked the button!", "success");
 
@@ -139,26 +176,36 @@ export default function ClientzoneRegister() {
 
   const { t } = useTranslation();
 
+  // function handleFormData(eve) {
+
+  //   const { name, value } = eve.target;
+
+  //   props.updatingData({ ...props.data, [name]: value });
+
+  //   console.log(props.data);
+
+  // }
 
 
 
-  const initialValues = {
 
-    firstName: "",
+  // const initialValues = {
 
-    lastName: "",
+  //   firstName: "",
 
-    email: "",
+  //   LastName: "",
 
-    phoneNumber: "",
+  //   email: "",
 
-    password: "",
+  //   password: "",
 
-    address: "",
+  //   phoneNumber: "",
 
-    country: "",
+  //   address: "",
 
-  };
+  //   country: "",
+
+  // };
 
   return (
 
@@ -188,489 +235,504 @@ export default function ClientzoneRegister() {
 
       </div>
 
+
+
+
       <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
 
         <div className="row login-forms box box-primary w-100 m-auto mb-lg">
 
-          <div
+          <>
 
-            ref={errRef}
 
-            className={errMsg ? "errmsg" : "offscreen"}
 
-            aria-live="assertive"
 
-          >
+            <div
 
-            {errMsg}
+              ref={errRef}
 
-          </div>
+              className={errMsg ? "errmsg" : "offscreen"}
 
-          <Formik
-
-            className="bg-body text-center"
-
-            initialValues={initialValues}
-
-            validationSchema={registerValidation}
-
-            onSubmit={handleSubmit}
-
-          >
-
-            <Form>
-
-              <Field
-
-                type="text"
-
-                name="firstName"
-
-                // onChange={(e) => setFirstName(e.target.value)}
-
-                // value={firstName}
-
-                placeholder="firstName *"
-
-                className="form-control mb-3 p-3"
-
-                aria-label="Sizing example input"
-
-                aria-describedby="inputGroup-sizing-default"
-
-              />
-
-              <ErrorMessage
-
-                name="firstName"
-
-                component="p"
-
-                className="text-danger"
-
-              />
-
-              <Field
-
-                type="text"
-
-                name="lastName"
-
-                // onChange={(e) => setLastName(e.target.value)}
-
-                // value={lastName}
-
-                placeholder="lastName *"
-
-                className="form-control mb-3 p-3"
-
-                aria-label="Sizing example input"
-
-                aria-describedby="inputGroup-sizing-default"
-
-              />
-
-              <ErrorMessage
-
-                name="lastName"
-
-                component="p"
-
-                className="text-danger"
-
-              />
-
-              <Field
-
-                type="email"
-
-                name="email"
-
-                // onChange={(e) => setEmail(e.target.value)}
-
-                // value={email}
-
-                placeholder="Email *"
-
-                className="form-control mb-3 p-3"
-
-                aria-label="Sizing example input"
-
-                aria-describedby="inputGroup-sizing-default"
-
-              />
-
-              <ErrorMessage
-
-                name="email"
-
-                component="p"
-
-                className="text-danger"
-
-              />
-
-              <Field
-
-                type="password"
-
-                name="password"
-
-                // onChange={(e) => setpassword(e.target.value)}
-
-                // value={password}
-
-                placeholder="Password *"
-
-                className="form-control mb-3 p-3"
-
-                aria-label="Sizing example input"
-
-                aria-describedby="inputGroup-sizing-default"
-
-              />
-
-              <ErrorMessage
-
-                name="password"
-
-                component="p"
-
-                className="text-danger"
-
-              />
-
-              <Field
-
-                type="text"
-
-                name="phoneNumber"
-
-                // onChange={(e) => setPhoneNumber(e.target.value)}
-
-                // value={phoneNumber}
-
-                placeholder="phoneNumber *"
-
-                className="form-control mb-3 p-3"
-
-                aria-label="Sizing example input"
-
-                aria-describedby="inputGroup-sizing-default"
-
-              />
-
-              <ErrorMessage
-
-                name="phoneNumber"
-
-                component="p"
-
-                className="text-danger"
-
-              />
-
-              <Field
-
-                type="text"
-
-                name="address"
-
-                // onChange={(e) => setAddress(e.target.value)}
-
-                // value={address}
-
-                placeholder="Adress *"
-
-                className="form-control mb-3 p-3"
-
-                aria-label="Sizing example input"
-
-                aria-describedby="inputGroup-sizing-default"
-
-              />
-
-              <ErrorMessage
-
-                name="address"
-
-                component="p"
-
-                className="text-danger"
-
-              />
-
-              <Field
-
-                type="text"
-
-                name="country"
-
-                // onChange={(e) => setCountry(e.target.value)}
-
-                // value={country}
-
-                placeholder="City *"
-
-                className="form-control mb-3 p-3"
-
-                aria-label="Sizing example input"
-
-                aria-describedby="inputGroup-sizing-default"
-
-              />
-
-              <ErrorMessage
-
-                name="country"
-
-                component="p"
-
-                className="text-danger"
-
-              />
-
-              <div className="form-group request m-4 pt-3">
-
-                <button className="btn btn-primary" type="submit">
-
-                  <span>Register</span>
-
-                </button>
-
-              </div>
-
-              <div className="form-group request m-4 pt-3">
-
-                <span className="fw-semibold">
-
-                  if you have Account alredy?
-
-                  <Link to="/login">Sign in</Link>
-
-                </span>
-
-              </div>
-
-            </Form>
-
-          </Formik>
-
-          {/* <form
-
-              className="bg-body text-center"
-
-              onSubmit={handleSubmit(onSubmit)}
+              aria-live="assertive"
 
             >
 
-              <p className="title fw-semibold mb-4">
+              {errMsg}
 
-                {t("client-zone.client.reg-email")}
+            </div>
 
-              </p>
+            <>
 
-              <div className="input-group mb-3">
+              {/* <Formik
 
-                <input
+                  className="bg-body text-center"
 
-                  type="file"
+                  initialValues={initialValues}
 
-                  className="form-control"
+                  validationSchema={registerValidation}
 
-                  onChange={(e) => setImage(e.target.value)}
+                  onSubmit={register}
 
-                  value={image}
+                >
 
-                  placeholder="Enter your firstName"
+                  <Form>
 
-                />
+                    <Field
 
-              </div>
+                      type="text"
 
-              <div className="form-group  mb-4">
+                      name="firstName"
 
-                <input
+                      onChange={(e) => setfirstName(e.target.value)}
 
-                  type="text"
+                      value={firstName}
 
-                  className="form-control"
+                      placeholder="firstName *"
 
-                  // onChange={(e) => setFirstName(e.target.value)}
+                      className="form-control mb-3 p-3"
 
-                  placeholder="Enter your firstName"
+                      aria-label="Sizing example input"
 
-                  {...register("firstName", { require: true })}
+                      aria-describedby="inputGroup-sizing-default"
 
-                />
+                    />
 
-                {errors.firstName?.type === "required" &&
+                    <ErrorMessage
 
-                  "fristName is required"}
+                      name="firstName"
 
-              </div>
+                      component="p"
 
-              <div className="form-group  mb-4">
+                      className="text-danger"
 
-                <input
+                    />
 
-                  className="form-control"
+                    <Field
 
-                  type="text"
+                      type="text"
 
-                  onChange={(e) => setLastName(e.target.value)}
+                      name="LastName"
 
-                  placeholder="Enter your LastName"
+                      onChange={(e) => setLastName(e.target.value)}
 
-                />
+                      value={LastName}
 
-              </div>
+                      placeholder="lastName *"
 
-              <div className="form-group email mb-4">
+                      className="form-control mb-3 p-3"
 
-                <input
+                      aria-label="Sizing example input"
 
-                  className="form-control"
+                      aria-describedby="inputGroup-sizing-default"
 
-                  type="email"
+                    />
 
-                  name="example"
+                    <ErrorMessage
 
-                  autoComplete="off"
+                      name="LastName"
 
-                  onChange={(e) => setEmail(e.target.value)}
+                      component="p"
 
-                  value={email}
+                      className="text-danger"
 
-                  placeholder="example@example.com"
+                    />
 
-                  required
+                    <Field
 
-                />
+                      type="email"
 
-              </div>
+                      name="email"
 
-              <div className="form-group  mb-4">
+                      onChange={(e) => setEmail(e.target.value)}
 
-                <input
+                      value={email}
 
-                  className="form-control"
+                      placeholder="Email *"
 
-                  type="password"
+                      className="form-control mb-3 p-3"
 
-                  onChange={(e) => setpassword(e.target.value)}
+                      aria-label="Sizing example input"
 
-                  value={password}
+                      aria-describedby="inputGroup-sizing-default"
 
-                  placeholder="Enter your password"
+                    />
 
-                  required
+                    <ErrorMessage
 
-                />
+                      name="email"
 
-              </div>
+                      component="p"
 
-              <div className="form-group mb-4">
+                      className="text-danger"
 
-                <input
+                    />
 
-                  className="form-control"
+                    <Field
 
-                  type="text"
+                      type="password"
 
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                      name="password"
 
-                  value={phoneNumber}
+                      onChange={(e) => setpassword(e.target.value)}
 
-                  placeholder="Enter your PhoneNumber"
+                      value={password}
 
-                  required
+                      placeholder="Password *"
 
-                />
+                      className="form-control mb-3 p-3"
 
-              </div>
+                      aria-label="Sizing example input"
 
-              <div className="form-group  mb-4">
+                      aria-describedby="inputGroup-sizing-default"
 
-                <input
+                    />
 
-                  className="form-control"
+                    <ErrorMessage
 
-                  type="text"
+                      name="password"
 
-                  onChange={(e) => setAddress(e.target.value)}
+                      component="p"
 
-                  value={address}
+                      className="text-danger"
 
-                  placeholder="Enter your Address"
+                    />
 
-                  required
+                    <Field
 
-                />
+                      type="text"
 
-              </div>
+                      name="phoneNumber"
 
-              <div className="form-group  mb-4">
+                      onChange={(e) => setPhoneNumber(e.target.value)}
 
-                <input
+                      value={phoneNumber}
 
-                  className="form-control"
+                      placeholder="phoneNumber *"
 
-                  type="text"
+                      className="form-control mb-3 p-3"
 
-                  onChange={(e) => setCountry(e.target.value)}
+                      aria-label="Sizing example input"
 
-                  value={country}
+                      aria-describedby="inputGroup-sizing-default"
 
-                  placeholder="Enter your country"
+                    />
 
-                  required
+                    <ErrorMessage
 
-                />
+                      name="phoneNumber"
 
-              </div>
+                      component="p"
 
-              <div className="form-group request m-4 pt-3">
+                      className="text-danger"
 
-                <button className="btn btn-primary">
+                    />
 
-                  {success ? (
+                    <Field
 
-                    <Spinner
+                      type="text"
 
-                      animation="border"
+                      name="address"
 
-                      role="status"
+                      onChange={(e) => setAddress(e.target.value)}
 
-                      className="container d-flex align-items-center justify-content-center"
+                      value={address}
 
-                    >
+                      placeholder="Adress *"
 
-                      <span className="visually-hidden ">Loading...</span>
+                      className="form-control mb-3 p-3"
 
-                    </Spinner>
+                      aria-label="Sizing example input"
 
-                  ) : (
+                      aria-describedby="inputGroup-sizing-default"
 
-                    <span>Register</span>
+                    />
 
-                  )}
+                    <ErrorMessage
 
-                </button>
+                      name="address"
 
-              </div>
+                      component="p"
 
-              <div className="form-group request m-4 pt-3">
+                      className="text-danger"
 
-                <span className="fw-semibold">
+                    />
 
-                  if you have Account alredy? <Link to="/login">Sign in</Link>
+                    <Field
 
-                </span>
+                      type="text"
 
-              </div>
+                      name="country"
 
-            </form> */}
+                      onChange={(e) => setCountry(e.target.value)}
+
+                      value={country}
+
+                      placeholder="City *"
+
+                      className="form-control mb-3 p-3"
+
+                      aria-label="Sizing example input"
+
+                      aria-describedby="inputGroup-sizing-default"
+
+                    />
+
+                    <ErrorMessage
+
+                      name="country"
+
+                      component="p"
+
+                      className="text-danger"
+
+                    />
+
+                    <div className="form-group request m-4 pt-3">
+
+                      <button className="btn btn-primary" type="submit">
+
+                        <span>Register</span>
+
+                      </button>
+
+
+
+
+                    </div>
+
+                    <div className="form-group request m-4 pt-3">
+
+                      <span className="fw-semibold">
+
+                        if you have Account alredy?{" "}
+
+                        {/* <a href={navigate("/register")}>Sign in</a> */}
+
+              {/* </span> */}
+
+              {/* </div> */}
+
+              {/* </Form> */}
+
+              {/* </Formik> */}
+
+              <form className="bg-body text-center" onSubmit={register}>
+
+                <p className="title fw-semibold mb-4">
+
+                   {t('client-zone.client.reg-email')}
+
+                </p>
+
+                <div className="input-group mb-3">
+
+                  <input
+
+                    type="file"
+
+                    className="form-control"
+
+                    onChange={(e) => setImage(e.target.value)}
+
+                    value={image}
+
+                    placeholder="Enter your firstName"
+
+                    required
+
+                  />
+
+                </div>
+
+                <div className="form-group  mb-4">
+
+                  <input
+
+                    type="text"
+
+                    className="form-control"
+
+                    onChange={(e) => setfirstName(e.target.value)}
+
+                    value={firstName}
+
+                    placeholder="Enter your firstName"
+
+                    required
+
+                  />
+
+                </div>
+
+                <div className="form-group  mb-4">
+
+                  <input
+
+                    className="form-control"
+
+                    type="text"
+
+                    onChange={(e) => setLastName(e.target.value)}
+
+                    value={lastName}
+
+                    placeholder="Enter your LastName"
+
+                    required
+
+                  />
+
+                </div>
+
+                <div className="form-group email mb-4">
+
+                  <input
+
+                    className="form-control"
+
+                    type="email"
+
+                    name="example"
+
+                    autoComplete="off"
+
+                    onChange={(e) => setEmail(e.target.value)}
+
+                    value={email}
+
+                    placeholder="example@example.com"
+
+                    required
+
+                  />
+
+                </div>
+
+                <div className="form-group  mb-4">
+
+                  <input
+
+                    className="form-control"
+
+                    type="password"
+
+                    onChange={(e) => setpassword(e.target.value)}
+
+                    value={password}
+
+                    placeholder="Enter your password"
+
+                    required
+
+                  />
+
+                </div>
+
+                <div className="form-group mb-4">
+
+                  <input
+
+                    className="form-control"
+
+                    type="text"
+
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+
+                    value={phoneNumber}
+
+                    placeholder="Enter your PhoneNumber"
+
+                    required
+
+                  />
+
+                </div>
+
+                <div className="form-group  mb-4">
+
+                  <input
+
+                    className="form-control"
+
+                    type="text"
+
+                    onChange={(e) => setAddress(e.target.value)}
+
+                    value={address}
+
+                    placeholder="Enter your Address"
+
+                    required
+
+                  />
+
+                </div>
+
+                <div className="form-group  mb-4">
+
+                  <input
+
+                    className="form-control"
+
+                    type="text"
+
+                    onChange={(e) => setCountry(e.target.value)}
+
+                    value={country}
+
+                    placeholder="Enter your country"
+
+                    required
+
+                  />
+
+                </div>
+
+                <div className="form-group request m-4 pt-3">
+
+                  <button className="btn btn-primary">
+
+                    {success ? (
+
+                      <Spinner
+
+                        animation="border"
+
+                        role="status"
+
+                        className="container d-flex align-items-center justify-content-center"
+
+                      >
+
+                        <span className="visually-hidden ">Loading...</span>
+
+                      </Spinner>
+
+                    ) : (
+
+                      <span>Register</span>
+
+                    )}
+
+                  </button>
+
+                </div>
+
+                <div className="form-group request m-4 pt-3">
+
+                  <span className="fw-semibold">
+
+                    if you have Account alredy? <Link to="/login">Sign in</Link>
+
+                  </span>
+
+                </div>
+
+              </form>
+
+            </>
+
+          </>
 
         </div>
 
