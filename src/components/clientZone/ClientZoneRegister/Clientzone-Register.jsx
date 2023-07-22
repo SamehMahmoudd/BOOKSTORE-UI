@@ -13,7 +13,7 @@ export default function ClientzoneRegister() {
   const userRef = useRef();
   const errRef = useRef();
   const [image, setImage] = useState("");
-  const [fristName, setFristName] = useState("");
+  const [firstName, setfirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
@@ -30,7 +30,7 @@ export default function ClientzoneRegister() {
   }, [
     image,
     email,
-    fristName,
+    firstName,
     lastName,
     password,
     phoneNumber,
@@ -43,7 +43,7 @@ export default function ClientzoneRegister() {
     try {
       const res = await axios.post("http://localhost:3001/auth/register", {
         image,
-        fristName,
+        firstName,
         lastName,
         email,
         phoneNumber,
@@ -54,7 +54,7 @@ export default function ClientzoneRegister() {
       console.log(res);
       setAuth({
         image,
-        fristName,
+        firstName,
         lastName,
         email,
         password,
@@ -63,7 +63,7 @@ export default function ClientzoneRegister() {
         country,
       });
       setImage("");
-      setFristName("");
+      setfirstName("");
       setLastName("");
       setEmail("");
       setpassword("");
@@ -94,7 +94,7 @@ export default function ClientzoneRegister() {
   // }
 
   // const initialValues = {
-  //   fristName: "",
+  //   firstName: "",
   //   LastName: "",
   //   email: "",
   //   password: "",
@@ -138,16 +138,16 @@ export default function ClientzoneRegister() {
                   <Form>
                     <Field
                       type="text"
-                      name="fristName"
-                      onChange={(e) => setFristName(e.target.value)}
-                      value={fristName}
-                      placeholder="fristName *"
+                      name="firstName"
+                      onChange={(e) => setfirstName(e.target.value)}
+                      value={firstName}
+                      placeholder="firstName *"
                       className="form-control mb-3 p-3"
                       aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-default"
                     />
                     <ErrorMessage
-                      name="fristName"
+                      name="firstName"
                       component="p"
                       className="text-danger"
                     />
@@ -265,7 +265,7 @@ export default function ClientzoneRegister() {
                     className="form-control"
                     onChange={(e) => setImage(e.target.value)}
                     value={image}
-                    placeholder="Enter your FristName"
+                    placeholder="Enter your firstName"
                     required
                   />
                 </div>
@@ -273,9 +273,9 @@ export default function ClientzoneRegister() {
                   <input
                     type="text"
                     className="form-control"
-                    onChange={(e) => setFristName(e.target.value)}
-                    value={fristName}
-                    placeholder="Enter your FristName"
+                    onChange={(e) => setfirstName(e.target.value)}
+                    value={firstName}
+                    placeholder="Enter your firstName"
                     required
                   />
                 </div>

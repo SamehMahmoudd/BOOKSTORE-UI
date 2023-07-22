@@ -33,7 +33,7 @@ function SideCart({ isCartOpen, handleClose }) {
               <div className='card-product'>
               {cart.map((product)=>{
                 return (
-                  <div className="card mb-3" style={{maxWidth: "480px"}} key={product.book.id}>
+                  <div className="card mb-3" style={{maxWidth: "480px"}} key={product.book._id}>
                     <div className="row g-0" >
                       <div className="col-md-4">
                         <img  className="img-fluid " src={product.book.bookImage} alt="cover_image"/>
@@ -43,7 +43,6 @@ function SideCart({ isCartOpen, handleClose }) {
                           <div className='d-flex justify-content-between'>
                             <h3 className="card-title">{product.book.bookTitle}</h3>
                             <i className="bi bi-trash" onClick={() => {dispatch(removeFromCart(product))}}></i>
-                            {/* <i className="bi bi-trash" onClick={() => {delete(product.book)}}></i> */}
                           </div>
                           <p className="card-text price">{Number(product.book.price) * product.quantity}.00 {t('product-details.p-egp')}</p>
                           <div className='countbtn'>
