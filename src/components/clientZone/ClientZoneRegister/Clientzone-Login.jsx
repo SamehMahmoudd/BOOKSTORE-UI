@@ -39,6 +39,7 @@ export default function ClientzoneLogin() {
       const accessToken = res?.data?.token;
       console.log(res);
       localStorage.setItem("user", accessToken);
+      localStorage.setItem("ID", res?.data?.ID);
       setEmail("");
       setPassword("");
       setAuth({ email, password, accessToken });
