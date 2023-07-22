@@ -12,9 +12,8 @@ const Product = () => {
  
   const { id } = useParams();
   dispatch(catId(id));
-  console.log('====================================');
   console.log('id from component----->',id);
-  console.log('====================================');
+  
   
   // const books = useSelector((state) => state.books.filterCount > 0 ? state.books.filteredBooks:state.books.books)
   const books = useSelector((state) => {
@@ -26,6 +25,8 @@ const Product = () => {
       return state.books.books;
     }
   });
+  console.log('num of books ----->',books.length);
+
   const [selectedSortOption, setSelectedSortOption] = useState('');
 
   const handleSortChange = (event) => {

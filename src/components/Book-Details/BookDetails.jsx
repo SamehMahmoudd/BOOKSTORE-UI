@@ -10,11 +10,11 @@ import './BookDetails.css';
 export default function BookDetails() {
 
   const { t } = useTranslation();
-  ////////////////////////////////////////////
+  //=========================================//
   const { id } = useParams();
-  
-
   const book = useSelector((state) =>state.books.books.find((book) => book._id === id))
+  console.log('book:------>',book);
+
   const category = useSelector((state) => state.categories.find((cat)=>cat._id === book.category));
   const authorName = book.author.name;
   const authorBooks = useSelector((state) => state.books.books.filter((book) => book.author.name === authorName));
@@ -23,9 +23,13 @@ export default function BookDetails() {
   console.log('authorBooks:',authorBooks);
   console.log('bookStock:',stock);
   console.log('====================================');
+  //=========================================//
   
   
   const [quantity, setQuantity] = useState(1)
+
+  console.log('quantity:------>',quantity);
+
   const dispatch = useDispatch()
 
   /// handle -> zoom in & zoom out
