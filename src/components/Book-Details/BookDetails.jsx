@@ -50,7 +50,7 @@ export default function BookDetails() {
             <NavLink to="/store" className="nav-link">{t('product-details.store')}</NavLink>
           </li>
           <li className="breadcrumb-item">
-            <NavLink to={`/store/${category?._id}`} className="nav-link">{category?.name}</NavLink>
+            <NavLink to={`/store/${category._id}`} className="nav-link">{category.name}</NavLink>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             {book?.bookTitle}
@@ -96,19 +96,15 @@ export default function BookDetails() {
                   <li>
                     <span>{t('product-details.t-page')} : {book?.bookPages}</span>
                   </li>
-
                   <li>
-                    <span>{t('product-details.t-category')}{category?.name}</span>
+                    <span>{t('product-details.t-category')}{category.name}</span>
                   </li>
-
                   <li>
                     <span>{t('product-details.t-author')} : {book?.author.name}</span>
                   </li>
-
                   <li>
                     <span>{t('product-details.t-publication')} : {book?.publishedYear}</span>
                   </li>
-                  
                   <li>
                     <span>SKU : </span>
                     <span id="productSku" data-sku="9789778616187">9789778616187</span>

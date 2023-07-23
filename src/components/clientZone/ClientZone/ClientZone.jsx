@@ -18,7 +18,7 @@ function ClientZone() {
     try {
       navigate("/login");
       localStorage.clear();
-      setAuth();
+      setAuth("");
       console.log("successfully logged out");
     } catch (err) {
       console.log(err);

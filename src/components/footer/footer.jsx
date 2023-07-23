@@ -3,13 +3,12 @@ import '../navbar/nav.css'
 import { NavLink } from "react-router-dom";
 import { Trans, useTranslation} from 'react-i18next'
 
-
 const Footer = () => {
 
   const { t } = useTranslation();
   return (
     <>
-        <div className="container-fluid m-0 p-0" >
+        <div className="container-fluid m-0 p-0">
           <nav className="navbar navbar-expand-lg navbar-light p-2 d-flex">
             <ul className="list-unstyled navbar-brand pt-4">
               <li className="mt-1 col-md-9 col-xs-12 text-md-left text-center px-5 fs-6">

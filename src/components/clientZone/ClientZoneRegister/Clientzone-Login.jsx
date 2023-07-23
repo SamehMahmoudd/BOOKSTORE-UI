@@ -16,7 +16,6 @@ const login_URL = "/auth/login";
 import { useTranslation } from "react-i18next";
 export default function ClientzoneLogin() {
   const { setAuth } = UseAuth();
-  const emailRef = useRef();
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,18 +23,12 @@ export default function ClientzoneLogin() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  // useEffect(() => {
-  //   emailRef?.current?.focus();
-  // }, []);
-  // useEffect(() => {
-  //   setErrMsg("");
-  // }, [email, password]);
+
   const login = async (e) => {
     setLoading(true);
     try {
       const res = await axios.post(login_URL, e);
       const accessToken = res?.data?.token;
-      const accessuserId = res?.data?.userId;
       console.log(res);
       localStorage.setItem("user", accessToken);
       setAuth({ e, accessToken });
@@ -192,99 +185,6 @@ export default function ClientzoneLogin() {
                 </div>
               </Form>
             </Formik>
-            {/* <form className="bg-body text-center" onSubmit={login}>
-                <p className="title fw-semibold mb-4">
-                  {t("client-zone.client.reg-email")}
-                </p>
-                <div className="form-group email mb-4">
-                  <input
-                    className="form-control"
-                    type="email"
-                    name="example"
-                    autoComplete="off"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    placeholder="example@example.com"
-                    required
-                  />
-                </div>
-                <div className="form-group password mb-4">
-                  <input
-                    className="form-control"
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    placeholder={t("client-zone.client.reg-pass")}
-                    required
-                  />
-                </div>
-                <div className="form-group request m-4 pt-3">
-                  <button className="btn btn-primary">
-                    {loading ? (
-                      <Spinner
-                        animation="border"
-                        role="status"
-                        className="container d-flex align-items-center justify-content-center"
-                      >
-                        <span className="visually-hidden ">Loading...</span>
-                      </Spinner>
-                    ) : (
-                      <span>{t("client-zone.client.reg-btn-login")}</span>
-                    )}
-                  </button>
-                </div>
-                <div className="form-group request m-4 pt-3">
-                  <span className="fw-semibold">
-                    {t("client-zone.client.reg-account")}{" "}
-                    <Link to="/register"> {t("client-zone.client.sign")}</Link>
-                  </span>
-                </div>
-                <div className="login-box pt-3">
-                  <div className="social">
-                    <span className="mb-15 fw-semibold">
-                      {" "}
-                      {t("client-zone.client.reg-continue-using")}
-                    </span>
-                  </div>
-                  <LoginSocialGoogle
-                    client_id={
-                      "720953758849-av80tdajd4u9k5hgqqnh9dmj78dha5bu.apps.googleusercontent.com"
-                    }
-                    scope="openid profile email"
-                    discoveryDocs="claims_supported"
-                    access_type="offline"
-                    onResolve={({ provider, data }) => {
-                      console.log(provider, data);
-                      setprofile(data);
-                    }}
-                    onReject={(err) => {
-                      console.log(err);
-                    }}
-                  >
-                    <div className="social-login-btn m-auto">
-                      <div className="mb-3">
-                        <GoogleLoginButton />
-                      </div>
-                    </div>
-                  </LoginSocialGoogle>
-                  <LoginSocialFacebook
-                    appId="920872289211071"
-                    onResolve={({ data }) => {
-                      console.log(data);
-                      setprofile(data);
-                    }}
-                    onReject={(err) => {
-                      console.log(err);
-                    }}
-                  >
-                    <div className="social-login-btn m-auto">
-                      <div className="mb-3">
-                        <FacebookLoginButton />
-                      </div>
-                    </div>
-                  </LoginSocialFacebook>
-                </div>
-              </form> */}
           </>
         </div>
       </div>

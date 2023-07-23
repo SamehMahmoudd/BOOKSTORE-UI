@@ -13,17 +13,15 @@ function PaymentComponent(props) {
     props.payment();
   }
 
-  const totalPrice=cart.reduce((total, product) => {
-    return total + Number(product.book.price) * product.quantity;
-  }, 0)
-
   return (
     <>
       <div className="row" id="payment-page">
         <div className="col-12 col-md-12 d-flex flex-column align-items-center justify-content-between ">
           <div className="text-center">
             <h1 style={{ color: "#900c3f" }}>
-              { totalPrice}.00 {t('product-details.p-egp')}
+              {cart.reduce((total, product) => {
+                return total + Number(product.book.price) * product.quantity;
+              }, 0)}.00 {t('product-details.p-egp')}
             </h1>
             <h5>{t('order.payment-sec.choose-method')}</h5>
           </div>
@@ -49,7 +47,7 @@ function PaymentComponent(props) {
                       purchase_units: [
                         {
                           amount: {
-                            value: `${totalPrice}`,
+                            value: "200.00",
                           },
                         },
                       ],
@@ -61,7 +59,6 @@ function PaymentComponent(props) {
                         `{t('order.payment-sec.alert-comp')}`+
                           details.payer.name.given_name
                       );
-                      props.updatingOrder({...props.order,  paymentMethod:'Paypal' })
                     });
                   }}
                 />
@@ -74,7 +71,7 @@ function PaymentComponent(props) {
         </div>
       </div>
     </>
-  );}
-      
+  );
+}
 
 export default PaymentComponent;

@@ -5,11 +5,7 @@ export const cartSlice = createSlice({
   initialState: [],
   reducers: {
     addToCart: (state, action) => {
-      const {book} = action.payload
-      console.log('book from addToCart:------>',book._id);
-      // console.log('book from addToCart:------>',book._id);
-
-      const foundBook = state.find(product => product.book._id === action.payload.book._id)
+      const foundBook = state.find(product => product.book.id === action.payload.book.id)
       if (foundBook) {
         return state = increaseQuantity(state, action)
       } else {
@@ -18,7 +14,7 @@ export const cartSlice = createSlice({
     },
     increaseBookQuantity: (state, action) => {
       return state = state.map(product => {
-        if (product.book._id === action.payload.book._id) {
+        if (product.book.id === action.payload.book.id) {
           return { ...product, quantity: product.quantity + 1 };
         }
         return product
@@ -26,15 +22,14 @@ export const cartSlice = createSlice({
     },
     decreaseBookQuantity: (state, action) => {
       return state = state.map(product => {
-        if (product.book._id === action.payload.book._id) {
+        if (product.book.id === action.payload.book.id) {
           return { ...product, quantity: product.quantity - 1 };
         }
         return product
       })
     },
     removeFromCart: (state, action) => {
-      const updatedCart = state.filter(item => item.book._id !== action.payload.book._id);
-      return updatedCart;
+      return state = []
     },
     
     emptyCart: (state, action) => {
@@ -44,9 +39,10 @@ export const cartSlice = createSlice({
 })
 
 
+
 const increaseQuantity = (state, action) => {
   return state.map(product => {
-    if (product.book._id === action.payload.book._id) {
+    if (product.book.id === action.payload.book.id) {
       return { ...product, quantity: product.quantity + action.payload.quantity };
     }
     return product

@@ -1,27 +1,25 @@
-import React, { useState ,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import SideCart from "./../sideCart/sideCart";
 import { useSelector } from "react-redux";
 import { Trans } from "react-i18next";
-import { AuthProvider} from "../../context/authProvider";
-
 import "./nav.css";
 import UseAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-const {auth} = UseAuth({})
+  const { auth } = UseAuth();
   ////////////////////////////////////////////////////
   const [isCartOpen, setIsCartOpen] = useState(false);
   const counter = useSelector((state) =>
-  state.cart.reduce((total, product) => {
-    return total + product.quantity;
-  }, 0)
+    state.cart.reduce((total, product) => {
+      return total + product.quantity;
+    }, 0)
   );
-  
+
   function openCart() {
     setIsCartOpen(true);
   }
-  
+
   function closeCart() {
     setIsCartOpen(false);
   }
@@ -117,15 +115,15 @@ const {auth} = UseAuth({})
                       </NavLink>
                     </li>
                     <li>
-                      {auth ? 
-                        <NavLink to="/admin" className="nav-link">
-                          <i className="bi bi-person-fill"></i>
-                        </NavLink>
-                       :
+                      {!auth ? (
                         <NavLink to="/login" className="nav-link">
                           <i className="bi bi-person-fill"></i>
                         </NavLink>
-                      }
+                      ) : (
+                        <NavLink to="/admin" className="nav-link">
+                          <i className="bi bi-person-fill"></i>
+                        </NavLink>
+                      )}
                     </li>
                   </ul>
                 </ul>
