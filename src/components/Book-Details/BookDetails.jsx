@@ -15,7 +15,7 @@ export default function BookDetails() {
   
 
   const book = useSelector((state) =>state.books.books.find((book) => book._id === id))
-  const category = useSelector((state) => state.categories.find((cat)=>cat._id === book.category));
+  const category = useSelector((state) => state.categories.find((cat)=>cat === book.category));
   const authorName = book.author.name;
   const authorBooks = useSelector((state) => state.books.books.filter((book) => book.author.name === authorName));
   const stock = book.bookStock
