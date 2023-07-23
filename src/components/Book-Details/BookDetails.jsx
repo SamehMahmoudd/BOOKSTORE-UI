@@ -28,9 +28,7 @@ export default function BookDetails() {
     const [quantity, setQuantity] = useState(1);
   // },[]);
   
-
   console.log('quantity:------>',quantity);
-
   const dispatch = useDispatch()
 
   /// handle -> zoom in & zoom out
@@ -183,6 +181,7 @@ export default function BookDetails() {
                   <h4 style={{textAlign: 'right', paddingTop: '10px', borderRadius: '5px',color: 'gray',}}>
                     <strong>{book?.description}</strong>
                   </h4>
+
                 </div>
               </div>
             </div>

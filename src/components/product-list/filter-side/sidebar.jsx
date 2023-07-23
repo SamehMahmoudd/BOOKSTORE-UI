@@ -155,10 +155,12 @@ const Filter = () => {
           </div>
           <hr />
           <div className="collapse multi-collapse" id="multiCollapseExample2">
+
             {uniqueAuthors.map((author) => {
              
                  return (
                 console.log('wwwwwwwwwwwwwww',author.name),
+
                 <li className="list-group-item" key={author._id}>
                   <input
                     className="form-check-input mx-2"
