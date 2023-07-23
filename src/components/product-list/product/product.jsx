@@ -12,9 +12,8 @@ const Product = () => {
  
   const { id } = useParams();
   dispatch(catId(id));
-  console.log('====================================');
   console.log('id from component----->',id);
-  console.log('====================================');
+  
   
   // const books = useSelector((state) => state.books.filterCount > 0 ? state.books.filteredBooks:state.books.books)
   const books = useSelector((state) => {
@@ -29,8 +28,8 @@ const Product = () => {
     
   });
 
-  console.log(books);
- 
+  console.log('num of books ----->',books.length);
+
   const [selectedSortOption, setSelectedSortOption] = useState('');
 
   const handleSortChange = (event) => {
@@ -61,6 +60,7 @@ const Product = () => {
       {sortedBooks.length == 0 ? <h1 style={{textAlign:'center',width:'100%'}}>Books Not found</h1>: sortedBooks.map((book) =>  {
         return (
           <div className="col mb-5" style={{height:'620px'}} key={book._id}>
+
             <div className="card h-100" style={style}>
               <img className="card-img-top" src={book.bookImage} style={{height:'350px'}} />
               <div className="card-body p-4">

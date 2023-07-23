@@ -10,12 +10,12 @@ import './BookDetails.css';
 export default function BookDetails() {
 
   const { t } = useTranslation();
-  ////////////////////////////////////////////
+  //=========================================//
   const { id } = useParams();
-  
-
   const book = useSelector((state) =>state.books.books.find((book) => book._id === id))
-  const category = useSelector((state) => state.categories.find((cat)=>cat === book.category));
+  console.log('book:------>',book);
+  
+  const category = useSelector((state) => state.categories.find((cat)=>cat._id === book.category));
   const authorName = book.author.name;
   const authorBooks = useSelector((state) => state.books.books.filter((book) => book.author.name === authorName));
   const stock = book.bookStock
@@ -23,9 +23,12 @@ export default function BookDetails() {
   console.log('authorBooks:',authorBooks);
   console.log('bookStock:',stock);
   console.log('====================================');
+  //=========================================//
+  // useEffect(() => {
+    const [quantity, setQuantity] = useState(1);
+  // },[]);
   
-  
-  const [quantity, setQuantity] = useState(1)
+  console.log('quantity:------>',quantity);
   const dispatch = useDispatch()
 
   /// handle -> zoom in & zoom out
@@ -149,14 +152,19 @@ export default function BookDetails() {
                     <input type="text" readOnly value={quantity} />
                     <button
                       onClick={() => {setQuantity((q) => q + 1)}}
-                      className="plus">
+                      className={`plus ${quantity <= stock ? 'disabled' : ''}`}
+                      disabled={quantity >= stock }
+                    >
                       +
                     </button>
                   </div>
                   <button
                     className="py-0 mx-3 btn btn-outline-danger flex-shrink-0 icon"
                     type="button"
-                    onClick={() => { dispatch(addToCart({ book, quantity }))}}>
+                    onClick={() => {
+                       dispatch(addToCart({ book, quantity }));
+                       setQuantity(1);
+                       }}>
                     <i className="bi-cart-fill "></i> {t('product-details.btn-cart')}
                   </button>
                 </div><br/>
@@ -180,6 +188,7 @@ export default function BookDetails() {
                   <h4 style={{textAlign: 'right', paddingTop: '10px', borderRadius: '5px',color: 'gray',}}>
                     <strong>{book?.description}</strong>
                   </h4>
+
                 </div>
               </div>
             </div>

@@ -4,7 +4,6 @@ import './category.css'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
-
 const Category = ({cat}) => {
   const { t } = useTranslation();
   const books = useSelector((state) => state.books.books.filter((book) => book.category === cat._id))
