@@ -5,8 +5,9 @@ import { useSelector } from 'react-redux'
 import './../overlay.css';
 
 function Search() {
-   
+
     const books = useSelector((state) => state.books.books);
+
     const [inputValue, setInputValue] = useState('');
     const [filteredBooks, setFilteredBooks] = useState([]); 
 
@@ -19,11 +20,13 @@ function Search() {
         setInputValue(value);
     };
 
+
     const searchQuery = () => {
         const filtered = books.filter((book) => book.bookTitle.toLowerCase().includes(inputValue.toLowerCase()));
         setFilteredBooks(filtered);
-    }
 
+    }
+    
     const navigate = useNavigate()
     const handelGoBack = () => {
         navigate(-1);
@@ -58,6 +61,7 @@ function Search() {
                             ))}
                         </ul>
                     </div>
+
                 </div>
             </div>
         </div>

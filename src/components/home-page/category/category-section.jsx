@@ -7,14 +7,13 @@ import { useSelector } from 'react-redux'
 const Category = ({cat}) => {
   const { t } = useTranslation();
   const books = useSelector((state) => state.books.books.filter((book) => book.category === cat._id))
-
+   
   return (
     <div className="col">
       <div className="card text-bg-dark">
         <img src="/assets/img/back-store.jpg" className="card-img" alt="..."/>
         <div className="card-img-overlay text-center">
           <p className="card-text">{books.length} {t('home.category.num-text')}</p>
-          {/* <Link to={`/details/${book._id}`}> */}
           <Link to={`/store/${cat._id}`}>
             <button
               type="button"
