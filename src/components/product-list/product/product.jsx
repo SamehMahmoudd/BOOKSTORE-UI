@@ -21,11 +21,16 @@ const Product = () => {
     if (state.books.filterCount > 0) {
       return state.books.filteredBooks;
     } else if (state.books.categoryId) {
+      console.log(state)
       return state.books.books.filter((book) => book.category === state.books.categoryId);
     } else {
       return state.books.books;
     }
+    
   });
+
+  console.log(books);
+ 
   const [selectedSortOption, setSelectedSortOption] = useState('');
 
   const handleSortChange = (event) => {
