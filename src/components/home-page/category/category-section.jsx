@@ -15,7 +15,6 @@ const Category = ({cat}) => {
         <img src="/assets/img/back-store.jpg" className="card-img" alt="..."/>
         <div className="card-img-overlay text-center">
           <p className="card-text">{books.length} {t('home.category.num-text')}</p>
-          {/* <Link to={`/details/${book._id}`}> */}
           <Link to={`/store/${cat._id}`}>
             <button
               type="button"
