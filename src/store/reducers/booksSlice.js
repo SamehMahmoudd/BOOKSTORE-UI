@@ -1,15 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../config/axiosConfig";
 
-// export const getBooksWithFilter = async () => {
-//   try {
-//     const result = await axios.get(`/filter`);
-//     console.log('result', result.data);
-//     return result.data;
-//   } catch (error) {
-//     console.log('error in getbooks service -> ', error)
-//   }
-// }
+
 
 export const getBooksWithFilter = async (low, high, author) => {
   try {
@@ -48,10 +40,23 @@ const booksSlice = createSlice({
       const price = action.payload;
       const [low, high] = price.split('-').map(p => parseInt(p));
       
-      state.filteredBooks = state.filteredBooks.concat(
-        state.books.filter(book => 
-          book.price >= low && book.price <= high && book.category === state.categoryId
-        ));
+      // Get books that match the price range and category
+      const filteredBooksByPrice = state.books.filter(book =>
+        book.price >= low && book.price <= high && book.category === state.categoryId
+      );
+
+      // Check if the books are already in filteredBooks and push only books without repeated book twice
+      filteredBooksByPrice.forEach(book => {
+        if (!state.filteredBooks.some(filteredBook => filteredBook._id === book._id)) {
+          state.filteredBooks.push(book);
+        }
+      });
+
+      // state.filteredBooks = state.filteredBooks.concat(
+      //   state.books.filter(book => 
+      //     book.price >= low && book.price <= high && book.category === state.categoryId
+      //   ));
+
         state.filterCount++
         
     },

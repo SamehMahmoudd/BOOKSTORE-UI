@@ -14,7 +14,7 @@ export default function BookDetails() {
   const { id } = useParams();
   const book = useSelector((state) =>state.books.books.find((book) => book._id === id))
   console.log('book:------>',book);
-
+  
   const category = useSelector((state) => state.categories.find((cat)=>cat._id === book.category));
   const authorName = book.author.name;
   const authorBooks = useSelector((state) => state.books.books.filter((book) => book.author.name === authorName));
@@ -24,9 +24,10 @@ export default function BookDetails() {
   console.log('bookStock:',stock);
   console.log('====================================');
   //=========================================//
+  // useEffect(() => {
+    const [quantity, setQuantity] = useState(1);
+  // },[]);
   
-  
-  const [quantity, setQuantity] = useState(1)
 
   console.log('quantity:------>',quantity);
 
@@ -146,14 +147,19 @@ export default function BookDetails() {
                     <input type="text" readOnly value={quantity} />
                     <button
                       onClick={() => {setQuantity((q) => q + 1)}}
-                      className="plus">
+                      className={`plus ${quantity <= stock ? 'disabled' : ''}`}
+                      disabled={quantity >= stock }
+                    >
                       +
                     </button>
                   </div>
                   <button
                     className="py-0 mx-3 btn btn-outline-danger flex-shrink-0 icon"
                     type="button"
-                    onClick={() => { dispatch(addToCart({ book, quantity }))}}>
+                    onClick={() => {
+                       dispatch(addToCart({ book, quantity }));
+                       setQuantity(1);
+                       }}>
                     <i className="bi-cart-fill "></i> {t('product-details.btn-cart')}
                   </button>
                 </div><br/>

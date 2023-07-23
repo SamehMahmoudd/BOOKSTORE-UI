@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPriceFilter,removePriceFilter,setAuthorFilter,removeAuthorFilter,testSendAuthor } from '../../../store/reducers/booksSlice';
+import { addPriceFilter,removePriceFilter,setAuthorFilter,removeAuthorFilter } from '../../../store/reducers/booksSlice';
+import { getBooksWithFilter } from '../../../store/reducers/booksSlice';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom'
 
@@ -8,6 +9,7 @@ import "./sidebar.css";
 
 const Filter = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const { id : categoryId  } = useParams();
 
   const categoryBooks = useSelector((state) => state.books.books.filter((book) =>
@@ -21,7 +23,6 @@ const Filter = () => {
   );
   console.log('authors------->',uniqueAuthors);
   //============================================//
-  const dispatch = useDispatch();
 
   const handelSelectedPrice = (event) =>{
     const price = event.target.value; 
@@ -55,9 +56,6 @@ const Filter = () => {
     
     if (isChecked) {
       dispatch(setAuthorFilter(auther)); 
-
-      dispatch(testSendAuthor(auther)); 
-
     }else if(!isChecked){
       dispatch(removeAuthorFilter(auther)); 
     }

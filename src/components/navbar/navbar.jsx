@@ -44,7 +44,7 @@ const Navbar = () => {
                 <NavLink to="/home" className="nav-link"><Trans i18nKey="navbar.home">HOME</Trans></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/store" className="nav-link"><Trans i18nKey="navbar.store">STORE</Trans></NavLink>
+                <NavLink to="/category" className="nav-link"><Trans i18nKey="navbar.store">CATEGORY</Trans></NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/tranding" className="nav-link"><Trans i18nKey="navbar.tranding">TRENDING NOW</Trans></NavLink>
