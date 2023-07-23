@@ -12,20 +12,23 @@ const Product = () => {
  
   const { id } = useParams();
   dispatch(catId(id));
-  console.log('====================================');
   console.log('id from component----->',id);
-  console.log('====================================');
+  
   
   // const books = useSelector((state) => state.books.filterCount > 0 ? state.books.filteredBooks:state.books.books)
   const books = useSelector((state) => {
     if (state.books.filterCount > 0) {
       return state.books.filteredBooks;
     } else if (state.books.categoryId) {
+      console.log(state)
       return state.books.books.filter((book) => book.category === state.books.categoryId);
     } else {
       return state.books.books;
     }
   });
+
+  console.log(books);
+ 
   const [selectedSortOption, setSelectedSortOption] = useState('');
 
   const handleSortChange = (event) => {
@@ -56,6 +59,7 @@ const Product = () => {
       {sortedBooks.length == 0 ? <h1 style={{textAlign:'center',width:'100%'}}>Books Not found</h1>: sortedBooks.map((book) =>  {
         return (
           <div className="col mb-5" style={{height:'620px'}} key={book._id}>
+
             <div className="card h-100" style={style}>
               <img className="card-img-top" src={book.bookImage} style={{height:'350px'}} />
               <div className="card-body p-4">

@@ -23,7 +23,7 @@ const Footer = () => {
                   <NavLink to="/home" className="nav-link"><Trans i18nKey="footer.home">HOME</Trans></NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/store" className="nav-link"><Trans i18nKey="footer.store">STORE</Trans></NavLink>
+                  <NavLink to="/store" className="nav-link"><Trans i18nKey="footer.store">CATEGORY</Trans></NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to="/tranding" className="nav-link"><Trans i18nKey="footer.tranding">TRENDING NOW</Trans></NavLink>
