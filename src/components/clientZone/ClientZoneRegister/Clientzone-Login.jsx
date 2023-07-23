@@ -35,6 +35,7 @@ export default function ClientzoneLogin() {
     try {
       const res = await axios.post(login_URL, e);
       const accessToken = res?.data?.token;
+      const accessuserId = res?.data?.userId;
       console.log(res);
       localStorage.setItem("user", accessToken);
       setAuth({ e, accessToken });
