@@ -42,7 +42,7 @@ const Navbar = () => {
                 <NavLink to="/home" className="nav-link"><Trans i18nKey="navbar.home">HOME</Trans></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/store" className="nav-link"><Trans i18nKey="navbar.store">STORE</Trans></NavLink>
+                <NavLink to="/category" className="nav-link"><Trans i18nKey="navbar.store">CATEGORY</Trans></NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/tranding" className="nav-link"><Trans i18nKey="navbar.tranding">TRENDING NOW</Trans></NavLink>
@@ -52,9 +52,6 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <NavLink to="/contact" className="nav-link"><Trans i18nKey="navbar.contact">CONTACT</Trans></NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/test" className="nav-link"><Trans i18nKey="navbar.trans">TRANS</Trans></NavLink>
               </li>
               <div id="navy">
                 <ul className="navbar-nav d-flex align-content-center flex-wrap nav">
