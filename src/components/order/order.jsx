@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import "./order.css";
-import ThanksForYourOrder from "./thanks/thanks";
 
 
 
@@ -23,15 +22,12 @@ function Order() {
     );
   }, 0);
 
-  const userID= localStorage.getItem('ID')
-  const [orderDone,setOrderDone]=useState(false)
   const [order,setOrder]=useState({
-    user:userID,
+    info:{email:'',fullName:'',country:'',address:'',city:'',phone:undefined,landmark:undefined},
     address:'',
     totalPrice:total,
     status:'pending',
-    items:[...cart],
-    paymentMethod:'Cash On Delivery'
+    items:[...cart]
 
   })
   
@@ -47,7 +43,6 @@ function Order() {
       })
       .then((data) => {
         console.log(data);
-        setOrderDone(true)
       })
       .catch((err) => {
         console.log(err);
@@ -72,16 +67,12 @@ function Order() {
 
   return (
     <>
-    {orderDone==true? <ThanksForYourOrder/> :
-    <>
       <div className="heading d-flex flex-column align-items-center">
         <div>
           <h1>{t('order.title')}</h1>
         </div>
         <div className="small"></div>
       </div>
-      
-        
 
       <div className="content">
         <div className="container">
@@ -164,15 +155,12 @@ function Order() {
               <span className="nav-span mx-3">{t('order.payment')}</span>
             </div>
           </div>
-            {orderActivePage==='nav-info'     &&  <InfoComponent order={order}     updatingOrder={setOrder} /> }
+            {orderActivePage==='nav-info'     &&  <InfoComponent order={order} updatingOrder={setOrder} /> }
             {orderActivePage==='nav-delivery' &&  <DeliveryComponent order={order} updatingOrder={setOrder}/> }
-            {orderActivePage==='nav-payment'  &&  <PaymentComponent order={order}  updatingOrder={setOrder} payment={handlePayment}/> }
+            {orderActivePage==='nav-payment'  &&  <PaymentComponent payment={handlePayment}/> }
           </div>
       </div>
-      </>
-}
-</>
-   
+    </>
   );
 }
 

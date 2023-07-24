@@ -13,9 +13,7 @@ function InfoComponent(props) {
   /////////////////////////////////////
   const cart = useSelector((state) => state.cart);
   const { updatePage } = useContext(orderActivePageCntxt);
-
   function handleSubmit(evnt) {
-    
     props.updatingOrder({...props.order,  info:evnt })
     updatePage("nav-delivery");
   }

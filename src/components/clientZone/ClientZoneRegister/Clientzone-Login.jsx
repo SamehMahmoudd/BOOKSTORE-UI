@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
+import { Formik, ErrorMessage, Form, Field } from "formik";
+import { loginValidation } from "../../../ValidationSchema/loginValidation";
 import swal from "sweetalert";
-// import axiosroot from "../../../config/axiosConfigs";
-// const Login_URL = "/auth/login";
+import Spinner from "react-bootstrap/Spinner";
 import "../../../main";
-import axios from "axios";
 import {
   FacebookLoginButton,
   GoogleLoginButton,
@@ -11,43 +11,37 @@ import {
 import { LoginSocialFacebook, LoginSocialGoogle } from "reactjs-social-login";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import UseAuth from "../../../hooks/useAuth";
+import axios from "../../../config/axiosConfig";
+const login_URL = "/auth/login";
 import { useTranslation } from "react-i18next";
 export default function ClientzoneLogin() {
-  const { setAuth } = UseAuth();
-  const emailRef = useRef();
+  const { setAuth } = UseAuth(  );
   const errRef = useRef();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [loading, setLoading] = useState(false);
   const [profile, setprofile] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  useEffect(() => {
-    emailRef?.current?.focus();
-  }, []);
-  useEffect(() => {
-    setErrMsg("");
-  }, [email, password]);
+
   const login = async (e) => {
-    e.preventDefault();
+    setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3001/auth/login", {
-        email: email,
-        password: password,
-      });
+      const res = await axios.post(login_URL, e);
       const accessToken = res?.data?.token;
-      const accessuserId = res?.data?.userId;
       console.log(res);
       localStorage.setItem("user", accessToken);
-      localStorage.setItem("userid", accessuserId);
-      setEmail("");
-      setPassword("");
-      setAuth({ email, password, accessToken });
+      setAuth({ e, accessToken });
+      setLoading(false);
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.res) {
-        setErrMsg("No Server is Response");
+        swal(
+          "Email and Password is faild ",
+          "You clicked the button!",
+          "warning"
+        );
+        setSuccess(false);
       } else if (err.res?.status === 400) {
         setErrMsg("Missing Email or Password ");
       } else if (err.res?.status === 401) {
@@ -57,6 +51,10 @@ export default function ClientzoneLogin() {
       }
       errRef.current.focus();
     }
+  };
+  const initialValues = {
+    email: "",
+    password: "",
   };
   const { t } = useTranslation();
   return (
@@ -74,7 +72,7 @@ export default function ClientzoneLogin() {
         </div>
       </div>
       <div className="col-xs-12 col-sm-12 col-md-8 m-auto mt-4 ">
-        <div className="row login-forms box box-primary w-100 m-auto mb-lg">
+        <div className="row login-forms boxs box-primary w-100 m-auto mb-lg">
           <>
             <div
               ref={errRef}
@@ -83,46 +81,69 @@ export default function ClientzoneLogin() {
             >
               {errMsg}
             </div>
-            <>
-              <form className="bg-body text-center" onSubmit={login}>
+            <Formik
+              className="bg-body text-center"
+              initialValues={initialValues}
+              validationSchema={loginValidation}
+              onSubmit={login}
+            >
+              <Form>
                 <p className="title fw-semibold mb-4">
-                  {t('client-zone.client.reg-email')}
+                  PLEASE ENTER TO {t("client-zone.client.reg-btn-login")} :
                 </p>
-                <div className="form-group email mb-4">
-                  <input
-                    className="form-control"
-                    type="email"
-                    name="example"
-                    autoComplete="off"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    placeholder="example@example.com"
-                    required
-                  />
-                </div>
-                <div className="form-group password mb-4">
-                  <input
-                    className="form-control"
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    placeholder={t('client-zone.client.reg-pass')}
-                    required
-                  />
-                </div>
+                <Field
+                  type="email"
+                  name="email"
+                  placeholder={t("client-zone.client.reg-email")}
+                  className="form-control mb-3 p-3"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  className="text-danger"
+                />
+                <Field
+                  type="password"
+                  name="password"
+                  placeholder={t("client-zone.client.reg-pass")}
+                  className="form-control mb-3 p-3"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="p"
+                  className="text-danger"
+                />
                 <div className="form-group request m-4 pt-3">
-                  <button className="btn btn-primary">
-                    <span>{t('client-zone.client.reg-btn-login')}</span>
+                  <button className="btn btn-primary" type="submit">
+                    {loading ? (
+                      <Spinner
+                        animation="border"
+                        role="status"
+                        className="container d-flex align-items-center justify-content-center"
+                      >
+                        <span className="visually-hidden ">Loading...</span>
+                      </Spinner>
+                    ) : (
+                      <span>{t("client-zone.client.reg-btn-login")}</span>
+                    )}
                   </button>
                 </div>
                 <div className="form-group request m-4 pt-3">
                   <span className="fw-semibold">
-                    {t('client-zone.client.reg-account')} <Link to="/register"> {t('client-zone.client.sign')}</Link>
+                    {t("client-zone.client.reg-account")}{" "}
+                    <Link to="/register"> {t("client-zone.client.sign")}</Link>
                   </span>
                 </div>
                 <div className="login-box pt-3">
                   <div className="social">
-                    <span className="mb-15 fw-semibold"> {t('client-zone.client.reg-continue-using')}</span>
+                    <span className="mb-15 text-center fw-semibold">
+                      {" "}
+                      {t("client-zone.client.reg-continue-using")}
+                    </span>
                   </div>
                   <LoginSocialGoogle
                     client_id={
@@ -162,8 +183,8 @@ export default function ClientzoneLogin() {
                     </div>
                   </LoginSocialFacebook>
                 </div>
-              </form>
-            </>
+              </Form>
+            </Formik>
           </>
         </div>
       </div>
