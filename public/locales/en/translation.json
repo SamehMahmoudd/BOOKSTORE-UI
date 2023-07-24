@@ -3,7 +3,7 @@
     "learn" : "Learn React",
     "navbar":{
         "home":"HOME",
-        "store":"CATEGORY",
+        "store":"STORE",
         "tranding":"TRANDING NOW",
         "about":"ABOUT",
         "contact":"CONTACT",
@@ -11,7 +11,7 @@
     },
     "footer":{
         "home":"HOME",
-        "store":"CATEGORY",
+        "store":"STORE",
         "tranding":"TRANDING NOW",
         "about":"ABOUT",
         "contact":"CONTACT",

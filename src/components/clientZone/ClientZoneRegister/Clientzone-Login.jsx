@@ -15,7 +15,7 @@ import axios from "../../../config/axiosConfig";
 const login_URL = "/auth/login";
 import { useTranslation } from "react-i18next";
 export default function ClientzoneLogin() {
-  const { setAuth } = UseAuth();
+  const { setAuth } = UseAuth(  );
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);

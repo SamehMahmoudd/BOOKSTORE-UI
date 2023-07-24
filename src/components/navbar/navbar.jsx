@@ -54,7 +54,9 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/store" className="nav-link"><Trans i18nKey="navbar.store">STORE</Trans></NavLink>
+                <NavLink to="/store" className="nav-link">
+                  <Trans i18nKey="navbar.store">STORE</Trans>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/tranding" className="nav-link">
@@ -72,7 +74,9 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/test" className="nav-link"><Trans i18nKey="navbar.trans">TRANS</Trans></NavLink>
+                <NavLink to="/test" className="nav-link">
+                  <Trans i18nKey="navbar.trans">TRANS</Trans>
+                </NavLink>
               </li>
               <div id="navy">
                 <ul className="navbar-nav d-flex align-content-center flex-wrap nav">
