@@ -22,6 +22,7 @@ export default function ClientzoneRegister() {
     } catch (err) {
       if (!err?.res) {
         swal("registration rejected ", "You clicked the button!", "warning");
+        setLoading(false);
       } else if (err.res?.status === 400) {
         setErrMsg("Missing Email or Password validation ");
       } else if (err.res?.status === 401) {
