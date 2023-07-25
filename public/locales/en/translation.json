@@ -3,7 +3,7 @@
     "learn" : "Learn React",
     "navbar":{
         "home":"HOME",
-        "store":"STORE",
+        "store":"CATEGORY",
         "tranding":"TRANDING NOW",
         "about":"ABOUT",
         "contact":"CONTACT",
@@ -11,7 +11,7 @@
     },
     "footer":{
         "home":"HOME",
-        "store":"STORE",
+        "store":"CATEGORY",
         "tranding":"TRANDING NOW",
         "about":"ABOUT",
         "contact":"CONTACT",
@@ -101,21 +101,24 @@
         "title":"Reviews",
         "l-name":"User Name",
         "l-message":"Message",
-        "btn":"Submit"
+        "btn":"Submit",
+        "no-comment":"No Reviews yet on this book"
     },
     "client-zone":{
         "client":{
+            "profile":"PROFILE",
             "reg-title": "REGISTER",
             "log-title": "LOGIN",
             "btn-log":"LogOut",
             "t-profile":"Profile",
             "t-address":"My Addresses",
             "t-store":"My Store",
-            "reg-email":"Please enter your Email :",
+            "reg-email":"Please enter your Email",
             "reg-pass":"Please enter your Password",
             "reg-btn-login":"LOGIN",
             "reg-account":"Need An Account ?",
             "sign":"SignUp",
+            "acount":"If you have Account already?",
             "reg-continue-using":"Or Continue Using",
             "reg-con-fb":"Continue with Facebook",
             "reg-con-g":"Continue with Google"

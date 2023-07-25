@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addPriceFilter,removePriceFilter,setAuthorFilter,removeAuthorFilter } from '../../../store/reducers/booksSlice';
+import { getBooksWithFilter } from '../../../store/reducers/booksSlice';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom'
+
 import "./sidebar.css";
 
 const Filter = () => {
   const { t } = useTranslation();
-
-
-  const authors = useSelector((state) => state.authors);
-  // console.log('authors-------?',authors);
-  //============================================//
   const dispatch = useDispatch();
+  const { id : categoryId  } = useParams();
+
+  const categoryBooks = useSelector((state) => state.books.books.filter((book) =>
+      book.category === state.books.categoryId).map((book) => book.author)
+   );
+   console.log('num of books categoryBooks ----->',categoryBooks);
+
+
+   const uniqueAuthors = categoryBooks.filter((book, index, self) =>
+    index === self.findIndex((b) => b.name === book.name)
+  );
+  console.log('authors------->',uniqueAuthors);
+  //============================================//
 
   const handelSelectedPrice = (event) =>{
     const price = event.target.value; 
@@ -144,9 +155,12 @@ const Filter = () => {
           </div>
           <hr />
           <div className="collapse multi-collapse" id="multiCollapseExample2">
-            {authors.map((author) => {
-              return (
-                // console.log('wwwwwwwwwwwwwww',author.name),
+
+            {uniqueAuthors.map((author) => {
+             
+                 return (
+                console.log('wwwwwwwwwwwwwww',author.name),
+
                 <li className="list-group-item" key={author._id}>
                   <input
                     className="form-check-input mx-2"
