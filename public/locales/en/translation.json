@@ -157,6 +157,7 @@
         "total":"Total",
         "btn-delete-all":"EMPTY CART",
         "btn-order":"MAKE AN OREDER",
+        "btn-loginFirst":"PLEASE LOGIN TO MAKE AN ORDER",
         "btn-continue":"CONTINUE SHOPPING"
     },
     "order":{

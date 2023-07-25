@@ -157,6 +157,7 @@
         "total":"المجموع",
         "btn-delete-all":"إفراغ السلة",
         "btn-order":"قم بإجراء طلب",
+        "btn-loginFirst":"يرجى تسجيل الدخول لتقديم طلب",
         "btn-continue":"مواصلة التسوق"
     },
     "order":{
