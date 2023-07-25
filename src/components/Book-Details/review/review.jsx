@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ListReview from "./list-review";
 import { useState } from "react";
 import FormComment from "./form-comment";
@@ -8,23 +8,48 @@ import { useSelector } from "react-redux";
 import axios from "../../../config/axiosConfig";
 
 function Review() {
+
+  const token = localStorage.getItem('user');
+ 
   const { t } = useTranslation();
   ////////////////////////////////////////////
   const { id } = useParams();
   const book = useSelector((state) => state.books.books.find((book) => book._id === id));
   const [bookReviews, setReviews] = useState([]);
 
-
-  const addReview = (review) => {
-    axios.post(`/review/book/${book._id}`, review).then((data) => {
-      console.log(data.data.review);
-      setReviews([review, ...bookReviews]);
+  useEffect(() => {
+    axios.get(`/review/book/${book._id}`).then((data) => {
+      console.log(data);
+      setReviews(data.data.bookReviews);
     }).catch((err) => {
       console.log(err);
     });
-    console.log(review);
+  }, [])
+
+  const addReview = (review) => {
+    axios.post(`/review/book/${book._id}`, review).then((data) => {
+
+      console.log(data.data.review);
+      axios.get(`/users/${review.user}`,{ headers: {
+          Authorization: `Bearer ${token}`,
+        },}
+      ).then((res)=>{
+      
+        console.log('zzzzzzzzz',res.data.user);
+        const populatedReview = {
+          ...review,
+          user:res.data.user
+        }
+        setReviews([populatedReview, ...bookReviews]);
+        console.log('populatedReview',populatedReview);
+        
+      })
+    }).catch((err) => {
+      console.log(err);
+    });
+    console.log('ffffffff',review);
   };
-  console.log(book.bookReviews);
+  console.log('ooooooooooooo>',bookReviews);
 
   return (
     <>
@@ -36,7 +61,7 @@ function Review() {
             </div><div className="small"></div>
           </div>
           <FormComment addReview={addReview} />
-          <ListReview reviews={book.bookReviews}/>
+          <ListReview reviews={bookReviews}/>
         </div>
       </div>
     </>

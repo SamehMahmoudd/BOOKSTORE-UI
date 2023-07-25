@@ -15,13 +15,11 @@ import CLientZoneRouter from "./components/clientZone/CLientZoneRouter";
 import Search from "./components/navbar/icons-comp/search-comp/search";
 import Share from "./components/navbar/icons-comp/share-comp/share";
 import Call from "./components/navbar/icons-comp/call-comp/call";
-// import Category from "./components/home-page/category/category-section";
 import ClientzoneLogin from "./components/clientZone/ClientZoneRegister/Clientzone-Login";
 import ClientzoneRegister from "./components/clientZone/ClientZoneRegister/Clientzone-Register";
-import RequireAuth from "./components/requireAuth";
+import RequireAuth from "./components/RequireAuth";
 import Layout from "./components/layout";
 import LangSwitch from "./components/navbar/icons-comp/lang-comp/lang";
-import Test from "./components/i18n/test";
 import Categories from "./components/home-page/category/Categories";
 
 export default function App() {
@@ -39,13 +37,12 @@ export default function App() {
           <Route path="/tranding" element={<Tranding />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          {/* <Route element={<RequireAuth />}> */}
+          <Route element={<RequireAuth />}>
             <Route path="/order" element={<OrderRoute />} />
-          {/* </Route> */}
+          </Route>
           <Route path="/admin" element={<CLientZoneRouter />} />
           <Route path="login" element={<ClientzoneLogin />} />
           <Route path="/register" element={<ClientzoneRegister />} />
-          <Route path="/test" element={<Test />} />
           <Route path="*" element={<NotFound />} />
           ///////////////////////////////////////////////////////////
           <Route path="/search" element={<Search />} />

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import emailjs from "emailjs-com";
+import Spinner from "react-bootstrap/Spinner";
 import swal from "sweetalert";
 import "./contact.css";
 
 const Contact = () => {
+  const [success, setSuccess] = useState(false);
   const { t } = useTranslation();
   function sendEmail(e) {
     e.preventDefault();
+    setSuccess(true);
     emailjs
       .sendForm(
         "service_8agfyk2",
@@ -17,6 +20,7 @@ const Contact = () => {
       )
       .then((res) => {
         swal("message sent succesfuly!", "You clicked the button!", "success");
+        setSuccess(false);
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -101,10 +105,11 @@ const Contact = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder={t('home.contact.l-name')}
+                      placeholder={t("home.contact.l-name")}
                       aria-label="default input example"
                       name="name"
                       id="name"
+                      required
                     />
                   </div>
                 </div>
@@ -113,10 +118,11 @@ const Contact = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder={t('home.contact.l-email')}
+                      placeholder={t("home.contact.l-email")}
                       aria-label="default input example"
                       name="email"
                       id="email"
+                      required
                     />
                   </div>
                 </div>
@@ -124,19 +130,34 @@ const Contact = () => {
                   <div className="col-md-12 form-group mb-4">
                     <textarea
                       className="form-control"
-                      placeholder={t('home.contact.l-message')}
+                      placeholder={t("home.contact.l-message")}
                       aria-label="default input example"
                       name="message"
                       id="message"
                       cols="30"
                       rows="3"
+                      required
                     ></textarea>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">
-                      <input type="submit" value={t('home.contact.btn-submit')} className="btn btn-primary rounded-1 py-2 px-4"/>   
-                    <span className="submitting"></span>
+                    <input
+                      type="submit"
+                      value={t("home.contact.btn-submit")}
+                      className="btn btn-primary rounded-1 py-2 px-4"
+                    />
+                    {success ? (
+                      <Spinner
+                        animation="border"
+                        role="status"
+                        className="container d-flex align-items-center justify-content-center"
+                      >
+                        <span className="visually-hidden ">Loading...</span>
+                      </Spinner>
+                    ) : (
+                      <span className="submitting"></span>
+                    )}
                   </div>
                 </div>
               </form>

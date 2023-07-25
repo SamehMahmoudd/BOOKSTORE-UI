@@ -152,12 +152,20 @@ a {
     min-height: 0px;
     padding: 48px 32px 56px 32px;
     border-radius: 8px;
+    max-width: 900px;
+    margin-bottom: 100px;
+    position: relative;
+    background: var(--inside_modules_color_box);
+}
+.boxs {
+    min-height: 0px;
+    padding: 48px 32px 56px 32px;
+    border-radius: 8px;
     max-width: 420px;
     margin-bottom: 100px;
     position: relative;
     background: var(--inside_modules_color_box);
 }
-
 .box .request .btn-primary,
 .profile-container-btn .btn,
 .address-container-btn .btn {
