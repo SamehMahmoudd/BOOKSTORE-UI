@@ -22,7 +22,7 @@ const Product = () => {
       return state.books.filteredBooks;
     } else if (state.books.categoryId) {
       console.log(state)
-      return state.books.books.filter((book) => book.category._id === state.books.categoryId);
+      return state.books.books.filter((book) => book.category === state.books.categoryId);
     } else {
       return state.books.books;
     }

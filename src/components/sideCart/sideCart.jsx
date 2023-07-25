@@ -70,10 +70,18 @@ function SideCart({ isCartOpen, handleClose }) {
                   </p>
                 </div>
                 <div>
+                  { 
+                    localStorage.getItem('user') ? 
                   <Link to={`/order`}>
                     <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" 
                     onClick={() => { handleClose()}}>{t('side-cart.btn-order')}</button>
                   </Link>
+                  : 
+                  <Link to={`/login`}>
+                  <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" 
+                  onClick={() => { handleClose()}}>{t('side-cart.btn-loginFirst')}</button>
+                </Link>
+                    } 
                 </div>
                 <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn" 
                 onClick={() => { handleClose()}}>{t('side-cart.btn-continue')}</button>

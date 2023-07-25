@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 const Category = ({cat}) => {
   const { t } = useTranslation();
-  const books = useSelector((state) => state.books.books.filter((book) => book.category._id === cat._id))
+  const books = useSelector((state) => state.books.books.filter((book) => book.category === cat._id))
    
   return (
     <div className="col">
