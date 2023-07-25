@@ -7,6 +7,8 @@ import swal from "sweetalert";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../config/axiosConfig";
 const register_URL = "/auth/register";
+
+
 export default function ClientzoneRegister() {
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState("");
@@ -91,7 +93,7 @@ export default function ClientzoneRegister() {
               <Field
                 type="text"
                 name="firstName"
-                placeholder="firstName *"
+                placeholder={t("client-zone.profile.l-fname")}
                 className="form-control mb-3 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
@@ -104,7 +106,7 @@ export default function ClientzoneRegister() {
               <Field
                 type="text"
                 name="lastName"
-                placeholder="lastName *"
+                placeholder={t("client-zone.profile.l-lname")}
                 className="form-control mb-3 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
@@ -145,7 +147,7 @@ export default function ClientzoneRegister() {
               <Field
                 type="text"
                 name="phoneNumber"
-                placeholder="phoneNumber *"
+                placeholder={t("client-zone.profile.l-phone")}
                 className="form-control mb-3 p-3"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
@@ -186,7 +188,7 @@ export default function ClientzoneRegister() {
               <div className="form-group request m-4 pt-3">
                 <button className="btn btn-primary" type="submit">
                   {!loading ? (
-                    <span>Register</span>
+                    <span>{t("review.btn")}</span>
                   ) : (
                     <Spinner
                       animation="border"
@@ -200,8 +202,7 @@ export default function ClientzoneRegister() {
               </div>
               <div className="form-group request text-center m-4 pt-3">
                 <span className="fw-semibold">
-                  if you have Account alredy?
-                  <Link to="/login">Sign in</Link>
+                {t("client-zone.client.acount")}  <Link to="/login">{t("client-zone.client.reg-title")}</Link>
                 </span>
               </div>
             </Form>

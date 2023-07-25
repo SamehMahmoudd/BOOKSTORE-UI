@@ -5,16 +5,14 @@ import { useTranslation} from 'react-i18next';
 function LangSwitch() {
 
     const {i18n} = useTranslation();
-    // document.body.dir = i18n.dir();
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
-        document.body.dir = i18n.dir();
-        if (lng === "en") {
-        document.body.classList.add("ltr");
-        document.body.classList.remove("rtl");
+        // document.body.dir = i18n.dir();
+        // console.log( i18n.dir());
+        if (lng === "en" || lng === "en-US") {
+            document.body.setAttribute("dir","ltr");
         } else {
-        document.body.classList.add("rtl");
-        document.body.classList.remove("ltr");
+            document.body.setAttribute("dir","rtl");
         }
     };
     ////////////////////////////////////

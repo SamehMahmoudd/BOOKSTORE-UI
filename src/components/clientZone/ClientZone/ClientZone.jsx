@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import UseAuth from "../../../hooks/useAuth";
 
 function ClientZone() {
-  const { auth, setAuth } = UseAuth({});
+  const { auth, setAuth } = UseAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLogding] = useState(false);
@@ -36,7 +36,7 @@ function ClientZone() {
           <div className="container modulesTitleContainer">
             <div className="row modulesTitle text-center pt-4 pb-3">
               <div className="page-header-wrap">
-                <h2 className="mb-3">{t("client-zone.client.reg-title")}</h2>
+                <h2 className="mb-3">{t("client-zone.client.profile")}</h2>
                 <span className="hr m-auto"></span>
               </div>
             </div>

@@ -14,23 +14,27 @@ import UseAuth from "../../../hooks/useAuth";
 import axios from "../../../config/axiosConfig";
 const login_URL = "/auth/login";
 import { useTranslation } from "react-i18next";
+
+
 export default function ClientzoneLogin() {
-  const { setAuth } = UseAuth(  );
+  const { setAuth } = UseAuth();
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [profile, setprofile] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?. from?.pathname || "/";
 
   const login = async (e) => {
     setLoading(true);
     try {
       const res = await axios.post(login_URL, e);
       const accessToken = res?.data?.token;
+      const accessuserId = res?.data?.userId;
       console.log(res);
       localStorage.setItem("user", accessToken);
+      localStorage.setItem("userid", accessuserId);
       setAuth({ e, accessToken });
       setLoading(false);
       navigate(from, { replace: true });
@@ -88,9 +92,6 @@ export default function ClientzoneLogin() {
               onSubmit={login}
             >
               <Form>
-                <p className="title fw-semibold mb-4">
-                  PLEASE ENTER TO {t("client-zone.client.reg-btn-login")} :
-                </p>
                 <Field
                   type="email"
                   name="email"
@@ -132,16 +133,15 @@ export default function ClientzoneLogin() {
                     )}
                   </button>
                 </div>
-                <div className="form-group request m-4 pt-3">
+                <div className="form-group request pt-3 text-center">
                   <span className="fw-semibold">
-                    {t("client-zone.client.reg-account")}{" "}
+                    {t("client-zone.client.reg-account")}
                     <Link to="/register"> {t("client-zone.client.sign")}</Link>
                   </span>
                 </div>
                 <div className="login-box pt-3">
-                  <div className="social">
+                  <div className="social text-center mb-4">
                     <span className="mb-15 text-center fw-semibold">
-                      {" "}
                       {t("client-zone.client.reg-continue-using")}
                     </span>
                   </div>
