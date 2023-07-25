@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
-import { addToCart } from '../../store/reducers/cartSlice';
+import { addToCart, updateCartInLocalStorage } from '../../store/reducers/cartSlice';
 import Related from './related-section';
 import Review from './review/review';
 import { useTranslation } from 'react-i18next';
@@ -27,9 +27,15 @@ export default function BookDetails() {
   // useEffect(() => {
     const [quantity, setQuantity] = useState(1);
   // },[]);
+  const cart = useSelector((state) => state.cart);
+  
+  useEffect(() => {
+    updateCartInLocalStorage(cart);
+  }, [cart]);
   
   console.log('quantity:------>',quantity);
   const dispatch = useDispatch()
+  
 
   /// handle -> zoom in & zoom out
   const handleZoom = (e) => {
@@ -160,6 +166,7 @@ export default function BookDetails() {
                     onClick={() => {
                        dispatch(addToCart({ book, quantity }));
                        setQuantity(1);
+                      
                        }}>
                     <i className="bi-cart-fill "></i> {t('product-details.btn-cart')}
                   </button>
