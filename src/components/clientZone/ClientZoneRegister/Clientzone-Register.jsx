@@ -13,13 +13,14 @@ export default function ClientzoneRegister() {
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     console.log(e);
     setLoading(true);
     try {
       const res = await axios.post(register_URL, e);
       console.log(res);
-      swal("succefully registration", "You clicked the button!", "success");
+      swal("Registered Successfully ", "You clicked the button!", "success");
       setLoading(false);
     } catch (err) {
       if (!err?.res) {
@@ -202,7 +203,7 @@ export default function ClientzoneRegister() {
               </div>
               <div className="form-group request text-center m-4 pt-3">
                 <span className="fw-semibold">
-                {t("client-zone.client.acount")}  <Link to="/login">{t("client-zone.client.reg-title")}</Link>
+                {t("client-zone.client.acount")}  <Link to="/login">{t("client-zone.client.log-title")}</Link>
                 </span>
               </div>
             </Form>
