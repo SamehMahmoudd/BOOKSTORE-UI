@@ -9,7 +9,7 @@ const Categories = () => {
   const categories = useSelector((state) => state.categories);
   const bookCount = useSelector((state) => state.categories.bookNum);
  
-  console.log('bookCount==55555==>',categories);
+  console.log('====== Num Of Categories ====>',categories);
   
   
   

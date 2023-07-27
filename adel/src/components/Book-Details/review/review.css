@@ -1,0 +1,7 @@
+/* list of review -> dir */
+body[dir='rtl'] .list li{
+    align-items: flex-end !important;
+}
+body[dir='ltr'] .list li{
+    align-items: flex-start !important;
+}
