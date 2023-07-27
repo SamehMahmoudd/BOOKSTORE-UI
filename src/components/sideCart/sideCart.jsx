@@ -1,14 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { decreaseBookQuantity, emptyCart, increaseBookQuantity, removeFromCart } from '../../store/reducers/cartSlice';
+import { decreaseBookQuantity, emptyCart, increaseBookQuantity, removeFromCart ,updateCartInLocalStorage } from '../../store/reducers/cartSlice';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
 import './sideCart.css';
+import { useEffect } from 'react';
 
 function SideCart({ isCartOpen, handleClose }) {
 
   const {t} = useTranslation();
   //////////////////////////////////////////////
   const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    updateCartInLocalStorage(cart);
+  }, [cart]);
+
+  console.log(cart);
   const count = cart.reduce((total, product) => {
     return total + product.quantity
   }, 0)
@@ -42,13 +49,13 @@ function SideCart({ isCartOpen, handleClose }) {
                         <div className="card-body">
                           <div className='d-flex justify-content-between'>
                             <h3 className="card-title">{product.book.bookTitle}</h3>
-                            <i className="bi bi-trash" onClick={() => {dispatch(removeFromCart(product))}}></i>
+                            <i className="bi bi-trash" onClick={() => {dispatch(removeFromCart(product));  }}></i>
                           </div>
                           <p className="card-text price">{Number(product.book.price) * product.quantity}.00 {t('product-details.p-egp')}</p>
                           <div className='countbtn'>
-                            <button className='minus' onClick={() => {dispatch(decreaseBookQuantity(product))}}><i className="bi bi-dash"></i></button>
+                            <button className='minus' onClick={() => {dispatch(decreaseBookQuantity(product));   }}><i className="bi bi-dash"></i></button>
                             <input type="text" readOnly value={product.quantity} className='border'/>
-                            <button className='plus' onClick={() => {dispatch(increaseBookQuantity(product))}}><i className="bi bi-plus"></i></button>
+                            <button className='plus' onClick={() => {dispatch(increaseBookQuantity(product));  }}><i className="bi bi-plus"></i></button>
                           </div>
                         </div>
                       </div>
@@ -59,7 +66,7 @@ function SideCart({ isCartOpen, handleClose }) {
                 <div>
                   <p className='d-flex justify-content-between'>
                     <h6>{t('side-cart.total')} : </h6>
-                    <h6 onClick={() => {dispatch(emptyCart())}} style={{ color: 'blue' , cursor:'pointer'}}>{t('side-cart.btn-delete-all')}</h6>
+                    <h6 onClick={() => {dispatch(emptyCart());  }} style={{ color: 'blue' , cursor:'pointer'}}>{t('side-cart.btn-delete-all')}</h6>
                   </p>
                   <p className='fs-5' style={{ fontWeight: 'bolder'}}>
                     {cart.reduce((total, product) => {
@@ -70,10 +77,18 @@ function SideCart({ isCartOpen, handleClose }) {
                   </p>
                 </div>
                 <div>
+                  { 
+                    localStorage.getItem('user') ? 
                   <Link to={`/order`}>
                     <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" 
                     onClick={() => { handleClose()}}>{t('side-cart.btn-order')}</button>
                   </Link>
+                  : 
+                  <Link to={`/login`}>
+                  <button className="btn btn-custom btn-lg w-100 m-3" id="orderBtn" 
+                  onClick={() => { handleClose()}}>{t('side-cart.btn-loginFirst')}</button>
+                </Link>
+                    } 
                 </div>
                 <button className="btn btn-custom btn-lg w-100 m-3"id="continueBtn" 
                 onClick={() => { handleClose()}}>{t('side-cart.btn-continue')}</button>

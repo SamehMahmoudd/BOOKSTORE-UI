@@ -1,8 +1,10 @@
-// import React from "react";
+
 import showRating from './show-rating';
+import { useTranslation } from 'react-i18next';
 import './review.css';
 import { useEffect,useState } from 'react';
 import axios from "../../../config/axiosConfig";
+
 
 
 function ListReview({bookId,WWE}) {
@@ -12,19 +14,13 @@ function ListReview({bookId,WWE}) {
   useEffect(() => {
       axios.get(`/review/book/${bookId}`)
         .then((response) => {
-          console.log('========DDDDDD======',response);
           setReviews(response.data.bookReviews);
         })
         .catch((error) => {
           console.error('Error fetching reviews:', error);
         });
-    
   }, [bookId,WWE]);
-  
-  console.log('bookId-------zz------->', bookId);
-
   reviews.map((review) => {
-    console.log('reviews-------www------->', review.user);
   });
 
  

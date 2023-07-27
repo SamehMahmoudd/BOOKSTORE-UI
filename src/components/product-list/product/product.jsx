@@ -52,27 +52,24 @@ const Product = () => {
         value={selectedSortOption}
         onChange={handleSortChange}
       >
-        <option selected hidden>Sort By    </option>
-        <option value="Des">Price,high to low</option>
-        <option value="Asc">Price,low to high</option>
+        <option defaultValue hidden>{t('product-list.sort.title')}</option>
+        <option value="Des">{t('product-list.sort.op1')}</option>
+        <option value="Asc">{t('product-list.sort.op2')}</option>
       </select>
       
       {sortedBooks.length == 0 ? <h1 style={{textAlign:'center',width:'100%'}}>Books Not found</h1>: sortedBooks.map((book) =>  {
         return (
-          <div className="col mb-5" style={{height:'620px'}} key={book._id}>
+          <div className="col mb-5" style={{height:'580px'}} key={book._id}>
 
             <div className="card h-100" style={style}>
               <img className="card-img-top" src={book.bookImage} style={{height:'350px'}} />
-              <div className="card-body p-4">
+              <div className="card-body pt-4">
                 <div className="text-center">
                   <h5 className="fw-bolder">{book.bookTitle}</h5>
                   <p className="card-text">{book.price}.00$</p>
-                  <div>
-                    <StarRate/>
-                  </div>
                 </div>
               </div>
-              <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div className="card-footer p-4 border-top-0 bg-transparent">
                 <div className="text-center">
                   <Link to={`/details/${book._id}`}>
                     <a className="btn btn-outline-dark mt-auto">

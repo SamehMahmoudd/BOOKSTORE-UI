@@ -66,11 +66,13 @@ export default function BookDetails() {
   console.log('authorBooks:',authorBooks);
   console.log('bookStock:',stock);
   console.log('====================================');
+
   
   const [quantity, setQuantity] = useState(1);
   
   
   console.log('quantity:------>',quantity);
+
 
   /// handle -> zoom in & zoom out
   const handleZoom = (e) => {
@@ -92,7 +94,7 @@ export default function BookDetails() {
             <NavLink to="/home" className="nav-link">{t('product-details.home')}</NavLink>
           </li>
           <li className="breadcrumb-item">
-            <NavLink to="/store" className="nav-link">{t('product-details.store')}</NavLink>
+            <NavLink to="/category" className="nav-link">{t('product-details.store')}</NavLink>
           </li>
           <li className="breadcrumb-item">
             <NavLink to={`/store/${category?._id}`} className="nav-link">{category?.name}</NavLink>
@@ -160,11 +162,6 @@ export default function BookDetails() {
                   <li>
                     <span>{t('product-details.t-publication')} : {book?.publishedYear}</span>
                   </li>
-                  
-                  <li>
-                    <span>SKU : </span>
-                    <span id="productSku" data-sku="9789778616187">9789778616187</span>
-                  </li>
                   <li
                     id="productShipping"
                     data-unique-id="63131a99c06d4"
@@ -206,6 +203,7 @@ export default function BookDetails() {
                     >
                       +
                     </button>
+                    
                   </div>
                   <button
                     className="py-0 mx-3 btn btn-outline-danger flex-shrink-0 icon"
@@ -213,9 +211,11 @@ export default function BookDetails() {
                     onClick={() => {
                        dispatch(addToCart({ book, quantity }));
                        setQuantity(1);
+                      
                        }}>
                     <i className="bi-cart-fill "></i> {t('product-details.btn-cart')}
                   </button>
+                  
                 </div><br/>
               </div>
             </div>
@@ -234,7 +234,7 @@ export default function BookDetails() {
               <div className="col-xs-12">
                 {/* Description tab content */}
                 <div className="container ">
-                  <h4 style={{textAlign: 'right', paddingTop: '10px', borderRadius: '5px',color: 'gray',}}>
+                  <h4 style={{paddingTop: '10px', borderRadius: '5px',color: 'gray',}}>
                     <strong>{book?.description}</strong>
                   </h4>
 

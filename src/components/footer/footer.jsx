@@ -1,7 +1,7 @@
 import React from "react";
 import '../navbar/nav.css'
 import { NavLink } from "react-router-dom";
-import { Trans, useTranslation} from 'react-i18next'
+import { useTranslation} from 'react-i18next'
 
 
 const Footer = () => {
@@ -18,23 +18,23 @@ const Footer = () => {
               </li>
             </ul>
       
-            <div className="collapse navbar-collapse" id="navbarNavDropdown">
+            <div className="collapse navbar-collapse " id="navbarNavDropdown">
             <ul className="navbar-nav footer">
-                <li className="nav-item">
-                  <NavLink to="/home" className="nav-link"><Trans i18nKey="footer.home">HOME</Trans></NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/store" className="nav-link"><Trans i18nKey="footer.store">CATEGORY</Trans></NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/tranding" className="nav-link"><Trans i18nKey="footer.tranding">TRENDING NOW</Trans></NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/about" className="nav-link"><Trans i18nKey="footer.about">ABOUT</Trans></NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/contact" className="nav-link"><Trans i18nKey="footer.contact">CONTACT</Trans></NavLink>
-                </li><hr />
+              <li className="nav-item">
+                <NavLink to="/home" className="nav-link">{t("footer.home")}</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/category" className="nav-link">{t("footer.store")}</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/tranding" className="nav-link">{t("footer.tranding")}</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/about" className="nav-link">{t("footer.about")}</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/contact" className="nav-link">{t("footer.contact")}</NavLink>
+              </li>
             </ul><br />
           {/* <!-- Section: Social media --> */}
         </div>

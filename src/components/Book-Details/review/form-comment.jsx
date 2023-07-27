@@ -44,7 +44,7 @@ function FormComment({ addReview }) {
               value={comment}
               onChange={(e) => {setcomment(e.target.value);}}
               placeholder="Comment"
-            // placeholder={t("review.l-comment")}
+              // placeholder={t("review.l-comment")}
             ></textarea>
           </div>
           <div>

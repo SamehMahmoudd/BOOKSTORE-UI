@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useTranslation } from "react-i18next";
 import "./payment.css";
+import swal from "sweetalert";
 
 function PaymentComponent(props) {
 
@@ -57,10 +58,13 @@ function PaymentComponent(props) {
                   }}
                   onApprove={(data, actions) => {
                     return actions.order.capture().then(function (details) {
-                      alert(
-                        `{t('order.payment-sec.alert-comp')}`+
-                          details.payer.name.given_name
-                      );
+                      // alert(
+                      //   `{t('order.payment-sec.alert-comp')}`+
+                      //     details.payer.name.given_name
+                      // );
+
+                      swal("Purchased Successfully", "Click on 'Place Order' button to complete your order", "success");
+
                       props.updatingOrder({...props.order,  paymentMethod:'Paypal' })
                     });
                   }}

@@ -3,19 +3,18 @@ import InfoComponent from "./infoPage/info";
 import DeliveryComponent from "./deliveryPage/delivery";
 import PaymentComponent from "./paymentPage/payment";
 import { orderActivePageCntxt } from "./orderRoute";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import "./order.css";
 import ThanksForYourOrder from "./thanks/thanks";
+import {emptyCart} from '../../store/reducers/cartSlice';
 
 
 
 
 function Order() {
-
   const { t } = useTranslation();
-  ///////////////////////////////////////////
   const cart = useSelector((state) => state.cart);
   let total=cart.reduce((total, product) => {
     return (
@@ -23,18 +22,19 @@ function Order() {
     );
   }, 0);
 
+
   const userID= localStorage.getItem('userid')
   const [orderDone,setOrderDone]=useState(false)
   const [order,setOrder]=useState({
-    user:userID,
+    user:userid,
     address:'',
     totalPrice:total,
     status:'pending',
-    items:[...cart],
+    items:cart,
     paymentMethod:'Cash On Delivery'
 
   })
-  
+    console.log(cart)
   function handlePayment(){
 
     if(total!==0){
@@ -47,6 +47,7 @@ function Order() {
       })
       .then((data) => {
         console.log(data);
+        dispatch(emptyCart())
         setOrderDone(true)
       })
       .catch((err) => {
@@ -86,7 +87,7 @@ function Order() {
       <div className="content">
         <div className="container">
           <div className="row" id="content-nav">
-            <div
+            {/* <div
               className={
                 orderActivePage === "nav-info"
                   ? "col-4 d-flex align-items-center"
@@ -110,7 +111,7 @@ function Order() {
                 style={{ paddingRight: "1rem" }}
               />
               <span className="nav-span mx-3">{t('order.info')}</span>
-            </div>
+            </div> */}
 
             <div
               className={
@@ -122,8 +123,8 @@ function Order() {
               <i
                 className={
                   orderActivePage === "nav-delivery"
-                    ? "bi bi-2-square-fill page-num"
-                    : "bi bi-2-square page-num"
+                    ? "bi bi-1-square-fill page-num"
+                    : "bi bi-1-square page-num"
                 }
                 style={{
                   fontSize: "2rem",
@@ -148,8 +149,8 @@ function Order() {
               <i
                 className={
                   orderActivePage === "nav-payment"
-                    ? "bi bi-3-square-fill page-num"
-                    : "bi bi-3-square page-num"
+                    ? "bi bi-2-square-fill page-num"
+                    : "bi bi-2-square page-num"
                 }
                 style={{
                   fontSize: "2rem",
@@ -164,7 +165,7 @@ function Order() {
               <span className="nav-span mx-3">{t('order.payment')}</span>
             </div>
           </div>
-            {orderActivePage==='nav-info'     &&  <InfoComponent order={order}     updatingOrder={setOrder} /> }
+            {/* {orderActivePage==='nav-info'     &&  <InfoComponent order={order}     updatingOrder={setOrder} /> } */}
             {orderActivePage==='nav-delivery' &&  <DeliveryComponent order={order} updatingOrder={setOrder}/> }
             {orderActivePage==='nav-payment'  &&  <PaymentComponent order={order}  updatingOrder={setOrder} payment={handlePayment}/> }
           </div>
