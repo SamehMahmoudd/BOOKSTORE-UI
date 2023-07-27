@@ -1,25 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link,useParams } from "react-router-dom";
 import StarRate from "../rating/rating";
 import { useTranslation } from 'react-i18next';
 
-const Related = () => {
+const Related = ({catId}) => {
+  console.log('relatedBooks from Related component catId:---catId--->',catId );
+  // console.log('relatedBooks from Related component xdxdxd:------>',relatedBooks );
 
   const { t } = useTranslation();
   const { id } = useParams();
-  const catId = useSelector((state) => state.books.categoryId);
+  // console.log('category from Related component :---Book ID--->',id );
+
+  // const catId = useSelector((state) => state.books.categoryId);
+  // console.log('category from Related component :---catId --->',catId );
+
   const books = useSelector((state) => state.books.books);
-  const relatedBooks = books.filter((book) => book.category === catId && book._id !== id);
+  const relatedBooks = books.filter((book) => book.category === catId && book._id !==id );
+  
+  
+
 
   
-  console.log('category from Related component :---cat--->',relatedBooks );
+  
   
   const style = { boxShadow: "10px 10px 5px #aaaaaa" };
 
   return (
     <>
       {relatedBooks.slice(0, 4).map((book) => {
+        console.log('i am in related books',book)
         return (
           <div className="col mb-5" key={book._id}>
             <div className="card h-100" style={style}>

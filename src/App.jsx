@@ -21,6 +21,7 @@ import RequireAuth from "./components/RequireAuth";
 import Layout from "./components/layout";
 import LangSwitch from "./components/navbar/icons-comp/lang-comp/lang";
 import Categories from "./components/home-page/category/Categories";
+import AuthorBooks from "./components/Book-Details/authorBooks/AuthorBooks";
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/category" element={<Categories />} />
           <Route path="/store/:id" element={<Shop />} />
           <Route path="/details/:id" element={<BookDetails />} />
+          <Route path="/authorBooks/:id" element={<AuthorBooks />} />
           <Route path="/tranding" element={<Tranding />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

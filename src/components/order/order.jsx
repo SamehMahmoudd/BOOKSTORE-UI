@@ -14,9 +14,7 @@ import {emptyCart} from '../../store/reducers/cartSlice';
 
 
 function Order() {
-
   const { t } = useTranslation();
-  ///////////////////////////////////////////
   const cart = useSelector((state) => state.cart);
   let total=cart.reduce((total, product) => {
     return (
@@ -24,11 +22,8 @@ function Order() {
     );
   }, 0);
 
-  const dispatch = useDispatch();
 
-
-  const userid= localStorage.getItem('userid')
-
+  const userID= localStorage.getItem('userid')
   const [orderDone,setOrderDone]=useState(false)
   const [order,setOrder]=useState({
     user:userid,

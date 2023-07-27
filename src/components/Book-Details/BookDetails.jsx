@@ -1,51 +1,89 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
-import { addToCart, updateCartInLocalStorage } from '../../store/reducers/cartSlice';
+import { addToCart } from '../../store/reducers/cartSlice';
+import { authorId } from '../../store/reducers/authorSlice';
 import Related from './related-section';
 import Review from './review/review';
 import { useTranslation } from 'react-i18next';
 import './BookDetails.css';
+import axios from "../../config/axiosConfig";
 
 export default function BookDetails() {
 
   const { t } = useTranslation();
   //=========================================//
   const { id } = useParams();
+  console.log('id from:---id -> bookdetails--->',id );
+
+
+  const dispatch = useDispatch()
+
   const book = useSelector((state) =>state.books.books.find((book) => book._id === id))
   console.log('book:------>',book);
   
   const category = useSelector((state) => state.categories.find((cat)=>cat._id === book.category));
-  const authorName = book.author.name;
-  const authorBooks = useSelector((state) => state.books.books.filter((book) => book.author.name === authorName));
-  const stock = book.bookStock
+  // const authorName = book.author.name;
+  const authorID = book.author._id;
+
+ const author = book.author;
+  
+  console.log('author:---id -> bookdetailswwwwwwwwwwww--->',authorID,author.name);
+
+  const authorBooks = useSelector((state) => state.books.books.filter((book) => book.author.name === author.name));
+  const stock = book.bookStock;
+
+  const catId = useSelector((state) => state.books.categoryId);
+  console.log('category from:---catId -> bookdetails--->',catId );
+
+//  ========================================================
+   const [bookCategory, setBookCategory] = useState('');
+
+  // Fetch the category and related books when the component mounts
+  useEffect(() => {
+    axios.get(`/books/${id}`)
+      .then((response) => {
+        const bookCategory = response.data.category;
+        console.log(' fetching book data:------------>', bookCategory);
+        setBookCategory(bookCategory);
+        dispatch(catId(bookCategory));
+      })
+      .catch((error) => {
+        console.error('Error fetching book data:', error);
+      });
+  }, [id]);
+  console.log('bookCategory outside useEffect:', bookCategory);
+
+  const books = useSelector((state)=>state.books.books)
+  console.log('books from:--- -> bookdetails--->',books );
+
+  const relatedBooks = books.filter((book) => book.category === catId );
+  console.log('relatedBooks from:--- -> bookdetails--->',relatedBooks );
+//  ========================================================
+
+
   console.log('====================================');
   console.log('authorBooks:',authorBooks);
   console.log('bookStock:',stock);
   console.log('====================================');
-  //=========================================//
-  // useEffect(() => {
-    const [quantity, setQuantity] = useState(1);
-  // },[]);
-  const cart = useSelector((state) => state.cart);
+
   
-  useEffect(() => {
-    updateCartInLocalStorage(cart);
-  }, [cart]);
+  const [quantity, setQuantity] = useState(1);
+  
   
   console.log('quantity:------>',quantity);
-  const dispatch = useDispatch()
-  
+
 
   /// handle -> zoom in & zoom out
   const handleZoom = (e) => {
-    const zoomer = e.currentTarget ;
-    const offsetX = e.nativeEvent.offsetX ? e.nativeEvent.offsetX : e.touches[0].pageX ;
-    const offsetY = e.nativeEvent.offsetY ? e.nativeEvent.offsetY : e.touches[0].pageY ;
-    const x = (offsetX / zoomer.offsetWidth) * 100 ;
-    const y = (offsetY / zoomer.offsetHeight) * 100 ;
-    zoomer.style.backgroundPosition = `${x}% ${y}%`
-  }
+    const zoomer = e.currentTarget;
+    const event = e.nativeEvent || e.touches[0]; // Use e.touches[0] for touch events
+    const offsetX = event.offsetX;
+    const offsetY = event.offsetY;
+    const x = (offsetX / zoomer.offsetWidth) * 100;
+    const y = (offsetY / zoomer.offsetHeight) * 100;
+    zoomer.style.backgroundPosition = `${x}% ${y}%`;
+  };
 
   return (
     <>
@@ -111,7 +149,14 @@ export default function BookDetails() {
                   </li>
 
                   <li>
-                    <span>{t('product-details.t-author')} : {book?.author.name}</span>
+                        <span>{t('product-details.t-author')} :
+                            <NavLink to={`/authorBooks/${id}`}
+                              className="nav-link d-inline " style={{color:'red',fontWeight:'bold'}}
+                              onClick={() => dispatch(authorId(authorID))}
+                            >
+                              {book?.author.name}
+                            </NavLink>
+                        </span>
                   </li>
 
                   <li>
@@ -208,7 +253,7 @@ export default function BookDetails() {
           </div>
           <div className="container px-4 px-lg-5 mt-5">
             <div className="row gx-4 gx-lg-5 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center h-100">
-              <Related/>
+              <Related relatedBooks ={relatedBooks} catId={bookCategory}/>
             </div>
           </div>
         </section>

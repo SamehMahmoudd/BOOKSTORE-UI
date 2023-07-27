@@ -12,7 +12,7 @@ const Product = () => {
  
   const { id } = useParams();
   dispatch(catId(id));
-  console.log('id from component----->',id);
+  console.log('catID from product component----->',id);
   
   
   // const books = useSelector((state) => state.books.filterCount > 0 ? state.books.filteredBooks:state.books.books)

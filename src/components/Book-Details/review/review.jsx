@@ -12,14 +12,26 @@ function Review() {
   const token = localStorage.getItem('user');
  
   const { t } = useTranslation();
+
+ 
   ////////////////////////////////////////////
   const { id } = useParams();
+  console.log(' id---from Review component------------>',id);
+  
+  const [ID, setId] = useState('');
+
+  useEffect(()=>{
+    setId(id)
+  },[id])
+
   const book = useSelector((state) => state.books.books.find((book) => book._id === id));
   const [bookReviews, setReviews] = useState([]);
+  const token = localStorage.getItem('user');
+
 
   useEffect(() => {
     axios.get(`/review/book/${book._id}`).then((data) => {
-      console.log(data);
+      console.log('data------>',data);
       setReviews(data.data.bookReviews);
     }).catch((err) => {
       console.log(err);
@@ -28,29 +40,21 @@ function Review() {
 
   const addReview = (review) => {
     axios.post(`/review/book/${book._id}`, review).then((data) => {
-
-      console.log(data.data.review);
       axios.get(`/users/${review.user}`,{ headers: {
           Authorization: `Bearer ${token}`,
         },}
       ).then((res)=>{
-      
-        console.log('zzzzzzzzz',res.data.user);
         const populatedReview = {
           ...review,
           user:res.data.user
         }
         setReviews([populatedReview, ...bookReviews]);
-        console.log('populatedReview',populatedReview);
-        
       })
     }).catch((err) => {
       console.log(err);
     });
     console.log('ffffffff',review);
   };
-  console.log('ooooooooooooo>',bookReviews);
-
   return (
     <>
       <div className="container">
@@ -61,7 +65,7 @@ function Review() {
             </div><div className="small"></div>
           </div>
           <FormComment addReview={addReview} />
-          <ListReview reviews={bookReviews}/>
+          <ListReview WWE={bookReviews} bookId={ID}/>
         </div>
       </div>
     </>

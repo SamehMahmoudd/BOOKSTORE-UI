@@ -1,15 +1,15 @@
-import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../config/axiosConfig";
 
 
 
 export const getBooksWithFilter = async (low, high, author) => {
   try {
-    const result = await axios.get(`/filter`,{
-      params:{
+    const result = await axios.get(`/filter`, {
+      params: {
         low: low,
         high: high,
-        author:author,
+        author: author,
       }
     });
     console.log('result of getFilterdAuthor', result.data);
@@ -20,83 +20,98 @@ export const getBooksWithFilter = async (low, high, author) => {
 }
 
 
-
-
-
-
 const initialBooks = await getBooksWithFilter();
-const initialState ={
-  books : initialBooks,
-  filteredBooks : [],
-  filterCount : 0,
-  categoryId: '' 
+const initialState = {
+  books: initialBooks,
+  filteredBooks: [],
+  filterCount: 0,
+  priceFilters: [],
+  authorFilters: [],
+  categoryId: ''
 }
 
 const booksSlice = createSlice({
   name: 'books',
   initialState: initialState,
   reducers: {
-    addPriceFilter : (state , action)=>{
+    addPriceFilter: (state, action) => {
       const price = action.payload;
       const [low, high] = price.split('-').map(p => parseInt(p));
-      
-      // Get books that match the price range and category
-      const filteredBooksByPrice = state.books.filter(book =>
-        book.price >= low && book.price <= high && book.category === state.categoryId
-      );
 
-      // Check if the books are already in filteredBooks and push only books without repeated book twice
-      filteredBooksByPrice.forEach(book => {
-        if (!state.filteredBooks.some(filteredBook => filteredBook._id === book._id)) {
-          state.filteredBooks.push(book);
-        }
-      });
+      state.priceFilters = state.priceFilters.concat([{ low, high }])
 
-      // state.filteredBooks = state.filteredBooks.concat(
-      //   state.books.filter(book => 
-      //     book.price >= low && book.price <= high && book.category === state.categoryId
-      //   ));
+      state.filterCount++
 
-        state.filterCount++
-        
+      state.filteredBooks = filter(state);
+
     },
-    
-    removePriceFilter:(state,action)=>{
+
+    removePriceFilter: (state, action) => {
       const price = action.payload;
-      const [low , high] =  price.split('-').map(p=>parseInt(p))
-       state.filteredBooks = state.filteredBooks.filter(book => book.price < low || book.price > high);
-       state.filterCount--
+      const [low, high] = price.split('-').map(p => parseInt(p))
+      state.priceFilters = state.priceFilters.filter(priceFilter => priceFilter.low !== low && priceFilter.high !== high)
+      state.filterCount--
+      state.filteredBooks = filter(state)
     },
     setAuthorFilter: (state, action) => {
       const author = action.payload;
-
-      state.filteredBooks = state.filteredBooks.concat(
-        state.books.filter(book => 
-          book.author.name === author
-        ));
+      state.authorFilters = state.authorFilters.concat([author]);
       state.filterCount++;
+      state.filteredBooks = filter(state)
     },
     removeAuthorFilter: (state, action) => {
       const author = action.payload;
-
-      state.filteredBooks = state.filteredBooks.filter(book => book.author.name !== author);
+      state.authorFilters = state.authorFilters.filter(authFilter => authFilter !== author)
       state.filterCount--;
+      state.filteredBooks = filter(state)
     },
 
-    catId:(state, action) => {
+    catId: (state, action) => {
+      console.log('action.payload==================>', action.payload);
       state.categoryId = action.payload;
     },
-    testSendAuthor:(state, action) => {
-      const authorName = action.payload ;
+    testSendAuthor: (state, action) => {
+      const authorName = action.payload;
       // console.log('authorName----->',authorName);
-      getFilterdAuthor(authorName)
+    getFilterdAuthor(authorName)
     },
+    resetFilterCount:(state)=>{
+      state.filterCount = 0;
+      state.filteredBooks = []
+    }
 
   }
 })
-export const {setBooks,catId ,removePriceFilter,addPriceFilter,setAuthorFilter,removeAuthorFilter,testSendAuthor} = booksSlice.actions;
+export const {resetFilterCount ,setBooks, catId, removePriceFilter, addPriceFilter, setAuthorFilter, removeAuthorFilter, testSendAuthor } = booksSlice.actions;
+
+function filter(state) {
+  const filteredBooks = state.books.filter(book => {
+    if (book.category !== state.categoryId) return false;
+
+    let flag = state.authorFilters.length === 0 ? true : false;
+    for (const authFilter of state.authorFilters) {
+      if (book.author.name === authFilter) {
+        flag = true;
+        break;
+      }
+    }
+    let flag2 = state.priceFilters.length === 0 ? true : false;
+    for (const priceFilter of state.priceFilters) {
+      if (book.price >= priceFilter.low && book.price <= priceFilter.high) {
+        if (flag) 
+        flag2 = true
+        break;
+      }
+    }
+
+    return flag && flag2;
+  });
+  return filteredBooks;
+}
 
 export default booksSlice.reducer;
+
+
 
 
 

@@ -1,7 +1,6 @@
 import React, { useState,useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPriceFilter,removePriceFilter,setAuthorFilter,removeAuthorFilter } from '../../../store/reducers/booksSlice';
-import { getBooksWithFilter } from '../../../store/reducers/booksSlice';
+import { resetFilterCount,addPriceFilter,removePriceFilter,setAuthorFilter,removeAuthorFilter } from '../../../store/reducers/booksSlice';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom'
 
@@ -12,18 +11,41 @@ const Filter = () => {
   const dispatch = useDispatch();
   const { id : categoryId  } = useParams();
 
-  const categoryBooks = useSelector((state) => state.books.books.filter((book) =>
+
+  //==========================================================//
+  useEffect(() => {
+      dispatch(resetFilterCount())
+  }, [categoryId]);
+
+
+  //2th edit
+  // State to store selected filters
+  const [selectedFilters, setSelectedFilters] = useState({
+    price: [],
+    author: [],
+  });
+  //==========================================================//
+  const categoryBooks = useSelector((state) =>
+  state.books.books.filter(
+    (book) =>
+      book.category === state.books.categoryId &&
+      (selectedFilters.price.length === 0 ||
+        selectedFilters.price.includes(book.price.toString())) &&
+      (selectedFilters.author.length === 0 ||
+        selectedFilters.author.includes(book.author.name))
+  )
+);
+
+  const authorsBooks = useSelector((state) => state.books.books.filter((book) =>
       book.category === state.books.categoryId).map((book) => book.author)
    );
-   console.log('num of books categoryBooks ----->',categoryBooks);
-
-
-   const uniqueAuthors = categoryBooks.filter((book, index, self) =>
+   console.log('num of books categoryBooks ----->',authorsBooks);
+   const uniqueAuthors = authorsBooks.filter((book, index, self) =>
     index === self.findIndex((b) => b.name === book.name)
   );
   console.log('authors------->',uniqueAuthors);
-  //============================================//
 
+  //============================================//
   const handelSelectedPrice = (event) =>{
     const price = event.target.value; 
     const isChecked = event.target.checked;
@@ -35,35 +57,74 @@ const Filter = () => {
     }else if(!isChecked){
       dispatch(removePriceFilter(price)); 
     }
-    console.log('Checkbox checked:', event.target.checked);
   }
-//============================================//
- 
+  // const handelSelectedPrice = (event) => {
+  //   const price = event.target.value;
+  //   const isChecked = event.target.checked;
   
-  //Btn-Collaps
-  const [isClick, setClick] = useState("false");
-  const handleclick = () => {
-    setClick(!isClick);
-  };
+  //   setSelectedFilters((prevFilters) => {
+  //     if (isChecked) {
+  //       return { ...prevFilters, price: [...prevFilters.price, price] };
+  //     } else {
+  //       return {
+  //         ...prevFilters,
+  //         price: prevFilters.price.filter((p) => p !== price),
+  //       };
+  //     }
+  //   });
+  //   if (isChecked) {
+  //     dispatch(addPriceFilter(price)); // Dispatch the action with the selected price
+  //   } else {
+  //     dispatch(removePriceFilter(price)); // Dispatch the action to remove the price filter
+  //   }  
+  
+  
+  // };
 
- //=============get selected Auther ================//
-  // const [filterById, setFilterById] = useState([]);
+//=================================================//
+ 
 
-  const  handelSelectedAuther = (event) => {
-    const auther = event.target.value; 
-    const isChecked = event.target.checked;
-    console.log('SelectedAuthor:', auther);
+
+//=============get selected Auther ================//
+// const [filterById, setFilterById] = useState([]);
+
+//   const  handelSelectedAuther = (event) => {
+//     const auther = event.target.value; 
+//     const isChecked = event.target.checked;
+//     console.log('SelectedAuthor:', auther);
     
-    if (isChecked) {
-      dispatch(setAuthorFilter(auther)); 
-    }else if(!isChecked){
-      dispatch(removeAuthorFilter(auther)); 
-    }
-    console.log('Checkbox checked:', event.target.checked);
+//     if (isChecked) {
+//       dispatch(setAuthorFilter(auther)); 
+//     }else if(!isChecked){
+//       dispatch(removeAuthorFilter(auther)); 
+//     }
+//     console.log('Checkbox checked:', event.target.checked);
+// };
+
+const handelSelectedAuther = (event) => {
+  const author = event.target.value;
+  const isChecked = event.target.checked;
+
+  if (isChecked) {
+    dispatch(setAuthorFilter(author)); 
+  
+  }else if(!isChecked){
+    dispatch(removeAuthorFilter(author)); 
+  }
+
+
+};
+//=============get selected Auther ================//
+
+
+//------------Btn-Collaps[+,-]--------------//
+const [isClick, setClick] = useState("false");
+const handleclick = () => {
+  setClick(!isClick);
 };
 
-  return (
-    <>
+return (
+  <>
       <ul className="list-group col-3 ">
         <h3>{t('product-list.filter.title')}</h3>
         <hr />
