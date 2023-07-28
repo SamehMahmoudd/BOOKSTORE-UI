@@ -40,7 +40,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           
-            <Route path="/order" element={<OrderRoute />} />
+         <Route path="/order" element={<OrderRoute />} />
          
           <Route path="/profile" element={<CLientZoneRouter />} />
           <Route path="login" element={<ClientzoneLogin />} />

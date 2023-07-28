@@ -9,9 +9,13 @@ export default function Profile({data}) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   console.log(data);
-  const hundleSubmit = async (e) => {
+
+  const userid= localStorage.getItem('userid')
+  
+  const handleSubmit = async (e) => {
     console.log(e);
     setLoading(true);
+    
     try {
       const res = await axios.patch(USER_URL+userid,e, {
         headers: {
@@ -22,6 +26,7 @@ export default function Profile({data}) {
       console.log(res);
       swal("updated succefully", "You clicked the button!", "success");
       setLoading(false);
+
     } catch (err) {
       if (!err?.res) {
         swal("updated rejected ", "You clicked the button!", "warning");
@@ -33,16 +38,16 @@ export default function Profile({data}) {
       } else {
         setErrMsg("Register Faild ");
       }
-      errRef.current.focus();
+      
     }
   };
   const initialValues = {
-    firstName: "",
-    lastName: "",
+    firstName: data.firstName,
+    lastName: data.lastName,
     email: data.email,
-    phoneNumber: "",
-    address: "",
-    country: "",
+    phoneNumber: data.phoneNumber,
+    address: data.address,
+    country: data.country,
   };
   return (
     <div className="profile box-primary">
@@ -50,8 +55,8 @@ export default function Profile({data}) {
         <Formik
           className="bg-body text-center"
           initialValues={initialValues}
-          validationSchema={registerValidation}
-          onSubmit={hundleSubmit}
+          // validationSchema={registerValidation}
+          onSubmit={handleSubmit}
         >
           <Form id="clientProfile">
             {loading ? (

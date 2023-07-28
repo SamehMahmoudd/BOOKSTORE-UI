@@ -9,6 +9,7 @@ import axios from "axios";
 import "./order.css";
 import ThanksForYourOrder from "./thanks/thanks";
 import {emptyCart} from '../../store/reducers/cartSlice';
+import { setOrders } from "../../store/reducers/orderSlice";
 
 
 function Order() {
@@ -19,7 +20,7 @@ function Order() {
       total + Number(product.book.price) * product.quantity
     );
   }, 0);
-
+  const orders = useSelector((state) => state.order);
   const dispatch = useDispatch();
   const userid= localStorage.getItem('userid')
   const [orderDone,setOrderDone]=useState(false)
@@ -52,6 +53,7 @@ function Order() {
         console.log(err);
       });
     }
+    dispatch(setOrders([...orders,order]))
   }
 
   const {orderActivePage,updatePage}=useContext(orderActivePageCntxt)
