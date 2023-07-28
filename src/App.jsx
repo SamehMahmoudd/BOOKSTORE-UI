@@ -42,7 +42,7 @@ export default function App() {
           <Route element={<RequireAuth />}>
             <Route path="/order" element={<OrderRoute />} />
           </Route>
-          <Route path="/admin" element={<CLientZoneRouter />} />
+          <Route path="/profile" element={<CLientZoneRouter />} />
           <Route path="login" element={<ClientzoneLogin />} />
           <Route path="/register" element={<ClientzoneRegister />} />
           <Route path="*" element={<NotFound />} />

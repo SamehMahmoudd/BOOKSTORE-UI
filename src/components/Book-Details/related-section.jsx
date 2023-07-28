@@ -17,13 +17,6 @@ const Related = ({catId}) => {
 
   const books = useSelector((state) => state.books.books);
   const relatedBooks = books.filter((book) => book.category === catId && book._id !==id );
-  
-  
-
-
-  
-  
-  
   const style = { boxShadow: "10px 10px 5px #aaaaaa" };
 
   return (
@@ -37,10 +30,7 @@ const Related = ({catId}) => {
               <div className="card-body p-4">
                 <div className="text-center">
                   <h5 className="fw-bolder">{book.bookTitle}</h5>
-                  <p className="card-text">{book.price}.00$</p>
-                  <div>
-                    <StarRate/>
-                  </div>
+                  <h6 className="card-text">{book.price}.00 {t('product-details.p-egp')}</h6>
                 </div>
               </div>
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">

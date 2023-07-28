@@ -37,32 +37,26 @@ function FormComment({ addReview }) {
 
   return (
     <>
-      {user ? (
-        <form onSubmit={(e) => formSubmit(e)}>
-          <div>
-            <textarea className="form-control rounded" name="comment" rows="3"
-              value={comment}
-              onChange={(e) => {setcomment(e.target.value);}}
-              placeholder="Comment"
+      <form onSubmit={(e) => formSubmit(e)} >
+        <div>
+          <textarea className="form-control rounded" name="comment" rows="3"
+            value={comment}
+            onChange={(e) => {setcomment(e.target.value);}}
+            placeholder="Comment"
               // placeholder={t("review.l-comment")}
-            ></textarea>
-          </div>
-          <div>
-            <Rating
-              size={"25px"}
-              fillColor="#900c3f"
-              onClick={handleRating}
-              ratingValue={rating}/>
+          ></textarea>
+        </div>
+        <div>
+          <Rating
+            size={"25px"}
+            fillColor="#900c3f"
+            onClick={handleRating}
+            ratingValue={rating}/>
           </div>
           <div className="col-auto mt-3">
             <button type="submit" className="btn btn-primary mb-3" disabled={isDisabled()}>{t("review.btn")}</button>
           </div>
-        </form>
-      ) : (
-        <h4 className="text-center p-4">
-          Please <Link to="/login">Sign In</Link> to write a review
-        </h4>
-      )}
+      </form>
     </>
   );
 }

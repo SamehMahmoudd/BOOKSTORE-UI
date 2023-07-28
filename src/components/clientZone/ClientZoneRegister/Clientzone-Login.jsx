@@ -15,7 +15,6 @@ import axios from "../../../config/axiosConfig";
 const login_URL = "/auth/login";
 import { useTranslation } from "react-i18next";
 
-
 export default function ClientzoneLogin() {
   const { setAuth } = UseAuth();
   const errRef = useRef();
@@ -24,7 +23,7 @@ export default function ClientzoneLogin() {
   const [profile, setprofile] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?. from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
 
   const login = async (e) => {
     setLoading(true);
@@ -45,7 +44,7 @@ export default function ClientzoneLogin() {
           "You clicked the button!",
           "warning"
         );
-        setSuccess(false);
+        setLoading(false);
       } else if (err.res?.status === 400) {
         setErrMsg("Missing Email or Password ");
       } else if (err.res?.status === 401) {

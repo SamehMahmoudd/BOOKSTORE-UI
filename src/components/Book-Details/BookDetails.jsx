@@ -143,22 +143,17 @@ export default function BookDetails() {
                   <li>
                     <span>{t('product-details.t-page')} : {book?.bookPages}</span>
                   </li>
-
                   <li>
                     <span>{t('product-details.t-category')}{category?.name}</span>
                   </li>
-
                   <li>
-                        <span>{t('product-details.t-author')} :
-                            <NavLink to={`/authorBooks/${id}`}
-                              className="nav-link d-inline " style={{color:'red',fontWeight:'bold'}}
-                              onClick={() => dispatch(authorId(authorID))}
-                            >
-                              {book?.author.name}
-                            </NavLink>
-                        </span>
+                    <span>{t('product-details.t-author')} :
+                      <NavLink to={`/authorBooks/${id}`}
+                        className="nav-link d-inline " style={{color:'#900c3f',fontWeight:'bold'}}
+                        onClick={() => dispatch(authorId(authorID))}>{book?.author.name}
+                      </NavLink>
+                    </span>
                   </li>
-
                   <li>
                     <span>{t('product-details.t-publication')} : {book?.publishedYear}</span>
                   </li>
@@ -203,19 +198,15 @@ export default function BookDetails() {
                     >
                       +
                     </button>
-                    
                   </div>
                   <button
                     className="py-0 mx-3 btn btn-outline-danger flex-shrink-0 icon"
                     type="button"
                     onClick={() => {
-                       dispatch(addToCart({ book, quantity }));
-                       setQuantity(1);
-                      
-                       }}>
+                      dispatch(addToCart({ book, quantity }));
+                      setQuantity(1);}}>
                     <i className="bi-cart-fill "></i> {t('product-details.btn-cart')}
                   </button>
-                  
                 </div><br/>
               </div>
             </div>

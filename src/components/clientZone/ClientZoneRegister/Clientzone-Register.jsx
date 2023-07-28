@@ -13,14 +13,13 @@ export default function ClientzoneRegister() {
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
-
   const handleSubmit = async (e) => {
     console.log(e);
     setLoading(true);
     try {
       const res = await axios.post(register_URL, e);
       console.log(res);
-      swal("Registered Successfully ", "You clicked the button!", "success");
+      swal("succefully registration", "You clicked the button!", "success");
       setLoading(false);
     } catch (err) {
       if (!err?.res) {

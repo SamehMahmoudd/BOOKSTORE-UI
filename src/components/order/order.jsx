@@ -11,8 +11,6 @@ import ThanksForYourOrder from "./thanks/thanks";
 import {emptyCart} from '../../store/reducers/cartSlice';
 
 
-
-
 function Order() {
   const { t } = useTranslation();
   const cart = useSelector((state) => state.cart);
@@ -22,8 +20,8 @@ function Order() {
     );
   }, 0);
 
-
-  const userID= localStorage.getItem('userid')
+  const dispatch = useDispatch();
+  const userid= localStorage.getItem('userid')
   const [orderDone,setOrderDone]=useState(false)
   const [order,setOrder]=useState({
     user:userid,
@@ -53,9 +51,7 @@ function Order() {
       .catch((err) => {
         console.log(err);
       });
-
     }
-
   }
 
   const {orderActivePage,updatePage}=useContext(orderActivePageCntxt)
@@ -73,7 +69,7 @@ function Order() {
 
   return (
     <>
-    {orderDone==true? <ThanksForYourOrder/> :
+    {orderDone == true ? <ThanksForYourOrder/> :
     <>
       <div className="heading d-flex flex-column align-items-center">
         <div>
@@ -82,8 +78,6 @@ function Order() {
         <div className="small"></div>
       </div>
       
-        
-
       <div className="content">
         <div className="container">
           <div className="row" id="content-nav">

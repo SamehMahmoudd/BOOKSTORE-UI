@@ -9,28 +9,29 @@ import axios from "../../../config/axiosConfig";
 
 function Review() {
 
-  const token = localStorage.getItem('user');
- 
   const { t } = useTranslation();
 
- 
+  const token = localStorage.getItem('user');
+  const user = localStorage.getItem("userid");
   ////////////////////////////////////////////
   const { id } = useParams();
   console.log(' id---from Review component------------>',id);
   
   const [ID, setId] = useState('');
-
   useEffect(()=>{
     setId(id)
-  },[id])
+  },[id]);
 
-  const book = useSelector((state) => state.books.books.find((book) => book._id === id));
+  const order = useSelector((state) => state.order);
+  const order2 = useSelector((state) => state.order.map((o)=>{return (o)}))
+  const Book = useSelector((state) => state.books.books.find((book) => book._id === id));
   const [bookReviews, setReviews] = useState([]);
-  const token = localStorage.getItem('user');
-
+  console.log(order.length);
+  console.log(order);
+  console.log(order2);
 
   useEffect(() => {
-    axios.get(`/review/book/${book._id}`).then((data) => {
+    axios.get(`/review/book/${Book._id}`).then((data) => {
       console.log('data------>',data);
       setReviews(data.data.bookReviews);
     }).catch((err) => {
@@ -39,7 +40,7 @@ function Review() {
   }, [])
 
   const addReview = (review) => {
-    axios.post(`/review/book/${book._id}`, review).then((data) => {
+    axios.post(`/review/book/${Book._id}`, review).then((data) => {
       axios.get(`/users/${review.user}`,{ headers: {
           Authorization: `Bearer ${token}`,
         },}
@@ -55,6 +56,18 @@ function Review() {
     });
     console.log('ffffffff',review);
   };
+
+  var x;
+  order2.map((pro) => {
+    pro.items.map((e)=>{
+      if (e.book._id === Book._id) {
+        return (x = true);
+      } else if (e.book._id == !Book._id) {
+        return (x = false);
+        }
+    })
+ });
+
   return (
     <>
       <div className="container">
@@ -62,9 +75,25 @@ function Review() {
           <div className="heading d-flex flex-column align-items-start">
             <div>
               <h2>{t("review.title")}</h2>
-            </div><div className="small"></div>
+            </div>
+            <div className="small"></div>
           </div>
-          <FormComment addReview={addReview} />
+          {user ? (
+            <div>
+              {order.length == 0 ? ( <h5 className="text-center text-color">Make an order to write a review</h5> ) 
+              : (
+                <div>
+                  {x ? ( <FormComment addReview={addReview} />  ) 
+                  : ( <h4 className="text-center text-color">Make an order to write a review</h4>
+                  )}
+                </div>
+              )}
+            </div>
+          ) : (
+            <h4 className="text-center p-4 fw-bold">
+              Please <Link to="/login">Sign In</Link> to write a review
+            </h4>
+          )}
           <ListReview WWE={bookReviews} bookId={ID}/>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import "../../clientZone/App.css";
 import { ClientActivePageCntxt } from "../../clientZone/CLientZoneRouter";
@@ -8,24 +8,48 @@ import MyStore from "./myStore/MyStore";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import UseAuth from "../../../hooks/useAuth";
-
-function ClientZone() {
+import axios from "../../../config/axiosConfig";
+const USER_URL = "/users/";
+function ClientZone(e) {
   const { auth, setAuth } = UseAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [loading, setLogding] = useState(false);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const userid = localStorage.getItem("userid");
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(USER_URL + userid, {
+        headers: {
+          authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzUwMTAwMTM0Y2Y0NmE4NDRiMmRkZiIsImlhdCI6MTY4NTM4OTU5NH0.26zyfxpYchRego4180tU958pVPiIu1xM0W4ayxUbzQw",
+        },
+      })
+      .then((res) => {
+        setData(res.data.user);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
+  console.log(data);
   const handleLogout = async () => {
+    setLoading(true);
     try {
+      setLoading(false);
       navigate("/login");
       localStorage.clear();
       setAuth("");
       console.log("successfully logged out");
     } catch (err) {
+      setLogding(false);
       console.log(err);
     }
   };
   const { clientActivePage, updatePage } = useContext(ClientActivePageCntxt);
-
   function handleActivePage(activePage) {
     updatePage(activePage);
   }
@@ -64,8 +88,8 @@ function ClientZone() {
                     className="prof-image"
                     id="profileImagePreview"
                     src={
-                      auth.image
-                        ? `{auth.image}`
+                      data.image
+                        ? `${data?.image}`
                         : `https://cdn-cms-s.f-static.net/versions/2/wizard/clientZone/images/noImage.png`
                     }
                     data-src="https://cdn-cms-s.f-static.net/versions/2/wizard/clientZone/images/noImage.png"
@@ -103,9 +127,9 @@ function ClientZone() {
                 </div>
 
                 <div className="clientemail">
-                  <span className="email fw-bold d-block mb-2">
-                    {auth.email}
-                  </span>
+                  <h4 className="email fw-bold d-block p-3">
+                    {data.email}
+                  </h4>
                   <i
                     className="bi-box-arrow-in-right fw-bold  logoutBtn border  p-2"
                     onClick={handleLogout}
@@ -181,8 +205,8 @@ function ClientZone() {
               </div>
             </div>
             <div className="col-xs-12 col-sm-12 col-md-8">
-              {clientActivePage === "profile" && <Profile />}
-              {clientActivePage === "address" && <MyAddress />}
+              {clientActivePage === "profile" && <Profile data={data} />}
+              {clientActivePage === "address" && <MyAddress data={data}/>}
               {clientActivePage === "Store" && <MyStore />}
             </div>
           </div>

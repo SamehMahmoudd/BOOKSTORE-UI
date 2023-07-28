@@ -1,10 +1,8 @@
-
 import showRating from './show-rating';
 import { useTranslation } from 'react-i18next';
-import './review.css';
 import { useEffect,useState } from 'react';
 import axios from "../../../config/axiosConfig";
-
+import './review.css';
 
 
 function ListReview({bookId,WWE}) {
@@ -20,8 +18,8 @@ function ListReview({bookId,WWE}) {
           console.error('Error fetching reviews:', error);
         });
   }, [bookId,WWE]);
-  reviews.map((review) => {
-  });
+  // reviews.map((review) => {
+  // });
 
  
   return (
@@ -37,10 +35,8 @@ function ListReview({bookId,WWE}) {
                   <h5 className="fw-bold pt-4">{`${review.user.firstName} ${review.user.lastName}`}</h5>
                 </div>
                 <div className="ms-3">
-                    <>
-                      <p>{review.comment}</p>
-                      <p>{showRating(review.rating)}</p>
-                    </>
+                  <p>{review.comment}</p>
+                  <p>{showRating(review.rating)}</p>
                 </div>
               </div>
             </li>
