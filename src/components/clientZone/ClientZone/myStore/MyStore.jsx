@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 // import axios from "../../../../config/axiosConfig";
 import Spinner from "react-bootstrap/Spinner";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 // const USER_URL = "orders/user/";
 
 export default function MyStore() {
@@ -70,7 +71,9 @@ export default function MyStore() {
                             </div>
                             <div className="col-md-8">
                               <div className="card-body text-center">
-                                <h5 className="card-text ">{b.book.bookTitle}</h5>
+                              <Link to={`/details/${b.book._id}`} style={{textDecoration:"none"}}>
+                                <h4 className="card-text ">{b.book.bookTitle}</h4>
+                              </Link>
                                 <h6 className="card-text text-color p-3">{b.book.price}</h6>
                               </div>
                             </div>
