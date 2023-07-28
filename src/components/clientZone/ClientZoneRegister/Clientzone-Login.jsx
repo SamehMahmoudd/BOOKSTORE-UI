@@ -14,6 +14,9 @@ import UseAuth from "../../../hooks/useAuth";
 import axios from "../../../config/axiosConfig";
 const login_URL = "/auth/login";
 import { useTranslation } from "react-i18next";
+import { getAllOrders } from "../../../services/ordersService";
+import { setOrders } from "../../../store/reducers/orderSlice";
+import { useDispatch } from "react-redux";
 
 export default function ClientzoneLogin() {
   const { setAuth } = UseAuth();
@@ -24,8 +27,9 @@ export default function ClientzoneLogin() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
+  const dispatch=useDispatch()
   const login = async (e) => {
+   
     setLoading(true);
     try {
       const res = await axios.post(login_URL, e);
@@ -36,6 +40,11 @@ export default function ClientzoneLogin() {
       localStorage.setItem("userid", accessuserId);
       setAuth({ e, accessToken });
       setLoading(false);
+      const userid = localStorage.getItem("userid");
+      const orders=await getAllOrders(userid);
+      console.log(orders);
+      dispatch( setOrders(orders))
+
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.res) {

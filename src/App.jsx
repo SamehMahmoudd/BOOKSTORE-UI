@@ -39,9 +39,9 @@ export default function App() {
           <Route path="/tranding" element={<Tranding />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route element={<RequireAuth />}>
+          
             <Route path="/order" element={<OrderRoute />} />
-          </Route>
+         
           <Route path="/profile" element={<CLientZoneRouter />} />
           <Route path="login" element={<ClientzoneLogin />} />
           <Route path="/register" element={<ClientzoneRegister />} />

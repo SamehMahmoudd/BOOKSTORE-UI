@@ -1,8 +1,8 @@
 import axios from "../config/axiosConfig";
 const USER_URL = "orders/user/";
 
-const userid = localStorage.getItem("userid");
-export const getAllOrders = async () => {
+
+export const getAllOrders = async (userid) => {
   try {
     const result = await  axios.get(USER_URL + userid , {
         headers: {
