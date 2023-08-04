@@ -20,9 +20,9 @@
     },
     "home":{
         "hero":{
-            "title":"Alef Bookstore - New Cairo",
-            "description":"Maxim Mall - Deem for Book Trading",
-            "license":"Taxation License :"
+            "title":"Welcome to our bookstore",
+            "description":"We are thrilled to provide you with access to a wide selection of books that are sure to inspire, educate, and entertain."
+            
         },
         "category":{
             "title":"Main Categories",
@@ -44,7 +44,7 @@
             "title":"Contact Us",
             "address1":"North Teseen Street, First New Cairo, Cairo Governorate, Egypt",
             "address2":"90 Road North - Maxim Mall - First Floor",
-            "calling":"01016338149 - Alef Maxim Mall",
+            "calling":"01016338149 ",
             "email":"customerservicedeem@gmail.com",
             "time":"10AM - 10PM",
             "qhelp":"how can we help?",

@@ -1,7 +1,10 @@
 import React from "react";
-import '../navbar/nav.css'
+import "../navbar/nav.css"
+import "./footer.css"
+
 import { NavLink } from "react-router-dom";
 import { useTranslation} from 'react-i18next'
+
 
 
 const Footer = () => {
@@ -9,17 +12,17 @@ const Footer = () => {
   const { t } = useTranslation();
   return (
     <>
-        <div className="container-fluid m-0 p-0" >
+        <div className="footer container-fluid m-0 p-0" >
           <nav className="navbar navbar-expand-lg navbar-light p-2 d-flex">
             <ul className="list-unstyled navbar-brand pt-4">
               <li className="mt-1 col-md-9 col-xs-12 text-md-left text-center px-5 fs-6">
-                <p>{t('footer.desc1')}</p>
-                <p>{t('footer.desc2')}</p>
+                
+                <p style={{color:"white"}}>{t('footer.desc2')}</p>
               </li>
             </ul>
       
             <div className="collapse navbar-collapse " id="navbarNavDropdown">
-            <ul className="navbar-nav footer">
+            <ul className="navbar-nav footer d-flex mx-4">
               <li className="nav-item">
                 <NavLink to="/home" className="nav-link">{t("footer.home")}</NavLink>
               </li>

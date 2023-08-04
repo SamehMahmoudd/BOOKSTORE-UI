@@ -14,7 +14,7 @@ const About = () => {
         </div>
         <h1></h1>
         <p className="text-dark text-center mt-4 fw-semibold">
-          {t('home.about.description1')}<br/>
+         
           {t('home.about.description2')}<br />
           {t('home.about.description3')}<br />
           {t('home.about.description4')}

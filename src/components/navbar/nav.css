@@ -1,13 +1,19 @@
 .navbar , .social-div{
-    background-color: #ccafaf !important;
+    background-color: #0c3f9085 !important;
 }
 /*  */
 .black-hero {
     width: 100% !important;
+    color: white;
 }
 .nav-item a {
     position: relative;
+    color: white;
     margin-left: 10px !important;
+}
+
+.nav-item a:hover{
+    color:rgba(255, 255, 255, 0.815);
 }
   
 .nav-item a:after {
@@ -30,9 +36,11 @@
     width: 100%;
     justify-content: space-around;
     flex-wrap: wrap;
+    
 }
 .nav-link i{
     font-size: 15px;
+    
 }
 .badge{
     background-color: #900c3f !important;
@@ -41,9 +49,9 @@
 .nav{
     padding-inline-start: 0px !important;
 }
-body[dir='rtl'] .footer{
+/* body[dir='rtl'] .footer{
     margin-right: 60% !important;
-}
-body[dir='ltr'] .footer{
+} */
+/* body[dir='ltr'] .footer{
     margin-left: 55% !important;
-}
+} */

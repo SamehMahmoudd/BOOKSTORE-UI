@@ -8,12 +8,16 @@
 }
 .card-img-overlay button a:hover{
     text-decoration: none;
-    color: #000;
+    color: white;
+}
+.card{
+    background-color: #900c3f;
 }
 .card-title{
     width: 100%;
     background-color: rgba(240, 248, 255, 0.752);
     height: 2em;
+    font-weight: bolder;
     color: #000 !important; 
     margin-bottom: 0 !important;
     font-size: 18px;

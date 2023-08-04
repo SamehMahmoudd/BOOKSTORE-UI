@@ -11,13 +11,13 @@ const Category = ({cat}) => {
   return (
     <div className="col">
       <div className="card text-bg-dark">
-        <img src="/assets/img/back-store.jpg" className="card-img" alt="..."/>
+        <img src="/assets/img/back-store7.jpg" className="card-img pt-5" alt="..."/>
         <div className="card-img-overlay text-center">
-          <p className="card-text">{books.length} {t('home.category.num-text')}</p>
+          <p className="card-text" style={{color:"white"}}>{books.length} {t('home.category.num-text')}</p>
           <Link to={`/store/${cat._id}`}>
             <button
               type="button"
-              className="btn btn-outline-light position-absolute top-50 start-50 translate-middle">
+              className="btn btn-outline-dark position-absolute top-50 start-50 translate-middle">
               <a target="_blank">{t('home.category.btn')}</a>
             </button>
           </Link>
